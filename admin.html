@@ -105,6 +105,72 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
   font-size:13.5px; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,.2); display:none; z-index:999;
 }
 .empty-state{padding:30px; text-align:center; color:var(--ink-soft); font-size:13.5px;}
+@media (max-width: 900px){
+  #adminShell.active{
+    display:flex;
+    flex-direction:column;
+  }
+  .sidebar{
+    flex-direction:row;
+    align-items:center;
+    padding:12px 14px;
+    gap:0;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .sidebar .brand{
+    border-bottom:none;
+    border-right:1px solid rgba(255,255,255,.1);
+    margin:0 12px 0 0;
+    padding:0 14px 0 0;
+    flex-shrink:0;
+  }
+  .sidebar nav{
+    flex-direction:row;
+    flex:none;
+    gap:6px;
+  }
+  .sidebar nav button{
+    flex-direction:column;
+    gap:4px;
+    padding:8px 12px;
+    font-size:11px;
+    white-space:nowrap;
+  }
+  .sidebar nav button svg{width:18px; height:18px;}
+  .sidebar .logout{
+    margin-top:0;
+    padding-top:0;
+    border-top:none;
+    border-left:1px solid rgba(255,255,255,.1);
+    padding-left:12px;
+    margin-left:8px;
+    flex-shrink:0;
+  }
+  .sidebar .logout button{width:auto; white-space:nowrap; padding:8px 12px; font-size:11px;}
+  .main{
+    padding:20px 16px;
+    max-height:none;
+    overflow-y:visible;
+  }
+  .main-header{flex-direction:column; align-items:flex-start; gap:6px;}
+  .main-header h1{font-size:19px;}
+  .grid-2{grid-template-columns:1fr;}
+  .card{padding:18px;}
+  table{display:block;}
+  .card > table, .card table{
+    display:block;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  table thead, table tbody, table tr{display:table; width:100%; table-layout:fixed;}
+  td.actions{flex-wrap:wrap;}
+  .login-card{margin:0 16px; padding:32px 24px;}
+}
+@media (max-width: 480px){
+  .sidebar nav button span, .sidebar nav button{font-size:10.5px;}
+  .btn-sm{width:100%; justify-content:center;}
+}
 </style>
 </head>
 <body>
