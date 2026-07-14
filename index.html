@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ALTONEXO ACADEMY — Tu conexión con el éxito</title>
+<meta name="description" content="ALTONEXO ACADEMY — Inglés, Francés, Español para extranjeros, Belleza, Tecnología y Fotografía. Certificación oficial." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --navy:#0B0F2E;
+  --navy-2:#141A45;
+  --gold:#E3A73B;
+  --gold-hover:#CC9330;
+  --ink:#0B0F2E;
+  --ink-soft:#5B6178;
+  --surface:#FFFFFF;
+  --surface-soft:#F5F6FA;
+  --border:#E3E6F0;
+  --green:#1E8E5A;
+  --font:"Manrope", sans-serif;
+  --ease: cubic-bezier(.2,.8,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+}
+body{margin:0; font-family:var(--font); background:var(--surface); color:var(--ink); -webkit-font-smoothing:antialiased;}
+img{max-width:100%; display:block;}
+a{color:inherit; text-decoration:none;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+h1,h2,h3,h4{font-family:var(--font); margin:0; font-weight:800; letter-spacing:-.01em;}
+p{margin:0; line-height:1.6;}
+button{font-family:inherit; cursor:pointer; border:none; background:none;}
+:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+ul{margin:0; padding:0;}
+
+.pill{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; letter-spacing:.03em; padding:8px 16px; border-radius:20px;}
+.pill-outline{border:1px solid rgba(255,255,255,.25); color:rgba(255,255,255,.85);}
+.pill-gold{background:rgba(227,167,59,.12); color:var(--gold); border:1px solid rgba(227,167,59,.3);}
+
+.btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:14.5px; padding:13px 26px; border-radius:8px; transition:all .25s var(--ease); white-space:nowrap;}
+.btn-gold{background:var(--gold); color:var(--navy);}
+.btn-gold:hover{background:var(--gold-hover);}
+.btn-outline{border:1px solid rgba(255,255,255,.35); color:#fff;}
+.btn-outline:hover{background:rgba(255,255,255,.08);}
+.btn-navy-outline{border:1px solid var(--border); color:var(--ink);}
+.btn-navy-outline:hover{background:var(--surface-soft);}
+
+/* ===== NAV ===== */
+.nav{position:sticky; top:0; z-index:100; background:var(--navy); padding:14px 0;}
+.nav .wrap{display:flex; align-items:center; justify-content:space-between; gap:24px;}
+.nav-brand{display:flex; align-items:center; gap:11px;}
+.nav-brand .box{width:36px; height:36px; border-radius:9px; overflow:hidden; flex-shrink:0; background:var(--navy-2); display:flex; align-items:center; justify-content:center;}
+.nav-brand .box img{width:100%; height:100%; object-fit:cover;}
+.nav-brand span{font-weight:800; font-size:16.5px; color:#fff;}
+.nav-brand span b{color:var(--gold); font-weight:800;}
+.navlinks{display:flex; gap:4px; list-style:none;}
+.navlinks a{font-size:14px; font-weight:600; color:rgba(255,255,255,.7); padding:8px 16px; border-radius:20px; transition:all .25s var(--ease);}
+.navlinks a:hover{color:#fff;}
+.navlinks a.active{background:var(--gold); color:var(--navy);}
+.nav-actions{display:flex; align-items:center; gap:10px;}
+.lang-select{
+  appearance:none; background:transparent; border:1px solid rgba(255,255,255,.25); color:#fff;
+  font-size:12.5px; font-weight:700; padding:8px 26px 8px 14px; border-radius:20px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='white'/></svg>");
+  background-repeat:no-repeat; background-position:right 12px center;
+}
+.lang-select option{color:#111;}
+
+/* ===== HERO ===== */
+.hero{position:relative; background:var(--navy); color:#fff; padding:90px 0 70px; text-align:center; overflow:hidden;}
+.hero::before{
+  content:""; position:absolute; top:-20%; left:50%; transform:translateX(-50%);
+  width:900px; height:600px; background:radial-gradient(circle, rgba(227,167,59,.14), transparent 65%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative; z-index:1;}
+.hero .pill{margin-bottom:26px;}
+.hero h1{font-size:clamp(32px,5vw,54px); line-height:1.12; margin-bottom:22px;}
+.hero h1 .accent{color:var(--gold);}
+.hero .lead{max-width:600px; margin:0 auto 36px; font-size:16.5px; color:rgba(255,255,255,.68);}
+.hero-ctas{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:54px;}
+.hero-stats{display:flex; justify-content:center; gap:56px; flex-wrap:wrap;}
+.hero-stat b{display:block; font-size:clamp(24px,2.6vw,34px); font-weight:800; color:#fff;}
+.hero-stat span{font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:rgba(255,255,255,.5);}
+
+/* ===== SECTIONS ===== */
+section{padding:96px 0;}
+.section-head{max-width:640px; margin:0 auto 52px; text-align:center;}
+.section-head h2{font-size:clamp(26px,3vw,38px); margin:16px 0 14px; color:var(--ink);}
+.section-head p{font-size:15.5px; color:var(--ink-soft);}
+.reveal{opacity:0; transform:translateY(22px); transition:opacity .7s var(--ease), transform .7s var(--ease);}
+.reveal.in-view{opacity:1; transform:translateY(0);}
+
+/* ===== ABOUT / VALUES ===== */
+.about{background:var(--surface-soft);}
+.about-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:start;}
+.about-list{list-style:none; display:flex; flex-direction:column; gap:16px;}
+.about-list li{display:flex; align-items:flex-start; gap:12px; font-size:15px; color:var(--ink);}
+.about-list li svg{width:19px; height:19px; stroke:var(--green); flex-shrink:0; margin-top:2px;}
+.about-cta{margin-top:26px;}
+.about-panel{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:30px; box-shadow:0 1px 3px rgba(11,15,46,.04);}
+.about-panel .row{display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--border);}
+.about-panel .row:last-child{border-bottom:none;}
+.about-panel .row .ic{width:38px; height:38px; border-radius:9px; background:var(--surface-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.about-panel .row .ic svg{width:18px; height:18px; stroke:var(--gold); fill:none; stroke-width:1.8;}
+.about-panel .row b{display:block; font-size:14px;}
+.about-panel .row span{font-size:12.5px; color:var(--ink-soft);}
+
+/* ===== PROGRAMS ===== */
+.programs{background:var(--surface);}
+.prog-tabs{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:44px;}
+.prog-tab{
+  font-size:13.5px; font-weight:700; padding:10px 20px; border-radius:20px; border:1px solid var(--border);
+  color:var(--ink-soft); background:var(--surface); transition:all .25s var(--ease);
+}
+.prog-tab.active,.prog-tab:hover{background:var(--navy); color:#fff; border-color:var(--navy);}
+.prog-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px;}
+.prog-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:28px 24px;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.prog-card:hover{transform:translateY(-4px); box-shadow:0 16px 32px rgba(11,15,46,.08);}
+.prog-card .ic{width:44px; height:44px; border-radius:10px; background:var(--surface-soft); display:flex; align-items:center; justify-content:center; margin-bottom:18px;}
+.prog-card .ic svg{width:22px; height:22px; stroke:var(--gold); fill:none; stroke-width:1.7;}
+.prog-card h4{font-size:16.5px; margin-bottom:8px; font-weight:700;}
+.prog-card p{font-size:13.5px; color:var(--ink-soft); margin-bottom:14px;}
+.prog-card .level-tags{display:flex; gap:6px; flex-wrap:wrap;}
+.prog-card .level-tags span{font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:12px; background:var(--surface-soft); color:var(--ink-soft); border:1px solid var(--border);}
+
+/* ===== TESTIMONIALS ===== */
+.testi{background:var(--surface-soft);}
+.testi-carousel{position:relative; max-width:720px; margin:0 auto; overflow:hidden;}
+.testi-track{display:flex; transition:transform .5s var(--ease);}
+.testi-slide{flex:0 0 100%; padding:0 12px;}
+.testi-card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:40px; text-align:center; box-shadow:0 1px 3px rgba(11,15,46,.04);}
+.testi-avatar{width:56px; height:56px; border-radius:50%; margin:0 auto 16px; background:var(--gold); display:flex; align-items:center; justify-content:center; font-weight:800; color:var(--navy); font-size:20px;}
+.testi-stars{display:flex; justify-content:center; gap:3px; margin-bottom:16px;}
+.testi-stars svg{width:15px; height:15px; fill:var(--gold);}
+.testi-quote{font-size:16.5px; font-weight:600; line-height:1.55; margin-bottom:16px; color:var(--ink);}
+.testi-name{font-size:12.5px; font-weight:700; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.03em;}
+.testi-dots{display:flex; gap:8px; justify-content:center; margin-top:28px;}
+.testi-dots button{width:7px; height:7px; border-radius:50%; background:var(--border); transition:background .25s;}
+.testi-dots button.active{background:var(--gold);}
+
+/* ===== PARTNERS MARQUEE ===== */
+.partners{background:var(--surface); padding:64px 0;}
+.partners .section-head{margin-bottom:36px;}
+.partners-track-wrap{overflow:hidden; -webkit-mask-image:linear-gradient(90deg, transparent, black 10%, black 90%, transparent); mask-image:linear-gradient(90deg, transparent, black 10%, black 90%, transparent);}
+.partners-track{display:flex; gap:16px; width:max-content; animation:partnersScroll 28s linear infinite;}
+.partners-track-wrap:hover .partners-track{animation-play-state:paused;}
+.partner-tile{
+  width:170px; height:76px; border:1px solid var(--border); border-radius:10px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; color:var(--ink-soft);
+  background:var(--surface-soft);
+}
+@keyframes partnersScroll{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+/* ===== PRICING ===== */
+.pricing{background:var(--surface-soft);}
+.price-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px;}
+.price-card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:32px 26px; text-align:center;}
+.price-card.featured{border:2px solid var(--gold); position:relative;}
+.price-card.featured::before{
+  content:"Recomendado"; position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  background:var(--gold); color:var(--navy); font-size:10.5px; font-weight:800; padding:4px 14px; border-radius:12px; letter-spacing:.04em;
+}
+.price-card h4{font-size:18px; margin-bottom:8px;}
+.price-card .price-tag{font-size:12.5px; font-weight:700; color:var(--gold); margin-bottom:18px; text-transform:uppercase; letter-spacing:.03em;}
+.price-card ul{list-style:none; display:flex; flex-direction:column; gap:10px; text-align:left; margin-bottom:24px;}
+.price-card ul li{font-size:13.5px; display:flex; gap:8px; align-items:flex-start;}
+.price-card ul li svg{width:15px; height:15px; stroke:var(--green); flex-shrink:0; margin-top:2px;}
+
+/* ===== CONTACT ===== */
+.contact{background:var(--surface);}
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border); border-radius:14px; overflow:hidden; border:1px solid var(--border);}
+.contact-info{background:var(--navy); color:#fff; padding:44px 38px;}
+.contact-info h3{font-size:21px; margin-bottom:12px;}
+.contact-info p{color:rgba(255,255,255,.62); font-size:14px; margin-bottom:26px;}
+.contact-line{display:flex; align-items:center; gap:13px; padding:13px 0; border-bottom:1px solid rgba(255,255,255,.1);}
+.contact-line svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.7; flex-shrink:0;}
+.contact-line span{font-size:13.5px;}
+.contact-form{background:var(--surface); padding:44px 38px; display:flex; flex-direction:column; gap:14px;}
+.contact-form input,.contact-form textarea{
+  padding:12px 14px; border:1px solid var(--border); border-radius:8px; font-family:var(--font); font-size:13.5px; background:var(--surface-soft);
+}
+.contact-form textarea{resize:vertical; min-height:90px;}
+
+/* ===== FOOTER ===== */
+footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; font-size:13px;}
+.foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:38px; border-bottom:1px solid rgba(255,255,255,.1);}
+.foot-brand{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+.foot-brand .box{width:30px; height:30px; border-radius:8px; overflow:hidden; background:var(--navy-2);}
+.foot-brand .box img{width:100%; height:100%; object-fit:cover;}
+.foot-brand span{font-weight:800; font-size:15px; color:#fff;}
+.foot-col h5{font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.85); margin-bottom:14px;}
+.foot-col ul{list-style:none; display:flex; flex-direction:column; gap:9px;}
+.foot-col a:hover{color:#fff;}
+.foot-line{display:flex; align-items:center; gap:9px;}
+.foot-line svg{width:14px; height:14px; stroke:var(--gold); fill:none; stroke-width:1.8; flex-shrink:0;}
+.foot-bottom{display:flex; justify-content:space-between; align-items:center; padding-top:20px; flex-wrap:wrap; gap:10px;}
+.foot-bottom .credit b{color:var(--gold); font-weight:700;}
+
+/* ===== FLOATING BUTTON ===== */
+.fab{
+  position:fixed; bottom:26px; right:26px; z-index:200; width:54px; height:54px; border-radius:50%;
+  background:var(--gold); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 22px rgba(227,167,59,.4);
+  transition:transform .25s var(--ease);
+}
+.fab:hover{transform:scale(1.08);}
+.fab svg{width:26px; height:26px; fill:var(--navy);}
+
+@media (max-width:980px){
+  .navlinks{display:none;}
+  .about-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr; row-gap:28px;}
+  .hero-stats{gap:32px;}
+}
+@media (max-width:720px){
+  section{padding:64px 0;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="siteNav">
+  <div class="wrap">
+    <div class="nav-brand">
+      <div class="box"><img id="navLogoImg" src="assets/logo.png" alt="" onerror="this.parentElement.textContent='A'" /></div>
+      <span>ALTO<b>NEXO</b> ACADEMY</span>
+    </div>
+    <ul class="navlinks">
+      <li><a href="#inicio" class="active" data-i18n="nav_home">Inicio</a></li>
+      <li><a href="#nosotros" data-i18n="nav_about">Nosotros</a></li>
+      <li><a href="#programas" data-i18n="nav_programs">Programas</a></li>
+      <li><a href="#precios" data-i18n="nav_pricing">Precios</a></li>
+      <li><a href="#testimonios" data-i18n="nav_testi">Testimonios</a></li>
+      <li><a href="#contacto" data-i18n="nav_contact">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+      <select class="lang-select" id="langSelect" onchange="setLang(this.value)">
+        <option value="es">ES</option>
+        <option value="en">EN</option>
+        <option value="fr">FR</option>
+        <option value="ht">HT</option>
+        <option value="pt">PT</option>
+      </select>
+      <a class="btn btn-gold" href="#contacto" data-i18n="nav_enroll">Inscríbete</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="wrap">
+    <div class="pill pill-outline"><span data-i18n="hero_pill">📍 Punta Cana, República Dominicana</span></div>
+    <h1 data-i18n="hero_title">Tu conexión <span class="accent">con el éxito.</span></h1>
+    <p class="lead" data-i18n="hero_lead">Formación profesional en idiomas, belleza, tecnología y fotografía, con profesores nativos e instructores certificados. Modalidad presencial y virtual.</p>
+    <div class="hero-ctas">
+      <a href="#programas" class="btn btn-gold" data-i18n="hero_cta1">Ver programas</a>
+      <a href="#contacto" class="btn btn-outline" data-i18n="hero_cta2">Hablar con un asesor</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><b id="statVisitors">0</b><span data-i18n="stat_visitors">Visitantes</span></div>
+      <div class="hero-stat"><b id="statEnrolled">0</b><span data-i18n="stat_enrolled">Inscritos</span></div>
+      <div class="hero-stat"><b id="statActive">0</b><span data-i18n="stat_active">Activos</span></div>
+      <div class="hero-stat"><b>5</b><span data-i18n="stat_langs">Idiomas</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="about" id="nosotros">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="pill pill-gold" data-i18n="about_eyebrow">Nuestra academia</div>
+        <h2 style="margin:16px 0 14px; font-size:clamp(24px,2.8vw,32px);" data-i18n="about_title">Una sola meta: tu éxito.</h2>
+        <p style="color:var(--ink-soft); font-size:15px; margin-bottom:26px;" data-i18n="about_sub">ALTONEXO ACADEMY reúne bajo un mismo techo la formación en idiomas, belleza, tecnología y fotografía, con instructores certificados y un enfoque 100% práctico.</p>
+        <ul class="about-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="feat1">Profesores nativos e instructores certificados</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="feat2">Modalidad presencial y virtual</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="feat3">Certificación oficial 100% práctica</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="feat4">Expertos con maestría y doctorado</span></li>
+        </ul>
+        <div class="about-cta"><a href="#programas" class="btn btn-navy-outline" data-i18n="about_cta">Ver todos los programas</a></div>
+      </div>
+      <div class="reveal">
+        <div class="about-panel">
+          <div class="row"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 11v5c0 1.5 3.5 3 8 3s8-1.5 8-3v-5"/></svg></div><div><b data-i18n="vision_title">Visión</b><span data-i18n="vision_text">Ser la academia de referencia en la región.</span></div></div>
+          <div class="row"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8 13l-2 8 6-3 6 3-2-8"/></svg></div><div><b data-i18n="mission_title">Misión</b><span data-i18n="mission_text">Formar con excelencia y cercanía.</span></div></div>
+          <div class="row"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 20V4M5 11l7-7 7 7"/></svg></div><div><b data-i18n="objective_title">Objetivo</b><span data-i18n="objective_text">Dominio total, sin dificultad.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programas">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="pill pill-gold" style="margin:0 auto 16px;" data-i18n="programs_eyebrow">Nuestros programas</div>
+      <h2 data-i18n="programs_title">Cuatro caminos, un mismo nivel de excelencia.</h2>
+    </div>
+    <div class="prog-tabs reveal">
+      <button class="prog-tab active" data-cat="idiomas" data-i18n="tab_languages">Idiomas</button>
+      <button class="prog-tab" data-cat="belleza" data-i18n="tab_beauty">Belleza</button>
+      <button class="prog-tab" data-cat="tecnologia" data-i18n="tab_tech">Tecnología</button>
+      <button class="prog-tab" data-cat="fotografia" data-i18n="tab_photo">Fotografía</button>
+    </div>
+    <div class="prog-grid reveal" id="progGrid"></div>
+  </div>
+</section>
+
+<section class="testi" id="testimonios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="pill pill-gold" style="margin:0 auto 16px;" data-i18n="testi_eyebrow">Testimonios</div>
+      <h2 data-i18n="testi_title">Historias de éxito reales.</h2>
+    </div>
+    <div class="testi-carousel reveal">
+      <div class="testi-track" id="testiTrack"></div>
+      <div class="testi-dots" id="testiDots"></div>
+    </div>
+  </div>
+</section>
+
+<section class="partners">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:0;">
+      <div class="pill pill-gold" style="margin:0 auto 16px;" data-i18n="partners_eyebrow">Alianzas y certificaciones</div>
+    </div>
+  </div>
+  <div class="partners-track-wrap">
+    <div class="partners-track" id="partnersTrack"></div>
+  </div>
+</section>
+
+<section class="pricing" id="precios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="pill pill-gold" style="margin:0 auto 16px;" data-i18n="pricing_eyebrow">Inversión</div>
+      <h2 data-i18n="pricing_title">Planes claros, sin sorpresas.</h2>
+    </div>
+    <div class="price-grid reveal">
+      <div class="price-card">
+        <h4 data-i18n="plan1_title">Nivel Básico</h4>
+        <div class="price-tag" data-i18n="plan1_tag">Por módulo</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan1_f1">Clases presenciales o virtuales</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan1_f2">Material didáctico incluido</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan1_f3">Certificado de finalización</span></li>
+        </ul>
+        <a href="#contacto" class="btn btn-navy-outline" style="width:100%; justify-content:center;" data-i18n="plan_cta">Solicitar información</a>
+      </div>
+      <div class="price-card featured">
+        <h4 data-i18n="plan2_title">Programa Completo</h4>
+        <div class="price-tag" data-i18n="plan2_tag">Los 3 niveles</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan2_f1">Acceso a los 3 niveles completos</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan2_f2">Seguimiento personalizado</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan2_f3">Certificación oficial 100% práctica</span></li>
+        </ul>
+        <a href="#contacto" class="btn btn-gold" style="width:100%; justify-content:center;" data-i18n="plan_cta">Solicitar información</a>
+      </div>
+      <div class="price-card">
+        <h4 data-i18n="plan3_title">Formación Profesional</h4>
+        <div class="price-tag" data-i18n="plan3_tag">Belleza / Tecnología</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan3_f1">Prácticas con modelos reales</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan3_f2">Kit de herramientas incluido</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg><span data-i18n="plan3_f3">Certificado profesional</span></li>
+        </ul>
+        <a href="#contacto" class="btn btn-navy-outline" style="width:100%; justify-content:center;" data-i18n="plan_cta">Solicitar información</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="pill pill-gold" style="margin:0 auto 16px;" data-i18n="contact_eyebrow">Contáctanos</div>
+      <h2 data-i18n="contact_title">Da el primer paso hoy.</h2>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <h3 data-i18n="contact_side_title">Estamos para ayudarte</h3>
+        <p data-i18n="contact_side_text">Escríbenos por WhatsApp o visítanos en nuestra sede. Horario: Lunes a Viernes, 8:00 A.M. – 10:30 P.M.</p>
+        <div class="contact-line"><svg viewBox="0 0 24 24"><path d="M3 5h4l2 6-2.5 1.5a11 11 0 0 0 5 5L13 15l6 2v4a2 2 0 0 1-2 2C9 23 1 15 1 7a2 2 0 0 1 2-2z"/></svg><span id="contactPhone1">(809) 707-5097</span></div>
+        <div class="contact-line"><svg viewBox="0 0 24 24"><path d="M3 5h4l2 6-2.5 1.5a11 11 0 0 0 5 5L13 15l6 2v4a2 2 0 0 1-2 2C9 23 1 15 1 7a2 2 0 0 1 2-2z"/></svg><span id="contactPhone2">(829) 559-2737</span></div>
+        <div class="contact-line"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg><span id="contactEmail">info@altonexoacademy.com</span></div>
+        <div class="contact-line"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/></svg><span id="contactAddress">Punta Cana, República Dominicana</span></div>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <input type="text" id="cf_name" data-i18n-placeholder="form_name" placeholder="Nombre completo" required />
+        <input type="email" id="cf_email" data-i18n-placeholder="form_email" placeholder="Correo electrónico" required />
+        <input type="tel" id="cf_phone" data-i18n-placeholder="form_phone" placeholder="Teléfono / WhatsApp" />
+        <textarea id="cf_message" data-i18n-placeholder="form_message" placeholder="¿Qué te gustaría aprender?"></textarea>
+        <button type="submit" class="btn btn-gold" id="contactSubmitBtn" style="justify-content:center;" data-i18n="form_submit">Enviar mensaje</button>
+        <p id="contactFormMsg" style="font-size:13px; text-align:center; display:none;"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <div class="box"><img id="footLogoImg" src="assets/logo.png" alt="" onerror="this.parentElement.style.display='none'" /></div>
+          <span>ALTONEXO ACADEMY</span>
+        </div>
+        <p data-i18n="foot_desc">Tu conexión con el éxito. Idiomas, belleza, tecnología y fotografía, con certificación oficial.</p>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="foot_h_programs">Programas</h5>
+        <ul>
+          <li><a href="#programas" data-i18n="tab_languages">Idiomas</a></li>
+          <li><a href="#programas" data-i18n="tab_beauty">Belleza</a></li>
+          <li><a href="#programas" data-i18n="tab_tech">Tecnología</a></li>
+          <li><a href="#programas" data-i18n="tab_photo">Fotografía</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="foot_h_academy">Academia</h5>
+        <ul>
+          <li><a href="#nosotros" data-i18n="nav_about">Nosotros</a></li>
+          <li><a href="#testimonios" data-i18n="nav_testi">Testimonios</a></li>
+          <li><a href="#precios" data-i18n="nav_pricing">Precios</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="foot_h_contact">Contacto</h5>
+        <ul>
+          <li class="foot-line"><svg viewBox="0 0 24 24"><path d="M3 5h4l2 6-2.5 1.5a11 11 0 0 0 5 5L13 15l6 2v4a2 2 0 0 1-2 2C9 23 1 15 1 7a2 2 0 0 1 2-2z"/></svg><a href="tel:+18097075097">(809) 707-5097</a></li>
+          <li class="foot-line"><svg viewBox="0 0 24 24"><path d="M3 5h4l2 6-2.5 1.5a11 11 0 0 0 5 5L13 15l6 2v4a2 2 0 0 1-2 2C9 23 1 15 1 7a2 2 0 0 1 2-2z"/></svg><a href="tel:+18295592737">(829) 559-2737</a></li>
+          <li class="foot-line"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/></svg><span data-i18n="foot_location">Punta Cana, RD</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span data-i18n="foot_rights">© 2026 ALTONEXO ACADEMY. Todos los derechos reservados.</span>
+      <span class="credit">Developed by <b>Jonathan Tecnología</b></span>
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/18097075097" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.5-1.3-.7-1.8-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<script>
+const SUPABASE_URL = "https://qmpoxscqjgtnlipadnmq.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_AbWohQb6y4oozbcH-t4nyw_PrDW8n4G";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const siteTranslations = {
+  es: {
+    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_contact:"Contacto", nav_enroll:"Inscríbete",
+    hero_pill:"📍 Punta Cana, República Dominicana",
+    hero_title:"Tu conexión <span class=\"accent\">con el éxito.</span>",
+    hero_lead:"Formación profesional en idiomas, belleza, tecnología y fotografía, con profesores nativos e instructores certificados. Modalidad presencial y virtual.",
+    hero_cta1:"Ver programas", hero_cta2:"Hablar con un asesor",
+    stat_visitors:"Visitantes", stat_enrolled:"Inscritos", stat_active:"Activos", stat_langs:"Idiomas",
+    about_eyebrow:"Nuestra academia", about_title:"Una sola meta: tu éxito.",
+    about_sub:"ALTONEXO ACADEMY reúne bajo un mismo techo la formación en idiomas, belleza, tecnología y fotografía, con instructores certificados y un enfoque 100% práctico.",
+    feat1:"Profesores nativos e instructores certificados", feat2:"Modalidad presencial y virtual", feat3:"Certificación oficial 100% práctica", feat4:"Expertos con maestría y doctorado",
+    about_cta:"Ver todos los programas",
+    vision_title:"Visión", vision_text:"Ser la academia de referencia en la región.",
+    mission_title:"Misión", mission_text:"Formar con excelencia y cercanía.",
+    objective_title:"Objetivo", objective_text:"Dominio total, sin dificultad.",
+    programs_eyebrow:"Nuestros programas", programs_title:"Cuatro caminos, un mismo nivel de excelencia.",
+    tab_languages:"Idiomas", tab_beauty:"Belleza", tab_tech:"Tecnología", tab_photo:"Fotografía",
+    testi_eyebrow:"Testimonios", testi_title:"Historias de éxito reales.",
+    partners_eyebrow:"Alianzas y certificaciones",
+    pricing_eyebrow:"Inversión", pricing_title:"Planes claros, sin sorpresas.",
+    plan1_title:"Nivel Básico", plan1_tag:"Por módulo", plan1_f1:"Clases presenciales o virtuales", plan1_f2:"Material didáctico incluido", plan1_f3:"Certificado de finalización",
+    plan2_title:"Programa Completo", plan2_tag:"Los 3 niveles", plan2_f1:"Acceso a los 3 niveles completos", plan2_f2:"Seguimiento personalizado", plan2_f3:"Certificación oficial 100% práctica",
+    plan3_title:"Formación Profesional", plan3_tag:"Belleza / Tecnología", plan3_f1:"Prácticas con modelos reales", plan3_f2:"Kit de herramientas incluido", plan3_f3:"Certificado profesional",
+    plan_cta:"Solicitar información",
+    contact_eyebrow:"Contáctanos", contact_title:"Da el primer paso hoy.",
+    contact_side_title:"Estamos para ayudarte", contact_side_text:"Escríbenos por WhatsApp o visítanos en nuestra sede. Horario: Lunes a Viernes, 8:00 A.M. – 10:30 P.M.",
+    form_name:"Nombre completo", form_email:"Correo electrónico", form_phone:"Teléfono / WhatsApp", form_message:"¿Qué te gustaría aprender?", form_submit:"Enviar mensaje",
+    foot_desc:"Tu conexión con el éxito. Idiomas, belleza, tecnología y fotografía, con certificación oficial.",
+    foot_h_programs:"Programas", foot_h_academy:"Academia", foot_h_contact:"Contacto", foot_location:"Punta Cana, RD", foot_rights:"© 2026 ALTONEXO ACADEMY. Todos los derechos reservados.",
+    course_ingles:"Inglés", course_ingles_d:"Turístico y conversacional para niños, adolescentes y adultos. Ideal para hoteles.",
+    course_frances:"Francés", course_frances_d:"Conversacional y profesional para el sector turístico de Punta Cana.",
+    course_espanol:"Español para extranjeros", course_espanol_d:"Para quienes viven o trabajan en República Dominicana y necesitan comunicarse con fluidez.",
+    course_unas:"Uñas profesionales", course_unas_d:"Acrílico, gel, nail art y técnicas avanzadas.",
+    course_peluqueria:"Peluquería", course_peluqueria_d:"Corte, coloración y tratamientos capilares con técnicas modernas.",
+    course_trenzas:"Trenzas & Extensiones", course_trenzas_d:"Box braids, cornrows, knotless y técnicas modernas.",
+    course_bellezaint:"Belleza integral", course_bellezaint_d:"Maquillaje profesional, skincare, cejas y estética.",
+    course_office:"Computación e Internet", course_office_d:"Office, Excel, Word y herramientas digitales esenciales para el mercado laboral.",
+    course_foto:"Fotografía y edición", course_foto_d:"Curso básico de edición de fotografías para creación de cuadros en PVC, botellas y vasos.",
+    level_basic:"Básico", level_inter:"Intermedio", level_adv:"Avanzado"
+  },
+  en: {
+    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_contact:"Contact", nav_enroll:"Enroll now",
+    hero_pill:"📍 Punta Cana, Dominican Republic",
+    hero_title:"Your connection <span class=\"accent\">to success.</span>",
+    hero_lead:"Professional training in languages, beauty, technology, and photography, with native-speaking teachers and certified instructors. In-person and online.",
+    hero_cta1:"See programs", hero_cta2:"Talk to an advisor",
+    stat_visitors:"Visitors", stat_enrolled:"Enrolled", stat_active:"Active", stat_langs:"Languages",
+    about_eyebrow:"Our academy", about_title:"One single goal: your success.",
+    about_sub:"ALTONEXO ACADEMY brings together language, beauty, technology, and photography training under one roof, with certified instructors and a 100% hands-on approach.",
+    feat1:"Native teachers and certified instructors", feat2:"Online and in-person format", feat3:"Official 100% hands-on certification", feat4:"Experts with master's and doctoral degrees",
+    about_cta:"See all programs",
+    vision_title:"Vision", vision_text:"To be the reference academy in the region.",
+    mission_title:"Mission", mission_text:"Training with excellence and closeness.",
+    objective_title:"Objective", objective_text:"Total mastery, without difficulty.",
+    programs_eyebrow:"Our programs", programs_title:"Four paths, one same level of excellence.",
+    tab_languages:"Languages", tab_beauty:"Beauty", tab_tech:"Technology", tab_photo:"Photography",
+    testi_eyebrow:"Testimonials", testi_title:"Real success stories.",
+    partners_eyebrow:"Partnerships and certifications",
+    pricing_eyebrow:"Investment", pricing_title:"Clear plans, no surprises.",
+    plan1_title:"Basic Level", plan1_tag:"Per module", plan1_f1:"In-person or online classes", plan1_f2:"Course materials included", plan1_f3:"Completion certificate",
+    plan2_title:"Full Program", plan2_tag:"All 3 levels", plan2_f1:"Access to all 3 complete levels", plan2_f2:"Personalized follow-up", plan2_f3:"Official 100% hands-on certification",
+    plan3_title:"Professional Training", plan3_tag:"Beauty / Technology", plan3_f1:"Practice with real models", plan3_f2:"Tool kit included", plan3_f3:"Professional certificate",
+    plan_cta:"Request information",
+    contact_eyebrow:"Contact us", contact_title:"Take the first step today.",
+    contact_side_title:"We're here to help", contact_side_text:"Message us on WhatsApp or visit our campus. Hours: Monday to Friday, 8:00 A.M. – 10:30 P.M.",
+    form_name:"Full name", form_email:"Email address", form_phone:"Phone / WhatsApp", form_message:"What would you like to learn?", form_submit:"Send message",
+    foot_desc:"Your connection to success. Languages, beauty, technology, and photography, with official certification.",
+    foot_h_programs:"Programs", foot_h_academy:"Academy", foot_h_contact:"Contact", foot_location:"Punta Cana, DR", foot_rights:"© 2026 ALTONEXO ACADEMY. All rights reserved.",
+    course_ingles:"English", course_ingles_d:"Touristic and conversational, for kids, teens, and adults. Ideal for hotel staff.",
+    course_frances:"French", course_frances_d:"Conversational and professional French for Punta Cana's tourism sector.",
+    course_espanol:"Spanish for foreigners", course_espanol_d:"For those living or working in the Dominican Republic who need to communicate fluently.",
+    course_unas:"Professional nails", course_unas_d:"Acrylic, gel, nail art, and advanced techniques.",
+    course_peluqueria:"Hairdressing", course_peluqueria_d:"Cutting, coloring, and hair treatments with modern techniques.",
+    course_trenzas:"Braids & Extensions", course_trenzas_d:"Box braids, cornrows, knotless, and modern techniques.",
+    course_bellezaint:"Complete beauty", course_bellezaint_d:"Professional makeup, skincare, eyebrows, and aesthetics.",
+    course_office:"Computing & Internet", course_office_d:"Office, Excel, Word, and essential digital tools for the job market.",
+    course_foto:"Photography & editing", course_foto_d:"Basic photo editing course for creating PVC frames, bottles, and cups.",
+    level_basic:"Basic", level_inter:"Intermediate", level_adv:"Advanced"
+  },
+  fr: {
+    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_contact:"Contact", nav_enroll:"Inscrivez-vous",
+    hero_pill:"📍 Punta Cana, République Dominicaine",
+    hero_title:"Votre connexion <span class=\"accent\">vers le succès.</span>",
+    hero_lead:"Formation professionnelle en langues, beauté, technologie et photographie, avec des professeurs natifs et des instructeurs certifiés. Présentiel et en ligne.",
+    hero_cta1:"Voir les programmes", hero_cta2:"Parler à un conseiller",
+    stat_visitors:"Visiteurs", stat_enrolled:"Inscrits", stat_active:"Actifs", stat_langs:"Langues",
+    about_eyebrow:"Notre académie", about_title:"Un seul objectif : votre succès.",
+    about_sub:"ALTONEXO ACADEMY réunit sous un même toit la formation en langues, beauté, technologie et photographie, avec des instructeurs certifiés et une approche 100% pratique.",
+    feat1:"Professeurs natifs et instructeurs certifiés", feat2:"Format en ligne et présentiel", feat3:"Certification officielle 100% pratique", feat4:"Experts titulaires d'un master ou d'un doctorat",
+    about_cta:"Voir tous les programmes",
+    vision_title:"Vision", vision_text:"Être l'académie de référence dans la région.",
+    mission_title:"Mission", mission_text:"Former avec excellence et proximité.",
+    objective_title:"Objectif", objective_text:"Maîtrise totale, sans difficulté.",
+    programs_eyebrow:"Nos programmes", programs_title:"Quatre parcours, un même niveau d'excellence.",
+    tab_languages:"Langues", tab_beauty:"Beauté", tab_tech:"Technologie", tab_photo:"Photographie",
+    testi_eyebrow:"Témoignages", testi_title:"De vraies histoires de réussite.",
+    partners_eyebrow:"Partenariats et certifications",
+    pricing_eyebrow:"Investissement", pricing_title:"Des formules claires, sans surprise.",
+    plan1_title:"Niveau Débutant", plan1_tag:"Par module", plan1_f1:"Cours en présentiel ou en ligne", plan1_f2:"Matériel pédagogique inclus", plan1_f3:"Certificat de fin de formation",
+    plan2_title:"Programme Complet", plan2_tag:"Les 3 niveaux", plan2_f1:"Accès aux 3 niveaux complets", plan2_f2:"Suivi personnalisé", plan2_f3:"Certification officielle 100% pratique",
+    plan3_title:"Formation Professionnelle", plan3_tag:"Beauté / Technologie", plan3_f1:"Pratique avec de vrais modèles", plan3_f2:"Kit d'outils inclus", plan3_f3:"Certificat professionnel",
+    plan_cta:"Demander des informations",
+    contact_eyebrow:"Contactez-nous", contact_title:"Faites le premier pas dès aujourd'hui.",
+    contact_side_title:"Nous sommes là pour vous aider", contact_side_text:"Écrivez-nous sur WhatsApp ou rendez-nous visite. Horaires : Lundi à Vendredi, 8h00 – 22h30.",
+    form_name:"Nom complet", form_email:"Adresse e-mail", form_phone:"Téléphone / WhatsApp", form_message:"Que souhaitez-vous apprendre ?", form_submit:"Envoyer le message",
+    foot_desc:"Votre connexion vers le succès. Langues, beauté, technologie et photographie, avec certification officielle.",
+    foot_h_programs:"Programmes", foot_h_academy:"Académie", foot_h_contact:"Contact", foot_location:"Punta Cana, RD", foot_rights:"© 2026 ALTONEXO ACADEMY. Tous droits réservés.",
+    course_ingles:"Anglais", course_ingles_d:"Touristique et conversationnel, pour enfants, adolescents et adultes. Idéal pour le personnel hôtelier.",
+    course_frances:"Français", course_frances_d:"Conversationnel et professionnel pour le secteur touristique de Punta Cana.",
+    course_espanol:"Espagnol pour étrangers", course_espanol_d:"Pour ceux qui vivent ou travaillent en République Dominicaine et doivent communiquer couramment.",
+    course_unas:"Ongles professionnels", course_unas_d:"Acrylique, gel, nail art et techniques avancées.",
+    course_peluqueria:"Coiffure", course_peluqueria_d:"Coupe, coloration et soins capillaires avec des techniques modernes.",
+    course_trenzas:"Tresses & Extensions", course_trenzas_d:"Box braids, cornrows, knotless et techniques modernes.",
+    course_bellezaint:"Beauté intégrale", course_bellezaint_d:"Maquillage professionnel, soins de la peau, sourcils et esthétique.",
+    course_office:"Informatique & Internet", course_office_d:"Office, Excel, Word et outils numériques essentiels pour le marché du travail.",
+    course_foto:"Photographie & retouche", course_foto_d:"Cours de base de retouche photo pour la création de cadres en PVC, bouteilles et verres.",
+    level_basic:"Débutant", level_inter:"Intermédiaire", level_adv:"Avancé"
+  },
+  ht: {
+    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_contact:"Kontak", nav_enroll:"Enskri kounya",
+    hero_pill:"📍 Punta Cana, Repiblik Dominikèn",
+    hero_title:"Koneksyon ou <span class=\"accent\">ak siksè.</span>",
+    hero_lead:"Fòmasyon pwofesyonèl nan lang, bote, teknoloji ak fotografi, ak pwofesè natif ak enstriktè sètifye. Prezansyèl ak vityèl.",
+    hero_cta1:"Gade pwogram yo", hero_cta2:"Pale ak yon konseye",
+    stat_visitors:"Vizitè", stat_enrolled:"Enskri", stat_active:"Aktif", stat_langs:"Lang",
+    about_eyebrow:"Akademi nou an", about_title:"Yon sèl bi: siksè ou.",
+    about_sub:"ALTONEXO ACADEMY reyini anba yon sèl twati fòmasyon nan lang, bote, teknoloji ak fotografi, ak enstriktè sètifye ak yon apwòch 100% pratik.",
+    feat1:"Pwofesè natif ak enstriktè sètifye", feat2:"Fòma vityèl ak prezansyèl", feat3:"Sètifikasyon ofisyèl 100% pratik", feat4:"Ekspè ki gen mastè ak doktora",
+    about_cta:"Gade tout pwogram yo",
+    vision_title:"Vizyon", vision_text:"Se akademi referans nan rejyon an.",
+    mission_title:"Misyon", mission_text:"Fòme ak eksèlans e pwoksimite.",
+    objective_title:"Objektif", objective_text:"Domèn total, san difikilte.",
+    programs_eyebrow:"Pwogram nou yo", programs_title:"Kat chemen, menm nivo eksèlans.",
+    tab_languages:"Lang", tab_beauty:"Bote", tab_tech:"Teknoloji", tab_photo:"Fotografi",
+    testi_eyebrow:"Temwayaj", testi_title:"Vrè istwa siksè.",
+    partners_eyebrow:"Patenarya ak sètifikasyon",
+    pricing_eyebrow:"Envestisman", pricing_title:"Plan klè, san sipriz.",
+    plan1_title:"Nivo Debitan", plan1_tag:"Pa modil", plan1_f1:"Klas prezansyèl oswa vityèl", plan1_f2:"Materyèl pedagojik enkli", plan1_f3:"Sètifika fen fòmasyon",
+    plan2_title:"Pwogram Konplè", plan2_tag:"Tout 3 nivo yo", plan2_f1:"Aksè a 3 nivo konplè yo", plan2_f2:"Swivi pèsonalize", plan2_f3:"Sètifikasyon ofisyèl 100% pratik",
+    plan3_title:"Fòmasyon Pwofesyonèl", plan3_tag:"Bote / Teknoloji", plan3_f1:"Pratik ak vrè modèl", plan3_f2:"Kit zouti enkli", plan3_f3:"Sètifika pwofesyonèl",
+    plan_cta:"Mande enfòmasyon",
+    contact_eyebrow:"Kontakte nou", contact_title:"Fè premye pa a jodi a.",
+    contact_side_title:"Nou la pou ede w", contact_side_text:"Ekri nou sou WhatsApp oswa vizite nou. Orè: Lendi rive Vandredi, 8:00 AM – 10:30 PM.",
+    form_name:"Non konplè", form_email:"Imèl", form_phone:"Telefòn / WhatsApp", form_message:"Kisa ou ta renmen aprann?", form_submit:"Voye mesaj",
+    foot_desc:"Koneksyon ou ak siksè. Lang, bote, teknoloji ak fotografi, ak sètifikasyon ofisyèl.",
+    foot_h_programs:"Pwogram", foot_h_academy:"Akademi", foot_h_contact:"Kontak", foot_location:"Punta Cana, RD", foot_rights:"© 2026 ALTONEXO ACADEMY. Tout dwa rezève.",
+    course_ingles:"Anglè", course_ingles_d:"Touristik ak konvèsasyonèl, pou timoun, adolesan ak granmoun. Ideyal pou pèsonèl otèl.",
+    course_frances:"Franse", course_frances_d:"Konvèsasyonèl ak pwofesyonèl pou sektè touris Punta Cana a.",
+    course_espanol:"Panyòl pou etranje", course_espanol_d:"Pou moun k ap viv oswa travay nan Repiblik Dominikèn ki bezwen kominike fasil.",
+    course_unas:"Zong pwofesyonèl", course_unas_d:"Akrilik, jèl, nail art ak teknik avanse.",
+    course_peluqueria:"Kwafi", course_peluqueria_d:"Koupe, kolorasyon ak trètman cheve ak teknik modèn.",
+    course_trenzas:"Très & Ekstansyon", course_trenzas_d:"Box braids, cornrows, knotless ak teknik modèn.",
+    course_bellezaint:"Bote entegral", course_bellezaint_d:"Makiyaj pwofesyonèl, swen po, sousi ak estetik.",
+    course_office:"Enfòmatik & Entènèt", course_office_d:"Office, Excel, Word ak zouti dijital esansyèl pou mache travay la.",
+    course_foto:"Fotografi & retouch", course_foto_d:"Kou debaz retouch foto pou kreyasyon kad PVC, boutèy ak vè.",
+    level_basic:"Debitan", level_inter:"Entèmedyè", level_adv:"Avanse"
+  },
+  pt: {
+    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_contact:"Contato", nav_enroll:"Inscreva-se",
+    hero_pill:"📍 Punta Cana, República Dominicana",
+    hero_title:"Sua conexão <span class=\"accent\">com o sucesso.</span>",
+    hero_lead:"Formação profissional em idiomas, beleza, tecnologia e fotografia, com professores nativos e instrutores certificados. Presencial e online.",
+    hero_cta1:"Ver programas", hero_cta2:"Falar com um consultor",
+    stat_visitors:"Visitantes", stat_enrolled:"Matriculados", stat_active:"Ativos", stat_langs:"Idiomas",
+    about_eyebrow:"Nossa academia", about_title:"Um único objetivo: o seu sucesso.",
+    about_sub:"A ALTONEXO ACADEMY reúne sob o mesmo teto formação em idiomas, beleza, tecnologia e fotografia, com instrutores certificados e uma abordagem 100% prática.",
+    feat1:"Professores nativos e instrutores certificados", feat2:"Formato online e presencial", feat3:"Certificação oficial 100% prática", feat4:"Especialistas com mestrado e doutorado",
+    about_cta:"Ver todos os programas",
+    vision_title:"Visão", vision_text:"Ser a academia de referência na região.",
+    mission_title:"Missão", mission_text:"Formar com excelência e proximidade.",
+    objective_title:"Objetivo", objective_text:"Domínio total, sem dificuldade.",
+    programs_eyebrow:"Nossos programas", programs_title:"Quatro caminhos, um mesmo nível de excelência.",
+    tab_languages:"Idiomas", tab_beauty:"Beleza", tab_tech:"Tecnologia", tab_photo:"Fotografia",
+    testi_eyebrow:"Depoimentos", testi_title:"Histórias reais de sucesso.",
+    partners_eyebrow:"Parcerias e certificações",
+    pricing_eyebrow:"Investimento", pricing_title:"Planos claros, sem surpresas.",
+    plan1_title:"Nível Básico", plan1_tag:"Por módulo", plan1_f1:"Aulas presenciais ou online", plan1_f2:"Material didático incluído", plan1_f3:"Certificado de conclusão",
+    plan2_title:"Programa Completo", plan2_tag:"Os 3 níveis", plan2_f1:"Acesso aos 3 níveis completos", plan2_f2:"Acompanhamento personalizado", plan2_f3:"Certificação oficial 100% prática",
+    plan3_title:"Formação Profissional", plan3_tag:"Beleza / Tecnologia", plan3_f1:"Prática com modelos reais", plan3_f2:"Kit de ferramentas incluído", plan3_f3:"Certificado profissional",
+    plan_cta:"Solicitar informações",
+    contact_eyebrow:"Fale conosco", contact_title:"Dê o primeiro passo hoje.",
+    contact_side_title:"Estamos aqui para ajudar", contact_side_text:"Escreva para nós no WhatsApp ou visite nossa sede. Horário: Segunda a Sexta, 8h00 – 22h30.",
+    form_name:"Nome completo", form_email:"E-mail", form_phone:"Telefone / WhatsApp", form_message:"O que você gostaria de aprender?", form_submit:"Enviar mensagem",
+    foot_desc:"Sua conexão com o sucesso. Idiomas, beleza, tecnologia e fotografia, com certificação oficial.",
+    foot_h_programs:"Programas", foot_h_academy:"Academia", foot_h_contact:"Contato", foot_location:"Punta Cana, RD", foot_rights:"© 2026 ALTONEXO ACADEMY. Todos os direitos reservados.",
+    course_ingles:"Inglês", course_ingles_d:"Turístico e conversacional, para crianças, adolescentes e adultos. Ideal para equipes de hotel.",
+    course_frances:"Francês", course_frances_d:"Conversacional e profissional para o setor turístico de Punta Cana.",
+    course_espanol:"Espanhol para estrangeiros", course_espanol_d:"Para quem vive ou trabalha na República Dominicana e precisa se comunicar com fluência.",
+    course_unas:"Unhas profissionais", course_unas_d:"Acrílico, gel, nail art e técnicas avançadas.",
+    course_peluqueria:"Cabeleireiro", course_peluqueria_d:"Corte, coloração e tratamentos capilares com técnicas modernas.",
+    course_trenzas:"Tranças & Extensões", course_trenzas_d:"Box braids, cornrows, knotless e técnicas modernas.",
+    course_bellezaint:"Beleza integral", course_bellezaint_d:"Maquiagem profissional, skincare, sobrancelhas e estética.",
+    course_office:"Informática & Internet", course_office_d:"Office, Excel, Word e ferramentas digitais essenciais para o mercado de trabalho.",
+    course_foto:"Fotografia & edição", course_foto_d:"Curso básico de edição de fotos para criação de quadros em PVC, garrafas e copos.",
+    level_basic:"Básico", level_inter:"Intermediário", level_adv:"Avançado"
+  }
+};
+
+function getCurrentLang(){ return localStorage.getItem('altonexo_lang') || 'es'; }
+
+function setLang(lang){
+  localStorage.setItem('altonexo_lang', lang);
+  document.documentElement.lang = lang;
+  const dict = siteTranslations[lang] || siteTranslations.es;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[key] !== undefined) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-placeholder');
+    if(dict[key] !== undefined) el.placeholder = dict[key];
+  });
+  const sel = document.getElementById('langSelect');
+  if(sel) sel.value = lang;
+  renderCourses(currentCategory);
+  renderTestimonials();
+}
+
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in-view'); revealObserver.unobserve(e.target); } });
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+const defaultPartners = ["MINERD","EF Certified","Barber Pro DR","Nail Masters","Adobe Creative"];
+let partnersData = [];
+const partnersTrack = document.getElementById('partnersTrack');
+function renderPartners(){
+  const items = partnersData.length ? partnersData : defaultPartners.map(name=>({name, logo_url:null}));
+  partnersTrack.innerHTML = '';
+  [...items, ...items].forEach(p=>{
+    const tile = document.createElement('div');
+    tile.className = 'partner-tile';
+    if(p.logo_url){
+      tile.innerHTML = `<img src="${p.logo_url}" alt="${p.name}" style="max-width:80%; max-height:60%; object-fit:contain;" />`;
+    } else {
+      tile.textContent = p.name;
+    }
+    partnersTrack.appendChild(tile);
+  });
+}
+renderPartners();
+
+const iconScissors = `<svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8.5 8L20 19M8.5 16L20 5"/></svg>`;
+const iconBook = `<svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22.5z"/><path d="M4 4.5v18"/></svg>`;
+const iconCamera = `<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="13" rx="2"/><circle cx="12" cy="13.5" r="4"/><path d="M8 7l1.5-3h5L16 7"/></svg>`;
+const iconCode = `<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 9l-3 3 3 3M16 9l3 3-3 3"/></svg>`;
+
+const iconMap = { book:iconBook, scissors:iconScissors, code:iconCode, camera:iconCamera };
+
+// Fallback (used only if Supabase fetch fails or table is empty)
+const defaultCoursesData = {
+  idiomas: [
+    {icon_key:"book", title:"course_ingles", desc:"course_ingles_d", levels:["level_basic","level_inter","level_adv"]},
+    {icon_key:"book", title:"course_frances", desc:"course_frances_d", levels:["level_basic","level_inter","level_adv"]},
+    {icon_key:"book", title:"course_espanol", desc:"course_espanol_d", levels:["level_basic","level_inter"]}
+  ],
+  belleza: [
+    {icon_key:"scissors", title:"course_unas", desc:"course_unas_d", levels:[]},
+    {icon_key:"scissors", title:"course_peluqueria", desc:"course_peluqueria_d", levels:[]},
+    {icon_key:"scissors", title:"course_trenzas", desc:"course_trenzas_d", levels:[]},
+    {icon_key:"scissors", title:"course_bellezaint", desc:"course_bellezaint_d", levels:[]}
+  ],
+  tecnologia: [ {icon_key:"code", title:"course_office", desc:"course_office_d", levels:[]} ],
+  fotografia: [ {icon_key:"camera", title:"course_foto", desc:"course_foto_d", levels:[]} ]
+};
+
+let coursesData = null; // populated from Supabase; null until loaded
+let currentCategory = 'idiomas';
+const progGrid = document.getElementById('progGrid');
+
+function renderCourses(cat){
+  currentCategory = cat;
+  const dict = siteTranslations[getCurrentLang()] || siteTranslations.es;
+  const source = coursesData || defaultCoursesData;
+  const items = source[cat] || [];
+  progGrid.innerHTML = items.map(item => {
+    const icon = iconMap[item.icon_key] || iconBook;
+    // Supabase rows have plain text title/description; fallback rows use translation keys
+    const title = item.title_text !== undefined ? item.title_text : (dict[item.title] || item.title);
+    const desc = item.desc_text !== undefined ? item.desc_text : (dict[item.desc] || '');
+    const levelTags = (item.levels||[]).map(l=>`<span>${dict[l]||l}</span>`).join('');
+    return `
+    <div class="prog-card">
+      <div class="ic">${icon}</div>
+      <h4>${title}</h4>
+      <p>${desc}</p>
+      ${levelTags ? `<div class="level-tags">${levelTags}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+document.querySelectorAll('.prog-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.prog-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    renderCourses(tab.getAttribute('data-cat'));
+  });
+});
+renderCourses('idiomas');
+
+let testimonialsData = [];
+let testiIndex = 0;
+const defaultTestimonials = [
+  {student_name:"Rosa María", quote:"Llegué sin hablar nada de inglés y en seis meses ya podía atender turistas en el hotel sin problema.", rating:5},
+  {student_name:"Carlos Andrés", quote:"El curso de peluquería me abrió las puertas a mi propio salón. Los profesores son exigentes pero muy pacientes.", rating:5},
+  {student_name:"Yolanda Beatriz", quote:"Aprendí uñas acrílicas desde cero y ahora tengo clientas fijas cada semana.", rating:5}
+];
+function starsHTML(n){
+  let s='';
+  for(let i=0;i<5;i++){
+    s += `<svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z" style="${i<n?'':'fill:var(--border)'}"/></svg>`;
+  }
+  return s;
+}
+function renderTestimonials(){
+  const data = testimonialsData.length ? testimonialsData : defaultTestimonials;
+  const track = document.getElementById('testiTrack');
+  const dotsWrap = document.getElementById('testiDots');
+  track.innerHTML = data.map(t => `
+    <div class="testi-slide">
+      <div class="testi-card">
+        <div class="testi-avatar" style="${t.photo_url ? 'background-image:url(\''+t.photo_url+'\'); background-size:cover; background-position:center; color:transparent;' : ''}">${t.photo_url ? '' : (t.student_name||'?').charAt(0)}</div>
+        <div class="testi-stars">${starsHTML(t.rating||5)}</div>
+        <p class="testi-quote">"${t.quote}"</p>
+        <div class="testi-name">${t.student_name}</div>
+      </div>
+    </div>
+  `).join('');
+  dotsWrap.innerHTML = data.map((_,i)=>`<button data-i="${i}" class="${i===0?'active':''}"></button>`).join('');
+  dotsWrap.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=> showTesti(parseInt(btn.getAttribute('data-i'),10)));
+  });
+  testiIndex = 0;
+  showTesti(0);
+}
+function showTesti(i){
+  const data = testimonialsData.length ? testimonialsData : defaultTestimonials;
+  testiIndex = (i + data.length) % data.length;
+  document.getElementById('testiTrack').style.transform = `translateX(-${testiIndex*100}%)`;
+  document.querySelectorAll('#testiDots button').forEach((d,idx)=>d.classList.toggle('active', idx===testiIndex));
+}
+let testiTimer = setInterval(()=>showTesti(testiIndex+1), 6000);
+
+function animateCount(el, target){
+  const dur = 1200; const start = performance.now();
+  function tick(now){
+    const p = Math.min(1,(now-start)/dur);
+    const eased = 1-Math.pow(1-p,3);
+    el.textContent = Math.round(target*eased).toLocaleString('es-DO');
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const statsObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      animateCount(document.getElementById('statVisitors'), window.__altonexoStats?.visitors_count ?? 0);
+      animateCount(document.getElementById('statEnrolled'), window.__altonexoStats?.enrolled_count ?? 0);
+      animateCount(document.getElementById('statActive'), window.__altonexoStats?.active_students_count ?? 0);
+      statsObserver.disconnect();
+    }
+  });
+}, {threshold:.4});
+statsObserver.observe(document.querySelector('.hero-stats'));
+
+async function loadSiteData(){
+  try{
+    const { data: settings } = await supabaseClient.from('site_settings').select('*').eq('id',1).maybeSingle();
+    if(settings){
+      if(settings.phone_1) document.getElementById('contactPhone1').textContent = settings.phone_1;
+      if(settings.phone_2) document.getElementById('contactPhone2').textContent = settings.phone_2;
+      if(settings.email) document.getElementById('contactEmail').textContent = settings.email;
+      if(settings.address) document.getElementById('contactAddress').textContent = settings.address;
+      if(settings.logo_url){
+        const navLogo = document.getElementById('navLogoImg');
+        const footLogo = document.getElementById('footLogoImg');
+        if(navLogo) navLogo.src = settings.logo_url;
+        if(footLogo) footLogo.src = settings.logo_url;
+      }
+    }
+  }catch(e){ console.warn('site_settings fetch failed', e); }
+
+  try{
+    const { data: stats } = await supabaseClient.from('site_stats').select('*').eq('id',1).maybeSingle();
+    if(stats) window.__altonexoStats = stats;
+  }catch(e){ console.warn('site_stats fetch failed', e); }
+
+  try{
+    const { data: testi } = await supabaseClient.from('site_testimonials').select('*').eq('active',true).order('display_order',{ascending:true});
+    if(testi && testi.length){ testimonialsData = testi; renderTestimonials(); }
+  }catch(e){ console.warn('site_testimonials fetch failed', e); }
+
+  try{
+    const { data: courses } = await supabaseClient.from('site_courses').select('*').eq('active',true).order('display_order',{ascending:true});
+    if(courses && courses.length){
+      const grouped = { idiomas:[], belleza:[], tecnologia:[], fotografia:[] };
+      courses.forEach(c=>{
+        if(!grouped[c.category]) grouped[c.category] = [];
+        grouped[c.category].push({
+          icon_key: c.icon_key || 'book',
+          title_text: c.title,
+          desc_text: c.description,
+          levels: c.levels ? c.levels.split(',').map(s=>s.trim()).filter(Boolean) : [],
+          levels_raw: true
+        });
+      });
+      coursesData = grouped;
+      renderCourses(currentCategory);
+    }
+  }catch(e){ console.warn('site_courses fetch failed', e); }
+
+  try{
+    const { data: partners } = await supabaseClient.from('site_partners').select('*').eq('active',true).order('display_order',{ascending:true});
+    if(partners && partners.length){ partnersData = partners; renderPartners(); }
+  }catch(e){ console.warn('site_partners fetch failed', e); }
+}
+
+document.getElementById('contactForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const btn = document.getElementById('contactSubmitBtn');
+  const msgEl = document.getElementById('contactFormMsg');
+  const payload = {
+    full_name: document.getElementById('cf_name').value.trim(),
+    email: document.getElementById('cf_email').value.trim(),
+    phone: document.getElementById('cf_phone').value.trim(),
+    message: document.getElementById('cf_message').value.trim()
+  };
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = '...';
+  const { error } = await supabaseClient.from('site_contact_messages').insert(payload);
+  btn.disabled = false;
+  btn.textContent = originalText;
+  msgEl.style.display = 'block';
+  if(error){
+    msgEl.style.color = '#D64545';
+    msgEl.textContent = 'Hubo un error. Intenta de nuevo o escríbenos por WhatsApp.';
+  } else {
+    msgEl.style.color = 'var(--green, #1E8E5A)';
+    msgEl.textContent = 'Gracias, te contactaremos pronto.';
+    document.getElementById('contactForm').reset();
+  }
+});
+
+setLang(getCurrentLang());
+loadSiteData();
+</script>
+</body>
+</html>
