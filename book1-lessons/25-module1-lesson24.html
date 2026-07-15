@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 1 · Lesson 24 — Saying Yes and No</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A; --navy-light:#161C4A;
+  --gold:#E3A73B; --gold-bright:#F5D783; --gold-pale:#FBF0DA;
+  --ink:#0B0F2E; --ink-soft:#5B6178; --ice:#F3F5FB; --ice-dim:#E4E8F5; --white:#FFFFFF;
+  --green:#1E8E5A; --green-pale:#E7F5EE; --blue:#2E6FD6; --blue-pale:#E9F1FC; --pink:#C24E7A; --pink-pale:#FAEAF1;
+  --font:"Manrope", sans-serif; --mono:"Space Grotesk", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:#3a3d4a; color:var(--ink); padding:40px 20px;}
+h1,h2,h3,h4{margin:0;} p{margin:0; line-height:1.55;}
+.page-label{max-width:816px; margin:0 auto 8px; color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;}
+.page{width:816px; height:1056px; background:var(--white); margin:0 auto 34px; box-shadow:0 20px 50px rgba(0,0,0,.4); padding:54px 58px 44px; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.page-header{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); border-bottom:1px solid var(--ice-dim); padding-bottom:12px; margin-bottom:22px;}
+.page-header .brand{color:var(--gold); font-weight:700;}
+.page-footer{position:absolute; bottom:24px; left:58px; right:58px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-soft); border-top:1px solid var(--ice-dim); padding-top:12px;}
+.page-body{flex:1; display:flex; flex-direction:column; gap:22px; min-height:0;}
+.lesson-cover{background:linear-gradient(160deg, var(--navy), var(--navy-deep)); color:#fff; padding:32px 34px; border-radius:14px; position:relative; overflow:hidden; margin-bottom:6px;}
+.lesson-cover::before{content:""; position:absolute; top:-80px; right:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.2), transparent 70%);}
+.crumbs{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:10px; position:relative;}
+.lesson-title{font-size:30px; font-weight:800; position:relative;}
+.lesson-title .es{font-size:14px; font-weight:600; color:rgba(255,255,255,.65); font-style:italic; margin-top:5px;}
+.lesson-badges{display:flex; gap:8px; margin-top:14px; position:relative; flex-wrap:wrap;}
+.badge{font-family:var(--mono); font-size:10px; font-weight:700; padding:5px 12px; border-radius:14px;}
+.badge-gold{background:var(--gold); color:var(--navy);}
+.badge-outline{border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85);}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+.section-num{width:26px; height:26px; border-radius:7px; background:var(--navy); color:var(--gold-bright); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:12px; flex-shrink:0;}
+.section-title{font-size:14.5px; font-weight:800; color:var(--navy);}
+.section-title .es{font-size:11.5px; font-weight:600; color:var(--ink-soft); font-style:italic;}
+.obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.obj-card{background:var(--gold-pale); border-radius:10px; padding:13px; border:1px solid rgba(227,167,59,.3);}
+.obj-card svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.8; margin-bottom:6px;}
+.obj-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; line-height:1.35;}
+.obj-card p.es{font-size:10px; color:var(--ink-soft); font-style:italic; line-height:1.35;}
+.intro-box{display:flex; gap:14px; align-items:flex-start;}
+.intro-icon{width:36px; height:36px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.intro-icon svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.intro-text p.en{font-size:12.5px; margin-bottom:7px;}
+.intro-text p.es{font-size:11.5px; color:var(--ink-soft); font-style:italic;}
+.yn-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.yn-card{border-radius:12px; padding:16px; text-align:center;}
+.yn-card.yes{background:var(--green-pale); border:2px solid var(--green);}
+.yn-card.no{background:var(--pink-pale); border:2px solid var(--pink);}
+.yn-card .w{font-family:var(--mono); font-weight:800; font-size:20px;}
+.yn-card.yes .w{color:var(--green);} .yn-card.no .w{color:var(--pink);}
+.yn-card .es{font-size:11px; color:var(--ink-soft); font-style:italic; margin-top:4px;}
+.vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:9px;}
+.vocab-card{background:var(--ice); border-radius:9px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.vocab-word{font-weight:800; font-size:13px; color:var(--navy);}
+.vocab-phon{font-family:var(--mono); font-size:10px; color:var(--ink-soft);}
+.vocab-es{font-size:11px; color:var(--ink-soft); font-style:italic; text-align:right;}
+.pron-row{display:flex; flex-wrap:wrap; gap:8px;}
+.pron-chip{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; font-weight:600; padding:7px 13px; border-radius:16px;}
+.pron-note{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.grammar-box{background:var(--pink-pale); border-left:4px solid var(--pink); border-radius:0 9px 9px 0; padding:13px 16px;}
+.grammar-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.grammar-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.chat{display:flex; flex-direction:column; gap:9px; max-width:470px;}
+.chat-row{display:flex; gap:8px; align-items:flex-end;}
+.chat-row.right{flex-direction:row-reverse;}
+.chat-avatar{width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:11px; flex-shrink:0;}
+.chat-row.left .chat-avatar{background:var(--navy); color:var(--gold-bright);}
+.chat-row.right .chat-avatar{background:var(--gold); color:var(--navy);}
+.chat-bubble{padding:8px 13px; border-radius:14px; font-size:11.5px; max-width:320px;}
+.chat-row.left .chat-bubble{background:var(--ice); border-bottom-left-radius:3px;}
+.chat-row.right .chat-bubble{background:var(--gold-pale); border-bottom-right-radius:3px;}
+.chat-bubble .es{display:block; font-size:10px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.practice-box{background:var(--ice); border-radius:10px; padding:15px;}
+.practice-box .instr{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.practice-box .instr .es{display:block; font-weight:500; font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.practice-box .content{font-size:11.5px; color:var(--ink-soft);}
+.reading-passage{font-size:12.5px; line-height:1.7; font-style:italic; color:var(--navy); border-left:3px solid var(--gold); padding-left:14px;}
+.reading-passage .es{display:block; font-size:11px; margin-top:7px; color:var(--ink-soft); font-style:normal;}
+.writing-lines{border-bottom:1px dashed var(--ice-dim); height:22px; margin-top:6px;}
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:30px; max-width:420px;}
+.match-col{display:flex; flex-direction:column; gap:8px;}
+.match-item{background:var(--ice); border-radius:7px; padding:8px 12px; font-size:11.5px; font-weight:600; text-align:center;}
+.fill-blank{font-size:12px; margin-top:12px; padding:10px 14px; background:var(--blue-pale); border-radius:9px;}
+.fill-blank .blank{border-bottom:2px solid var(--blue); padding:0 16px; font-weight:700;}
+.quiz-item{margin-bottom:12px;}
+.quiz-q{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.quiz-opts{display:flex; gap:8px; flex-wrap:wrap;}
+.quiz-opt{border:1px solid var(--ice-dim); border-radius:7px; padding:6px 12px; font-size:11px;}
+.task-card{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:15px;}
+.task-card svg{width:18px; height:18px; stroke:var(--green); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:1px;}
+.task-card p.en{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:3px;}
+.task-card p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.review-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.review-tags span{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11px; padding:5px 12px; border-radius:12px;}
+.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px;}
+.check-list li{display:flex; align-items:flex-start; gap:8px; font-size:12px;}
+.check-list li svg{width:16px; height:16px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px;}
+.check-list li .es{color:var(--ink-soft); font-style:italic;}
+.answer-box{background:var(--navy); color:#fff; border-radius:10px; padding:16px;}
+.answer-box .label{font-family:var(--mono); font-size:10px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;}
+.answer-box ol{margin:0; padding-left:16px; font-size:12px; line-height:1.8;}
+.summary-box{background:var(--gold-pale); border-radius:10px; padding:16px; border:1px solid rgba(227,167,59,.35);}
+.summary-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:6px;}
+.summary-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.next-box{display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff; border-radius:10px; padding:18px 22px;}
+.next-box .label{font-family:var(--mono); font-size:10px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px;}
+.next-box .title{font-size:15px; font-weight:800;}
+.next-box .es{font-size:11px; color:rgba(255,255,255,.65); font-style:italic; margin-top:3px;}
+.next-box svg{width:20px; height:20px; stroke:var(--gold-bright); fill:none; stroke-width:2;}
+.spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<div class="page-label">Página 1 / Page 1 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 24</span></div>
+  <div class="page-body">
+    <div class="lesson-cover">
+      <div class="crumbs">Module 1 · English Foundations — Lesson 24 of 56</div>
+      <div class="lesson-title">Saying Yes and No<div class="es">Lección 24 — Respuestas afirmativas y negativas</div></div>
+      <div class="lesson-badges"><span class="badge badge-gold">Level A0</span><span class="badge badge-outline">10–12 min</span><span class="badge badge-outline">🎧 Audio</span><span class="badge badge-outline">🎬 Video</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">1</div><div class="section-title">Objectives <span class="es">· Objetivos</span></div></div>
+      <div class="obj-grid">
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Answer Yes/No questions correctly</p><p class="es">Responder preguntas de Sí/No correctamente</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Use short answers naturally</p><p class="es">Usar respuestas cortas naturalmente</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Express maybe or uncertainty</p><p class="es">Expresar duda o incertidumbre</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">2</div><div class="section-title">Introduction <span class="es">· Introducción</span></div></div>
+      <div class="intro-box">
+        <div class="intro-icon"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></div>
+        <div class="intro-text">
+          <p class="en">Yes/No questions rise in intonation and expect a short, direct answer. In English, a simple "Yes" or "No" alone can sound abrupt — native speakers usually add a short phrase.</p>
+          <p class="es">Las preguntas de Sí/No suben en entonación y esperan una respuesta corta y directa. En inglés, un simple "Yes" o "No" solo puede sonar brusco — los nativos suelen añadir una frase corta.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">3</div><div class="section-title">Detailed Explanation <span class="es">· Explicación detallada</span></div></div>
+      <div class="yn-grid">
+        <div class="yn-card yes"><div class="w">Yes, I am / I do</div><div class="es">Sí, lo soy / lo hago</div></div>
+        <div class="yn-card no"><div class="w">No, I'm not / I don't</div><div class="es">No, no lo soy / no lo hago</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 1 / Page 1</span></div>
+</div>
+
+<div class="page-label">Página 2 / Page 2 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 24</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">4</div><div class="section-title">Vocabulary <span class="es">· Vocabulario</span></div></div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div><div class="vocab-word">Yes, I am</div><div class="vocab-phon">/jɛs aɪ æm/</div></div><div class="vocab-es">Sí, lo soy</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">No, I'm not</div><div class="vocab-phon">/noʊ aɪm nɒt/</div></div><div class="vocab-es">No, no lo soy</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Yes, I do</div><div class="vocab-phon">/jɛs aɪ duː/</div></div><div class="vocab-es">Sí, lo hago</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">No, I don't</div><div class="vocab-phon">/noʊ aɪ doʊnt/</div></div><div class="vocab-es">No, no lo hago</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Maybe</div><div class="vocab-phon">/ˈmeɪbi/</div></div><div class="vocab-es">Quizás</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">I'm not sure</div><div class="vocab-phon">/aɪm nɒt ʃʊr/</div></div><div class="vocab-es">No estoy seguro</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">5</div><div class="section-title">Pronunciation <span class="es">· Pronunciación</span></div></div>
+      <div class="pron-row"><div class="pron-chip">YES, I am</div><div class="pron-chip">MAY-be</div></div>
+      <p class="pron-note" style="margin-top:8px;">Short answers get quick, confident stress on "Yes" or "No." / Las respuestas cortas tienen énfasis rápido y confiado en "Yes" o "No."</p>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">6</div><div class="section-title">Grammar <span class="es">· Gramática</span></div></div>
+      <div class="grammar-box"><p class="en">Short answers repeat the auxiliary verb from the question: "Are you a student?" → "Yes, I am." "Do you like music?" → "Yes, I do."</p><p class="es">Las respuestas cortas repiten el verbo auxiliar de la pregunta: "Are you a student?" → "Yes, I am." "Do you like music?" → "Yes, I do."</p></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">7</div><div class="section-title">Dialogues <span class="es">· Diálogos</span></div></div>
+      <div class="chat">
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Are you a student?<span class="es">¿Eres estudiante?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Yes, I am. Do you like English class?<span class="es">Sí, lo soy. ¿Te gusta la clase de inglés?</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Yes, I do! It's my favorite class.<span class="es">¡Sí, me gusta! Es mi clase favorita.</span></div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 2 / Page 2</span></div>
+</div>
+
+<div class="page-label">Página 3 / Page 3 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 24</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">8</div><div class="section-title">Listening <span class="es">· Comprensión auditiva</span></div></div><div class="practice-box"><div class="instr">🎧 Listen and repeat 5 Yes/No questions with their short answers.<span class="es">Escucha y repite 5 preguntas de Sí/No con sus respuestas cortas.</span></div><div class="content">Audio track: <b>M1-L24-dialogue.mp3</b></div></div></div>
+    <div><div class="section-head"><div class="section-num">9</div><div class="section-title">Speaking <span class="es">· Expresión oral</span></div></div><div class="practice-box"><div class="instr">💬 Ask a partner 3 Yes/No questions and answer theirs.<span class="es">Pregunta a un compañero 3 preguntas de Sí/No y responde las suyas.</span></div><div class="content">Alone? Practice all short answer forms out loud.</div></div></div>
+    <div><div class="section-head"><div class="section-num">10</div><div class="section-title">Reading <span class="es">· Lectura</span></div></div><p class="reading-passage">"Are you from Punta Cana?" "Yes, I am." "Do you speak French?" "No, I don't. Maybe someday!"<span class="es">"¿Eres de Punta Cana?" "Sí, lo soy." "¿Hablas francés?" "No, no hablo. ¡Quizás algún día!"</span></p></div>
+    <div><div class="section-head"><div class="section-num">11</div><div class="section-title">Writing <span class="es">· Escritura</span></div></div><div class="practice-box"><div class="instr">✍️ Write 3 Yes/No questions and answer them about yourself.<span class="es">Escribe 3 preguntas de Sí/No y respóndelas sobre ti.</span></div><div class="writing-lines"></div><div class="writing-lines"></div></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 3 / Page 3</span></div>
+</div>
+
+<div class="page-label">Página 4 / Page 4 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 24</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">12</div><div class="section-title">Interactive Exercises <span class="es">· Ejercicios interactivos</span></div></div>
+      <div class="match-grid"><div class="match-col"><div class="match-item">Yes, I am</div><div class="match-item">No, I don't</div><div class="match-item">Maybe</div></div><div class="match-col"><div class="match-item">Quizás</div><div class="match-item">Sí, lo soy</div><div class="match-item">No, no lo hago</div></div></div>
+      <div class="fill-blank">Complete: "Are you tired?" "___, I am." <span class="blank">Yes</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">13</div><div class="section-title">Quiz</div></div>
+      <div class="quiz-item"><div class="quiz-q">1. "Do you like music?" "Yes, I ___."</div><div class="quiz-opts"><span class="quiz-opt">A) am</span><span class="quiz-opt">B) do</span><span class="quiz-opt">C) is</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">2. If unsure, you can say...</div><div class="quiz-opts"><span class="quiz-opt">A) Yes, I am</span><span class="quiz-opt">B) I'm not sure</span><span class="quiz-opt">C) No, I don't</span></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 4 / Page 4</span></div>
+</div>
+
+<div class="page-label">Página 5 / Page 5 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 24</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">14</div><div class="section-title">Homework <span class="es">· Tarea</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M9 22V12h6v10M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><p class="en">Ask 3 friends or family Yes/No questions in English today.</p><p class="es">Haz 3 preguntas de Sí/No en inglés a amigos o familia hoy.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">15</div><div class="section-title">Project <span class="es">· Proyecto</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg><div><p class="en">Create a "Yes/No survey" with 5 questions and ask 3 people.</p><p class="es">Crea una "encuesta de Sí/No" con 5 preguntas y pregúntale a 3 personas.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">16</div><div class="section-title">Review <span class="es">· Repaso</span></div></div><div class="review-tags"><span>Yes, I am</span><span>No, I'm not</span><span>Yes, I do</span><span>No, I don't</span><span>Maybe</span><span>I'm not sure</span></div></div>
+    <div><div class="section-head"><div class="section-num">17</div><div class="section-title">Assessment <span class="es">· Evaluación</span></div></div>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can answer Yes/No questions correctly. <span class="es">Puedo responder preguntas de Sí/No correctamente.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can express uncertainty using "Maybe" or "I'm not sure." <span class="es">Puedo expresar duda con "Maybe" o "I'm not sure."</span></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 5 / Page 5</span></div>
+</div>
+
+<div class="page-label">Página 6 / Page 6 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 24</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">18</div><div class="section-title">Answer Key <span class="es">· Hoja de respuestas</span></div></div><div class="answer-box"><div class="label">Quiz answers</div><ol><li>B) do</li><li>B) I'm not sure</li></ol></div></div>
+    <div><div class="section-head"><div class="section-num">19</div><div class="section-title">Summary <span class="es">· Resumen</span></div></div><div class="summary-box"><p class="en">Today you learned to answer Yes/No questions naturally, with the correct short answer form for each type of question.</p><p class="es">Hoy aprendiste a responder preguntas de Sí/No naturalmente, con la forma correcta de respuesta corta para cada tipo de pregunta.</p></div></div>
+    <div><div class="section-head"><div class="section-num">20</div><div class="section-title">Coming Up <span class="es">· Próxima lección</span></div></div><div class="next-box"><div><div class="label">Lesson 25</div><div class="title">Numbers 0–20</div><div class="es">Los números del 0 al 20.</div></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 6 / Page 6</span></div>
+</div>
+
+</body>
+</html>

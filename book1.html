@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>English Altonexo Academy — Libro 1 | ALTONEXO ACADEMY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A;
+  --gold:#E3A73B; --gold-hover:#CC9330; --gold-pale:#FBF0DA;
+  --surface:#FFFFFF; --surface-soft:#F5F6FA; --border:#E3E6F0;
+  --ink:#0B0F2E; --ink-soft:#5B6178;
+  --green:#1E8E5A; --green-pale:#E7F5EE;
+  --font:"Manrope", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:var(--surface); color:var(--ink); line-height:1.5;}
+a{color:inherit;}
+.wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+
+/* NAV */
+.nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--border);}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:1120px; margin:0 auto;}
+.nav-brand{display:flex; align-items:center; gap:9px; font-weight:800; font-size:15px; text-decoration:none;}
+.nav-brand .dot{width:9px; height:9px; border-radius:50%; background:var(--gold);}
+.nav-back{font-size:13px; font-weight:600; color:var(--ink-soft); text-decoration:none; display:flex; align-items:center; gap:6px;}
+.nav-back:hover{color:var(--navy);}
+
+/* HERO */
+.hero{padding:64px 0 56px; background:linear-gradient(180deg, var(--surface-soft), var(--surface) 70%);}
+.hero-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+.eyebrow{display:inline-flex; align-items:center; gap:7px; background:var(--gold-pale); color:#8C6E23; font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:20px; letter-spacing:.03em; margin-bottom:18px;}
+.hero h1{font-size:38px; font-weight:800; line-height:1.15; color:var(--navy); margin:0 0 16px;}
+.hero h1 span{color:var(--gold-hover);}
+.hero p.lead{font-size:15.5px; color:var(--ink-soft); margin:0 0 26px; max-width:480px;}
+.hero-stats{display:flex; gap:26px; margin-bottom:30px;}
+.hstat{}
+.hstat .n{font-weight:800; font-size:20px; color:var(--navy);}
+.hstat .l{font-size:11.5px; color:var(--ink-soft);}
+.btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:14px; padding:14px 26px; border-radius:10px; text-decoration:none; border:none; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;}
+.btn-gold{background:var(--gold); color:var(--navy);}
+.btn-gold:hover{background:var(--gold-hover); transform:translateY(-1px);}
+.btn-outline{background:transparent; border:1.5px solid var(--border); color:var(--navy);}
+.btn-outline:hover{border-color:var(--navy);}
+.hero-cover{position:relative; display:flex; justify-content:center;}
+.cover-frame{width:280px; aspect-ratio:5/6.5; border-radius:14px; background:linear-gradient(160deg, var(--navy), var(--navy-deep)); box-shadow:0 30px 60px -20px rgba(11,15,46,.4); display:flex; flex-direction:column; justify-content:space-between; padding:26px; color:#fff; position:relative; overflow:hidden;}
+.cover-frame::before{content:""; position:absolute; top:-60px; right:-60px; width:180px; height:180px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.25), transparent 70%);}
+.cover-badge{font-family:monospace; font-size:9.5px; font-weight:700; color:var(--gold); letter-spacing:.08em; text-transform:uppercase; position:relative;}
+.cover-title{font-size:26px; font-weight:800; line-height:1.15; margin-top:14px; position:relative;}
+.cover-sub{font-size:11px; color:rgba(255,255,255,.6); margin-top:8px; position:relative;}
+.cover-pill{align-self:flex-start; background:var(--gold); color:var(--navy); font-size:10px; font-weight:800; padding:5px 12px; border-radius:14px; position:relative;}
+
+/* PRICE CARD floating */
+.price-float{position:absolute; bottom:-18px; left:50%; transform:translateX(-50%); background:#fff; border:1px solid var(--border); border-radius:12px; padding:12px 22px; box-shadow:0 12px 30px rgba(11,15,46,.12); display:flex; align-items:center; gap:12px;}
+.price-float .amt{font-weight:800; font-size:20px; color:var(--navy);}
+.price-float .lbl{font-size:10.5px; color:var(--ink-soft);}
+
+/* SECTIONS */
+section{padding:60px 0;}
+.section-head{max-width:560px; margin:0 auto 36px; text-align:center;}
+.section-head h2{font-size:26px; font-weight:800; color:var(--navy); margin:0 0 10px;}
+.section-head p{font-size:14px; color:var(--ink-soft); margin:0;}
+
+.feat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.feat-card{background:var(--surface-soft); border-radius:14px; padding:24px; border:1px solid var(--border);}
+.feat-card .ic{width:38px; height:38px; border-radius:10px; background:var(--gold-pale); display:flex; align-items:center; justify-content:center; margin-bottom:14px;}
+.feat-card .ic svg{width:19px; height:19px; stroke:var(--gold-hover); fill:none; stroke-width:1.8;}
+.feat-card h3{font-size:15px; font-weight:700; color:var(--navy); margin:0 0 6px;}
+.feat-card p{font-size:13px; color:var(--ink-soft); margin:0; line-height:1.55;}
+
+/* PAYMENT + FORM */
+.buy-section{background:var(--navy); color:#fff;}
+.buy-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:flex-start;}
+.buy-info h2{font-size:26px; font-weight:800; margin:0 0 14px;}
+.buy-info p{font-size:14px; color:rgba(255,255,255,.65); margin:0 0 22px; line-height:1.6;}
+.pay-step{display:flex; gap:12px; margin-bottom:16px;}
+.pay-step .n{width:26px; height:26px; border-radius:50%; background:var(--gold); color:var(--navy); font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.pay-step p{margin:0; font-size:13.5px; color:rgba(255,255,255,.85);}
+.pay-step p b{color:#fff;}
+.address-box{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:10px; padding:14px 16px; font-size:12.5px; color:rgba(255,255,255,.75); margin-top:20px;}
+
+.form-card{background:#fff; border-radius:16px; padding:30px; color:var(--ink);}
+.form-card h3{font-size:17px; font-weight:800; color:var(--navy); margin:0 0 4px;}
+.form-card .sub{font-size:12.5px; color:var(--ink-soft); margin:0 0 20px;}
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.field input{width:100%; padding:10px 13px; border:1.5px solid var(--border); border-radius:8px; font-size:13.5px; font-family:var(--font); outline:none; transition:border-color .15s;}
+.field input:focus{border-color:var(--gold);}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.form-submit{width:100%; padding:13px; margin-top:6px; font-size:14px;}
+.form-msg{margin-top:14px; padding:12px 14px; border-radius:9px; font-size:12.5px; display:none;}
+.form-msg.show{display:block;}
+.form-msg.success{background:var(--green-pale); color:var(--green);}
+.form-msg.error{background:#FAEAF1; color:#C24E7A;}
+.login-link{text-align:center; margin-top:16px; font-size:12.5px; color:var(--ink-soft);}
+.login-link a{color:var(--gold-hover); font-weight:700; text-decoration:none;}
+
+footer{padding:30px 0; text-align:center; font-size:12px; color:var(--ink-soft); border-top:1px solid var(--border);}
+
+@media (max-width: 860px){
+  .hero-grid, .buy-grid{grid-template-columns:1fr;}
+  .hero-cover{order:-1; margin-bottom:20px;}
+  .feat-grid{grid-template-columns:1fr;}
+  .field-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand"><span class="dot"></span>ALTONEXO ACADEMY</a>
+    <a href="index.html" class="nav-back">← Volver al sitio</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">📘 Nivel A0 → A1 · Libro 1 de 3</span>
+      <h1>Empieza tu <span>inglés</span> desde cero, a tu ritmo.</h1>
+      <p class="lead">English Altonexo Academy — Libro 1 es un curso completo en formato digital, con 56 lecciones bilingües (inglés + español), audio, ejercicios y evaluaciones. Diseñado para adolescentes y adultos principiantes.</p>
+      <div class="hero-stats">
+        <div class="hstat"><div class="n">56</div><div class="l">Lecciones</div></div>
+        <div class="hstat"><div class="n">330+</div><div class="l">Páginas</div></div>
+        <div class="hstat"><div class="n">5</div><div class="l">Idiomas de apoyo</div></div>
+      </div>
+      <a href="#reservar" class="btn btn-gold">Reservar mi copia →</a>
+    </div>
+    <div class="hero-cover">
+      <div class="cover-frame">
+        <div>
+          <div class="cover-badge">Altonexo Academy</div>
+          <div class="cover-title">English Altonexo Academy</div>
+          <div class="cover-sub">Teen &amp; Adult Beginner (14+)</div>
+        </div>
+        <div class="cover-pill">LIBRO 1 DE 3 · NIVEL A0</div>
+        <div class="price-float"><div><div class="amt" id="price-display">$14.99</div><div class="lbl">pago único</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Todo lo que necesitas para empezar</h2>
+      <p>Un método pensado para hispanohablantes, con apoyo bilingüe en cada lección.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <h3>56 lecciones estructuradas</h3>
+        <p>Cada lección incluye objetivos, vocabulario, gramática, diálogos, ejercicios, tarea y evaluación — todo en 6 páginas claras.</p>
+      </div>
+      <div class="feat-card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/></svg></div>
+        <h3>Apoyo en español</h3>
+        <p>Cada palabra, frase y explicación viene traducida y explicada en español, para que nunca te sientas perdido.</p>
+      </div>
+      <div class="feat-card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M22 11.5a8.4 8.4 0 0 1-9.2 8.4 8.6 8.6 0 0 1-3-.6L3 21l1.7-5a8.4 8.4 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg></div>
+        <h3>Inglés para la vida real</h3>
+        <p>Saludos, preguntas, números, fechas, y situaciones reales — escuela, trabajo, teléfono, correos — no solo teoría.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="buy-section" id="reservar">
+  <div class="wrap buy-grid">
+    <div class="buy-info">
+      <h2>Reserva tu copia hoy</h2>
+      <p>Por ahora, el pago se realiza en efectivo, directamente en nuestras oficinas. Así funciona:</p>
+      <div class="pay-step"><div class="n">1</div><p><b>Completa el formulario</b> con tus datos y crea tu cuenta de acceso.</p></div>
+      <div class="pay-step"><div class="n">2</div><p><b>Visítanos</b> en nuestra oficina para completar el pago en efectivo.</p></div>
+      <div class="pay-step"><div class="n">3</div><p><b>Recibe acceso</b> — confirmamos tu pago y desbloqueamos el libro en tu cuenta, usualmente el mismo día.</p></div>
+      <div class="address-box">📍 Alto de Friusa, Av. España, Plaza Stephanie, Bávaro — Lunes a Sábado, 9:00 AM – 6:00 PM</div>
+    </div>
+
+    <div class="form-card">
+      <h3>Crear mi reserva</h3>
+      <p class="sub">Solo toma un minuto. Usarás este email y contraseña para acceder al libro.</p>
+      <form id="reserve-form">
+        <div class="field"><label>Nombre completo</label><input type="text" id="f-name" required /></div>
+        <div class="field"><label>Correo electrónico</label><input type="email" id="f-email" required /></div>
+        <div class="field"><label>Teléfono</label><input type="tel" id="f-phone" required /></div>
+        <div class="field"><label>Crea una contraseña</label><input type="password" id="f-password" minlength="6" required /></div>
+        <button type="submit" class="btn btn-gold form-submit" id="submit-btn">Reservar mi copia →</button>
+        <div class="form-msg" id="form-msg"></div>
+      </form>
+      <div class="login-link">¿Ya reservaste? <a href="book1-reader.html">Inicia sesión aquí</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 ALTONEXO ACADEMY · English Altonexo Academy Book 1</div>
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://qmpoxscqjgtnlipadnmq.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_AbWohQb6y4oozbcH-t4nyw_PrDW8n4G';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const form = document.getElementById('reserve-form');
+const msgBox = document.getElementById('form-msg');
+const submitBtn = document.getElementById('submit-btn');
+
+function showMsg(text, type){
+  msgBox.textContent = text;
+  msgBox.className = 'form-msg show ' + type;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Procesando...';
+
+  const full_name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const password = document.getElementById('f-password').value;
+
+  try {
+    // 1. Create the student account
+    const { data: signUpData, error: signUpError } = await sb.auth.signUp({ email, password });
+    if (signUpError) throw signUpError;
+
+    const user = signUpData.user;
+    if (!user) throw new Error('No se pudo crear la cuenta. Intenta de nuevo.');
+
+    // 2. Create profile row (not admin)
+    await sb.from('profiles').insert({ id: user.id, is_admin: false });
+
+    // 3. Create the reservation (pending, cash)
+    const { error: purchaseError } = await sb.from('book_purchases').insert({
+      user_id: user.id,
+      full_name,
+      email,
+      phone,
+      book_id: 'book1',
+      payment_method: 'cash',
+      amount: 14.99,
+      status: 'pending'
+    });
+    if (purchaseError) throw purchaseError;
+
+    showMsg('¡Reserva creada! Visítanos para pagar en efectivo y desbloquear tu libro. Revisa tu correo para confirmar tu cuenta si es necesario.', 'success');
+    form.reset();
+  } catch (err) {
+    showMsg(err.message || 'Ocurrió un error. Intenta de nuevo.', 'error');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Reservar mi copia →';
+  }
+});
+</script>
+
+</body>
+</html>

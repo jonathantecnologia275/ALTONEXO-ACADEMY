@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mi Libro — English Altonexo Academy | ALTONEXO ACADEMY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A;
+  --gold:#E3A73B; --gold-hover:#CC9330; --gold-pale:#FBF0DA;
+  --surface:#FFFFFF; --surface-soft:#F5F6FA; --border:#E3E6F0;
+  --ink:#0B0F2E; --ink-soft:#5B6178;
+  --green:#1E8E5A; --green-pale:#E7F5EE;
+  --amber:#B8871F; --amber-pale:#FBF0DA;
+  --font:"Manrope", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:var(--surface-soft); color:var(--ink); min-height:100vh;}
+.wrap{max-width:960px; margin:0 auto; padding:0 24px;}
+
+.nav{background:#fff; border-bottom:1px solid var(--border);}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:960px; margin:0 auto;}
+.nav-brand{display:flex; align-items:center; gap:9px; font-weight:800; font-size:15px; text-decoration:none; color:var(--ink);}
+.nav-brand .dot{width:9px; height:9px; border-radius:50%; background:var(--gold);}
+.nav-actions{display:flex; align-items:center; gap:14px;}
+.nav-actions button, .nav-actions a{font-size:13px; font-weight:600; color:var(--ink-soft); background:none; border:none; cursor:pointer; text-decoration:none;}
+.nav-actions button:hover, .nav-actions a:hover{color:var(--navy);}
+
+.center-screen{min-height:70vh; display:flex; align-items:center; justify-content:center; padding:40px 20px;}
+
+/* LOGIN CARD */
+.login-card{background:#fff; border-radius:16px; padding:34px; width:100%; max-width:380px; box-shadow:0 20px 50px -20px rgba(11,15,46,.15);}
+.login-card h1{font-size:19px; font-weight:800; color:var(--navy); margin:0 0 4px;}
+.login-card p.sub{font-size:12.5px; color:var(--ink-soft); margin:0 0 22px;}
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.field input{width:100%; padding:10px 13px; border:1.5px solid var(--border); border-radius:8px; font-size:13.5px; font-family:var(--font); outline:none;}
+.field input:focus{border-color:var(--gold);}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:700; font-size:14px; padding:13px 22px; border-radius:9px; text-decoration:none; border:none; cursor:pointer; width:100%;}
+.btn-gold{background:var(--gold); color:var(--navy);}
+.btn-gold:hover{background:var(--gold-hover);}
+.form-msg{margin-top:14px; padding:11px 13px; border-radius:9px; font-size:12px; display:none;}
+.form-msg.show{display:block;}
+.form-msg.error{background:#FAEAF1; color:#C24E7A;}
+.reg-link{text-align:center; margin-top:16px; font-size:12.5px; color:var(--ink-soft);}
+.reg-link a{color:var(--gold-hover); font-weight:700; text-decoration:none;}
+
+/* STATUS SCREENS */
+.status-card{background:#fff; border-radius:16px; padding:40px; max-width:480px; text-align:center; box-shadow:0 20px 50px -20px rgba(11,15,46,.15);}
+.status-icon{width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 18px;}
+.status-icon.pending{background:var(--amber-pale);}
+.status-icon.none{background:var(--surface-soft);}
+.status-icon svg{width:26px; height:26px; stroke-width:1.8; fill:none;}
+.status-icon.pending svg{stroke:var(--amber);}
+.status-icon.none svg{stroke:var(--ink-soft);}
+.status-card h2{font-size:18px; font-weight:800; color:var(--navy); margin:0 0 10px;}
+.status-card p{font-size:13.5px; color:var(--ink-soft); margin:0 0 8px; line-height:1.6;}
+.address-box{background:var(--surface-soft); border-radius:9px; padding:12px 14px; font-size:12px; color:var(--ink-soft); margin-top:16px;}
+
+/* LIBRARY */
+.library{padding:40px 0 60px;}
+.lib-head{margin-bottom:28px;}
+.lib-head .eyebrow{font-size:11.5px; font-weight:700; color:var(--gold-hover); text-transform:uppercase; letter-spacing:.05em;}
+.lib-head h1{font-size:26px; font-weight:800; color:var(--navy); margin:6px 0 0;}
+.lesson-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;}
+.lesson-card{background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px; text-decoration:none; color:var(--ink); transition:transform .15s, box-shadow .15s;}
+.lesson-card:hover{transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(11,15,46,.15); border-color:var(--gold);}
+.lesson-card .num{font-family:monospace; font-size:10.5px; font-weight:700; color:var(--gold-hover); background:var(--gold-pale); display:inline-block; padding:3px 9px; border-radius:8px; margin-bottom:10px;}
+.lesson-card .title{font-size:13.5px; font-weight:700; color:var(--navy); line-height:1.35;}
+
+@media (max-width: 700px){
+  .lesson-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width: 420px){
+  .lesson-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand"><span class="dot"></span>ALTONEXO ACADEMY</a>
+    <div class="nav-actions" id="nav-actions"></div>
+  </div>
+</nav>
+
+<div id="app"></div>
+
+<script>
+const SUPABASE_URL = 'https://qmpoxscqjgtnlipadnmq.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_AbWohQb6y4oozbcH-t4nyw_PrDW8n4G';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const app = document.getElementById('app');
+const navActions = document.getElementById('nav-actions');
+
+// Update this list as new lessons are added to the manuscript folder.
+const LESSONS = [
+  { n: 1, title: 'Hello & Hi', file: 'book1-lessons/02-module1-lesson1.html' },
+  { n: 2, title: 'Good Morning', file: 'book1-lessons/03-module1-lesson2.html' },
+  { n: 3, title: 'Good Afternoon', file: 'book1-lessons/04-module1-lesson3.html' },
+  { n: 4, title: 'Good Evening', file: 'book1-lessons/05-module1-lesson4.html' },
+  { n: 5, title: 'Good Night', file: 'book1-lessons/06-module1-lesson5.html' },
+  { n: 6, title: 'Goodbye', file: 'book1-lessons/07-module1-lesson6.html' },
+  { n: 7, title: 'Nice to Meet You', file: 'book1-lessons/08-module1-lesson7.html' },
+  { n: 8, title: 'How Are You?', file: 'book1-lessons/09-module1-lesson8.html' },
+  { n: 9, title: 'More Ways to Answer', file: 'book1-lessons/10-module1-lesson9.html' },
+  { n: 10, title: 'Formal vs. Informal Greetings', file: 'book1-lessons/11-module1-lesson10.html' },
+  { n: 11, title: 'Greetings in School', file: 'book1-lessons/12-module1-lesson11.html' },
+  { n: 12, title: 'Greetings at Work', file: 'book1-lessons/13-module1-lesson12.html' },
+  { n: 13, title: 'Greetings on the Phone', file: 'book1-lessons/14-module1-lesson13.html' },
+  { n: 14, title: 'Greetings in Emails', file: 'book1-lessons/15-module1-lesson14.html' },
+  { n: 15, title: 'Greetings in Real-Life Situations', file: 'book1-lessons/16-module1-lesson15.html' },
+  { n: 16, title: 'Review & Practice', file: 'book1-lessons/17-module1-lesson16.html' },
+  { n: 17, title: 'Speaking Assessment 1', file: 'book1-lessons/18-module1-lesson17.html' },
+  { n: 18, title: 'Classroom Instructions', file: 'book1-lessons/19-module1-lesson18.html' },
+  { n: 19, title: 'Classroom Language', file: 'book1-lessons/20-module1-lesson19.html' },
+  { n: 20, title: 'Polite Expressions', file: 'book1-lessons/21-module1-lesson20.html' },
+  { n: 21, title: 'Everyday Expressions', file: 'book1-lessons/22-module1-lesson21.html' },
+  { n: 22, title: 'Basic Questions', file: 'book1-lessons/23-module1-lesson22.html' },
+  { n: 23, title: 'Basic Answers', file: 'book1-lessons/24-module1-lesson23.html' },
+  { n: 24, title: 'Saying Yes and No', file: 'book1-lessons/25-module1-lesson24.html' },
+  { n: 25, title: 'Numbers 0-20', file: 'book1-lessons/26-module1-lesson25.html' },
+  { n: 26, title: 'Numbers 21-100', file: 'book1-lessons/27-module1-lesson26.html' },
+  { n: 27, title: 'Large Numbers', file: 'book1-lessons/28-module1-lesson27.html' },
+  { n: 28, title: 'Ordinal Numbers', file: 'book1-lessons/29-module1-lesson28.html' },
+  { n: 29, title: 'Days of the Week', file: 'book1-lessons/30-module1-lesson29.html' },
+  { n: 30, title: 'Months of the Year', file: 'book1-lessons/31-module1-lesson30.html' },
+];
+
+function renderLogin(errorMsg) {
+  navActions.innerHTML = '';
+  app.innerHTML = `
+    <div class="center-screen">
+      <div class="login-card">
+        <h1>Accede a tu libro</h1>
+        <p class="sub">Inicia sesión con la cuenta que creaste al reservar.</p>
+        <form id="login-form">
+          <div class="field"><label>Correo electrónico</label><input type="email" id="l-email" required /></div>
+          <div class="field"><label>Contraseña</label><input type="password" id="l-password" required /></div>
+          <button type="submit" class="btn btn-gold">Iniciar sesión →</button>
+          <div class="form-msg ${errorMsg ? 'show error' : ''}" id="login-msg">${errorMsg || ''}</div>
+        </form>
+        <div class="reg-link">¿Aún no reservaste tu copia? <a href="book1.html">Reserva aquí</a></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('l-email').value.trim();
+    const password = document.getElementById('l-password').value;
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      renderLogin('Correo o contraseña incorrectos. Intenta de nuevo.');
+      return;
+    }
+    checkAccessAndRender();
+  });
+}
+
+function renderStatus(kind) {
+  const configs = {
+    pending: {
+      icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>`,
+      iconClass: 'pending',
+      title: 'Tu pago está pendiente',
+      body: `Ya tenemos tu reserva. Visítanos en nuestra oficina para completar el pago en efectivo — desbloquearemos tu libro el mismo día que confirmemos el pago.`,
+      showAddress: true
+    },
+    none: {
+      icon: `<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+      iconClass: 'none',
+      title: 'Aún no tienes una reserva',
+      body: `No encontramos ninguna reserva del libro asociada a tu cuenta.`,
+      showAddress: false
+    }
+  };
+  const c = configs[kind];
+  app.innerHTML = `
+    <div class="center-screen">
+      <div class="status-card">
+        <div class="status-icon ${c.iconClass}">${c.icon}</div>
+        <h2>${c.title}</h2>
+        <p>${c.body}</p>
+        ${c.showAddress ? `<div class="address-box">📍 Alto de Friusa, Av. España, Plaza Stephanie, Bávaro — Lunes a Sábado, 9:00 AM – 6:00 PM</div>` : `<a href="book1.html" class="btn btn-gold" style="margin-top:16px; display:inline-flex; width:auto;">Reservar mi copia →</a>`}
+      </div>
+    </div>
+  `;
+}
+
+function renderLibrary() {
+  const cards = LESSONS.map(l => `
+    <a class="lesson-card" href="${l.file}" target="_blank" rel="noopener">
+      <div class="num">Lección ${l.n}</div>
+      <div class="title">${l.title}</div>
+    </a>
+  `).join('');
+  app.innerHTML = `
+    <div class="wrap library">
+      <div class="lib-head">
+        <div class="eyebrow">Módulo 1 · English Foundations</div>
+        <h1>Tu libro — ${LESSONS.length} lecciones disponibles</h1>
+      </div>
+      <div class="lesson-grid">${cards}</div>
+    </div>
+  `;
+}
+
+function renderNavLoggedIn() {
+  navActions.innerHTML = `<button id="logout-btn">Cerrar sesión</button>`;
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await sb.auth.signOut();
+    renderLogin();
+  });
+}
+
+async function checkAccessAndRender() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) {
+    renderLogin();
+    return;
+  }
+  renderNavLoggedIn();
+
+  const { data: purchases, error } = await sb
+    .from('book_purchases')
+    .select('status')
+    .eq('user_id', session.user.id)
+    .eq('book_id', 'book1')
+    .order('created_at', { ascending: false })
+    .limit(1);
+
+  if (error || !purchases || purchases.length === 0) {
+    renderStatus('none');
+    return;
+  }
+
+  const status = purchases[0].status;
+  if (status === 'completed') {
+    renderLibrary();
+  } else {
+    renderStatus('pending');
+  }
+}
+
+checkAccessAndRender();
+</script>
+
+</body>
+</html>

@@ -63,6 +63,8 @@ ul{margin:0; padding:0;}
 .navlinks a{font-size:14px; font-weight:600; color:rgba(255,255,255,.7); padding:8px 16px; border-radius:20px; transition:all .25s var(--ease);}
 .navlinks a:hover{color:#fff;}
 .navlinks a.active{background:var(--gold); color:var(--navy);}
+.navlinks a.nav-book-link{color:var(--gold); display:flex; align-items:center; gap:6px;}
+.navlinks a.nav-book-link:hover{color:var(--gold-hover);}
 .nav-actions{display:flex; align-items:center; gap:10px;}
 .lang-select{
   appearance:none; background:transparent; border:1px solid rgba(255,255,255,.25); color:#fff;
@@ -242,6 +244,7 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
       <li><a href="#programas" data-i18n="nav_programs">Programas</a></li>
       <li><a href="#precios" data-i18n="nav_pricing">Precios</a></li>
       <li><a href="#testimonios" data-i18n="nav_testi">Testimonios</a></li>
+      <li><a href="book1.html" class="nav-book-link">📘 <span data-i18n="nav_book">Libro</span></a></li>
       <li><a href="#contacto" data-i18n="nav_contact">Contacto</a></li>
     </ul>
     <div class="nav-actions">
@@ -434,6 +437,7 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
           <li><a href="#nosotros" data-i18n="nav_about">Nosotros</a></li>
           <li><a href="#testimonios" data-i18n="nav_testi">Testimonios</a></li>
           <li><a href="#precios" data-i18n="nav_pricing">Precios</a></li>
+          <li><a href="book1.html" data-i18n="nav_book">Libro</a></li>
         </ul>
       </div>
       <div class="foot-col">
@@ -463,7 +467,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 
 const siteTranslations = {
   es: {
-    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_contact:"Contacto", nav_enroll:"Inscríbete",
+    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_contact:"Contacto", nav_enroll:"Inscríbete", nav_book:"Libro",
     hero_pill:"📍 Punta Cana, República Dominicana",
     hero_title:"Tu conexión <span class=\"accent\">con el éxito.</span>",
     hero_lead:"Formación profesional en idiomas, belleza, tecnología y fotografía, con profesores nativos e instructores certificados. Modalidad presencial y virtual.",
@@ -502,7 +506,7 @@ const siteTranslations = {
     level_basic:"Básico", level_inter:"Intermedio", level_adv:"Avanzado"
   },
   en: {
-    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_contact:"Contact", nav_enroll:"Enroll now",
+    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_contact:"Contact", nav_enroll:"Enroll now", nav_book:"Book",
     hero_pill:"📍 Punta Cana, Dominican Republic",
     hero_title:"Your connection <span class=\"accent\">to success.</span>",
     hero_lead:"Professional training in languages, beauty, technology, and photography, with native-speaking teachers and certified instructors. In-person and online.",
@@ -541,7 +545,7 @@ const siteTranslations = {
     level_basic:"Basic", level_inter:"Intermediate", level_adv:"Advanced"
   },
   fr: {
-    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_contact:"Contact", nav_enroll:"Inscrivez-vous",
+    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_contact:"Contact", nav_enroll:"Inscrivez-vous", nav_book:"Livre",
     hero_pill:"📍 Punta Cana, République Dominicaine",
     hero_title:"Votre connexion <span class=\"accent\">vers le succès.</span>",
     hero_lead:"Formation professionnelle en langues, beauté, technologie et photographie, avec des professeurs natifs et des instructeurs certifiés. Présentiel et en ligne.",
@@ -580,7 +584,7 @@ const siteTranslations = {
     level_basic:"Débutant", level_inter:"Intermédiaire", level_adv:"Avancé"
   },
   ht: {
-    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_contact:"Kontak", nav_enroll:"Enskri kounya",
+    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_contact:"Kontak", nav_enroll:"Enskri kounya", nav_book:"Liv",
     hero_pill:"📍 Punta Cana, Repiblik Dominikèn",
     hero_title:"Koneksyon ou <span class=\"accent\">ak siksè.</span>",
     hero_lead:"Fòmasyon pwofesyonèl nan lang, bote, teknoloji ak fotografi, ak pwofesè natif ak enstriktè sètifye. Prezansyèl ak vityèl.",
@@ -619,7 +623,7 @@ const siteTranslations = {
     level_basic:"Debitan", level_inter:"Entèmedyè", level_adv:"Avanse"
   },
   pt: {
-    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_contact:"Contato", nav_enroll:"Inscreva-se",
+    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_contact:"Contato", nav_enroll:"Inscreva-se", nav_book:"Livro",
     hero_pill:"📍 Punta Cana, República Dominicana",
     hero_title:"Sua conexão <span class=\"accent\">com o sucesso.</span>",
     hero_lead:"Formação profissional em idiomas, beleza, tecnologia e fotografia, com professores nativos e instrutores certificados. Presencial e online.",

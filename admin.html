@@ -212,6 +212,7 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
       <button data-panel="panelTesti"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9.2 8.4 8.6 8.6 0 0 1-3-.6L3 21l1.7-5a8.4 8.4 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>Testimonios</button>
       <button data-panel="panelPartners"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="7" height="7" rx="1"/><rect x="14" y="6" width="7" height="7" rx="1"/><rect x="3" y="17" width="7" height="4" rx="1"/><rect x="14" y="17" width="7" height="4" rx="1"/></svg>Aliados</button>
       <button data-panel="panelMessages"><svg viewBox="0 0 24 24"><path d="M4 4h16v14H8l-4 4z"/></svg>Mensajes <span id="unreadBadge" class="badge" style="margin-left:auto; display:none;"></span></button>
+      <button data-panel="panelLibros"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Libros <span id="pendingLibrosBadge" class="badge" style="margin-left:auto; display:none;"></span></button>
     </nav>
     <div class="logout">
       <button id="logoutBtn"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8; margin-right:8px; display:inline-block; vertical-align:-3px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Cerrar sesión</button>
@@ -409,6 +410,31 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
         <table>
           <thead><tr><th>Fecha</th><th>Nombre</th><th>Correo / Teléfono</th><th>Mensaje</th><th>Acciones</th></tr></thead>
           <tbody id="messagesTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- LIBROS PANEL -->
+    <section class="panel" id="panelLibros">
+      <div class="main-header"><div><h1>Reservas del Libro 1</h1><p>Confirma los pagos en efectivo para desbloquear el acceso del estudiante.</p></div></div>
+      <div class="card">
+        <div class="grid-2" style="grid-template-columns:1fr 1fr 1fr; margin-bottom:22px;">
+          <div>
+            <p style="font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-bottom:4px;">Pendientes</p>
+            <h2 style="font-size:24px;" id="lb_stat_pending">–</h2>
+          </div>
+          <div>
+            <p style="font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-bottom:4px;">Completados</p>
+            <h2 style="font-size:24px;" id="lb_stat_completed">–</h2>
+          </div>
+          <div>
+            <p style="font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.04em; margin-bottom:4px;">Total recaudado</p>
+            <h2 style="font-size:24px;" id="lb_stat_total">–</h2>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>Fecha</th><th>Nombre</th><th>Correo / Teléfono</th><th>Monto</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody id="librosTableBody"></tbody>
         </table>
       </div>
     </section>
@@ -849,6 +875,66 @@ window.deleteMessage = async (id)=>{
 };
 
 /* ============================================================
+   BOOK PURCHASES (Libros)
+============================================================ */
+async function loadLibros(){
+  const { data, error } = await supabaseClient.from('book_purchases').select('*').order('created_at', {ascending:false});
+  const tbody = document.getElementById('librosTableBody');
+  if(error || !data || !data.length){
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No hay reservas todavía.</td></tr>';
+    document.getElementById('lb_stat_pending').textContent = '0';
+    document.getElementById('lb_stat_completed').textContent = '0';
+    document.getElementById('lb_stat_total').textContent = '$0.00';
+    updatePendingLibrosBadge(0);
+    return;
+  }
+  const pendingCount = data.filter(p=>p.status==='pending').length;
+  const completedCount = data.filter(p=>p.status==='completed').length;
+  const totalAmount = data.filter(p=>p.status==='completed').reduce((s,p)=>s+Number(p.amount||0),0);
+  document.getElementById('lb_stat_pending').textContent = pendingCount;
+  document.getElementById('lb_stat_completed').textContent = completedCount;
+  document.getElementById('lb_stat_total').textContent = '$'+totalAmount.toFixed(2);
+  updatePendingLibrosBadge(pendingCount);
+
+  tbody.innerHTML = data.map(p=>{
+    const badgeColor = p.status==='completed' ? 'var(--green)' : (p.status==='cancelled' ? 'var(--red)' : 'var(--gold)');
+    const badgeText = p.status==='completed' ? 'Completado' : (p.status==='cancelled' ? 'Cancelado' : 'Pendiente');
+    const canAct = p.status === 'pending';
+    return `
+      <tr>
+        <td>${new Date(p.created_at).toLocaleString('es-DO', {dateStyle:'short', timeStyle:'short'})}</td>
+        <td><b>${p.full_name}</b></td>
+        <td>${p.email || ''}${p.phone ? '<br>'+p.phone : ''}</td>
+        <td>$${Number(p.amount).toFixed(2)}</td>
+        <td><span class="badge" style="background:${badgeColor}; color:#fff;">${badgeText}</span></td>
+        <td class="actions">
+          <button class="btn btn-outline btn-sm" ${canAct?'':'disabled'} onclick="confirmLibro('${p.id}')">Confirmar pago</button>
+          <button class="btn btn-danger btn-sm" ${canAct?'':'disabled'} onclick="cancelLibro('${p.id}')">Cancelar</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+function updatePendingLibrosBadge(count){
+  const badge = document.getElementById('pendingLibrosBadge');
+  if(count > 0){ badge.textContent = count; badge.style.display='inline-block'; badge.style.background='var(--gold)'; badge.style.color='var(--navy)'; }
+  else { badge.style.display = 'none'; }
+}
+window.confirmLibro = async (id)=>{
+  if(!confirm('¿Confirmar que este pago en efectivo fue recibido? Esto desbloqueará el libro para el estudiante.')) return;
+  const { data: { user } } = await supabaseClient.auth.getUser();
+  const { error } = await supabaseClient.from('book_purchases').update({ status:'completed', confirmed_at: new Date().toISOString(), confirmed_by: user.id }).eq('id', id);
+  showToast(error ? 'Error al confirmar' : 'Pago confirmado — acceso desbloqueado');
+  loadLibros();
+};
+window.cancelLibro = async (id)=>{
+  if(!confirm('¿Cancelar esta reserva?')) return;
+  const { error } = await supabaseClient.from('book_purchases').update({ status:'cancelled' }).eq('id', id);
+  showToast(error ? 'Error al cancelar' : 'Reserva cancelada');
+  loadLibros();
+};
+
+/* ============================================================
    INIT
 ============================================================ */
 async function loadAllData(){
@@ -858,6 +944,7 @@ async function loadAllData(){
   loadTesti();
   loadPartners();
   loadMessages();
+  loadLibros();
 }
 checkSession();
 </script>

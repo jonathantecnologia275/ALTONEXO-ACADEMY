@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 1 · Lesson 20 — Polite Expressions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A; --navy-light:#161C4A;
+  --gold:#E3A73B; --gold-bright:#F5D783; --gold-pale:#FBF0DA;
+  --ink:#0B0F2E; --ink-soft:#5B6178; --ice:#F3F5FB; --ice-dim:#E4E8F5; --white:#FFFFFF;
+  --green:#1E8E5A; --green-pale:#E7F5EE; --blue:#2E6FD6; --blue-pale:#E9F1FC; --pink:#C24E7A; --pink-pale:#FAEAF1;
+  --font:"Manrope", sans-serif; --mono:"Space Grotesk", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:#3a3d4a; color:var(--ink); padding:40px 20px;}
+h1,h2,h3,h4{margin:0;} p{margin:0; line-height:1.55;}
+.page-label{max-width:816px; margin:0 auto 8px; color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;}
+.page{width:816px; height:1056px; background:var(--white); margin:0 auto 34px; box-shadow:0 20px 50px rgba(0,0,0,.4); padding:54px 58px 44px; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.page-header{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); border-bottom:1px solid var(--ice-dim); padding-bottom:12px; margin-bottom:22px;}
+.page-header .brand{color:var(--gold); font-weight:700;}
+.page-footer{position:absolute; bottom:24px; left:58px; right:58px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-soft); border-top:1px solid var(--ice-dim); padding-top:12px;}
+.page-body{flex:1; display:flex; flex-direction:column; gap:22px; min-height:0;}
+.lesson-cover{background:linear-gradient(160deg, var(--navy), var(--navy-deep)); color:#fff; padding:32px 34px; border-radius:14px; position:relative; overflow:hidden; margin-bottom:6px;}
+.lesson-cover::before{content:""; position:absolute; top:-80px; right:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.2), transparent 70%);}
+.crumbs{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:10px; position:relative;}
+.lesson-title{font-size:30px; font-weight:800; position:relative;}
+.lesson-title .es{font-size:14px; font-weight:600; color:rgba(255,255,255,.65); font-style:italic; margin-top:5px;}
+.lesson-badges{display:flex; gap:8px; margin-top:14px; position:relative; flex-wrap:wrap;}
+.badge{font-family:var(--mono); font-size:10px; font-weight:700; padding:5px 12px; border-radius:14px;}
+.badge-gold{background:var(--gold); color:var(--navy);}
+.badge-outline{border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85);}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+.section-num{width:26px; height:26px; border-radius:7px; background:var(--navy); color:var(--gold-bright); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:12px; flex-shrink:0;}
+.section-title{font-size:14.5px; font-weight:800; color:var(--navy);}
+.section-title .es{font-size:11.5px; font-weight:600; color:var(--ink-soft); font-style:italic;}
+.obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.obj-card{background:var(--gold-pale); border-radius:10px; padding:13px; border:1px solid rgba(227,167,59,.3);}
+.obj-card svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.8; margin-bottom:6px;}
+.obj-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; line-height:1.35;}
+.obj-card p.es{font-size:10px; color:var(--ink-soft); font-style:italic; line-height:1.35;}
+.intro-box{display:flex; gap:14px; align-items:flex-start;}
+.intro-icon{width:36px; height:36px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.intro-icon svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.intro-text p.en{font-size:12.5px; margin-bottom:7px;}
+.intro-text p.es{font-size:11.5px; color:var(--ink-soft); font-style:italic;}
+.big4-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+.big4-card{background:var(--gold-pale); border-radius:10px; padding:14px 8px; text-align:center;}
+.big4-card .en{font-weight:800; font-size:13px; color:var(--navy);}
+.big4-card .es{font-size:10px; color:var(--ink-soft); font-style:italic; margin-top:4px;}
+.vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:9px;}
+.vocab-card{background:var(--ice); border-radius:9px; padding:11px 13px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.vocab-word{font-weight:800; font-size:13px; color:var(--navy);}
+.vocab-phon{font-family:var(--mono); font-size:10px; color:var(--ink-soft);}
+.vocab-es{font-size:11px; color:var(--ink-soft); font-style:italic; text-align:right;}
+.pron-row{display:flex; flex-wrap:wrap; gap:8px;}
+.pron-chip{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; font-weight:600; padding:7px 13px; border-radius:16px;}
+.pron-note{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.grammar-box{background:var(--pink-pale); border-left:4px solid var(--pink); border-radius:0 9px 9px 0; padding:13px 16px;}
+.grammar-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.grammar-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.chat{display:flex; flex-direction:column; gap:9px; max-width:470px;}
+.chat-row{display:flex; gap:8px; align-items:flex-end;}
+.chat-row.right{flex-direction:row-reverse;}
+.chat-avatar{width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:11px; flex-shrink:0;}
+.chat-row.left .chat-avatar{background:var(--navy); color:var(--gold-bright);}
+.chat-row.right .chat-avatar{background:var(--gold); color:var(--navy);}
+.chat-bubble{padding:8px 13px; border-radius:14px; font-size:11.5px; max-width:320px;}
+.chat-row.left .chat-bubble{background:var(--ice); border-bottom-left-radius:3px;}
+.chat-row.right .chat-bubble{background:var(--gold-pale); border-bottom-right-radius:3px;}
+.chat-bubble .es{display:block; font-size:10px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.practice-box{background:var(--ice); border-radius:10px; padding:15px;}
+.practice-box .instr{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.practice-box .instr .es{display:block; font-weight:500; font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.practice-box .content{font-size:11.5px; color:var(--ink-soft);}
+.reading-passage{font-size:12.5px; line-height:1.7; font-style:italic; color:var(--navy); border-left:3px solid var(--gold); padding-left:14px;}
+.reading-passage .es{display:block; font-size:11px; margin-top:7px; color:var(--ink-soft); font-style:normal;}
+.writing-lines{border-bottom:1px dashed var(--ice-dim); height:22px; margin-top:6px;}
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:30px; max-width:420px;}
+.match-col{display:flex; flex-direction:column; gap:8px;}
+.match-item{background:var(--ice); border-radius:7px; padding:8px 12px; font-size:11.5px; font-weight:600; text-align:center;}
+.fill-blank{font-size:12px; margin-top:12px; padding:10px 14px; background:var(--blue-pale); border-radius:9px;}
+.fill-blank .blank{border-bottom:2px solid var(--blue); padding:0 16px; font-weight:700;}
+.quiz-item{margin-bottom:12px;}
+.quiz-q{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.quiz-opts{display:flex; gap:8px; flex-wrap:wrap;}
+.quiz-opt{border:1px solid var(--ice-dim); border-radius:7px; padding:6px 12px; font-size:11px;}
+.task-card{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:15px;}
+.task-card svg{width:18px; height:18px; stroke:var(--green); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:1px;}
+.task-card p.en{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:3px;}
+.task-card p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.review-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.review-tags span{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11px; padding:5px 12px; border-radius:12px;}
+.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px;}
+.check-list li{display:flex; align-items:flex-start; gap:8px; font-size:12px;}
+.check-list li svg{width:16px; height:16px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px;}
+.check-list li .es{color:var(--ink-soft); font-style:italic;}
+.answer-box{background:var(--navy); color:#fff; border-radius:10px; padding:16px;}
+.answer-box .label{font-family:var(--mono); font-size:10px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;}
+.answer-box ol{margin:0; padding-left:16px; font-size:12px; line-height:1.8;}
+.summary-box{background:var(--gold-pale); border-radius:10px; padding:16px; border:1px solid rgba(227,167,59,.35);}
+.summary-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:6px;}
+.summary-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.next-box{display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff; border-radius:10px; padding:18px 22px;}
+.next-box .label{font-family:var(--mono); font-size:10px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px;}
+.next-box .title{font-size:15px; font-weight:800;}
+.next-box .es{font-size:11px; color:rgba(255,255,255,.65); font-style:italic; margin-top:3px;}
+.next-box svg{width:20px; height:20px; stroke:var(--gold-bright); fill:none; stroke-width:2;}
+.spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<div class="page-label">Página 1 / Page 1 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 20</span></div>
+  <div class="page-body">
+    <div class="lesson-cover">
+      <div class="crumbs">Module 1 · English Foundations — Lesson 20 of 56</div>
+      <div class="lesson-title">Polite Expressions<div class="es">Lección 20 — Expresiones de cortesía</div></div>
+      <div class="lesson-badges"><span class="badge badge-gold">Level A0</span><span class="badge badge-outline">10–12 min</span><span class="badge badge-outline">🎧 Audio</span><span class="badge badge-outline">🎬 Video</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">1</div><div class="section-title">Objectives <span class="es">· Objetivos</span></div></div>
+      <div class="obj-grid">
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Use the 4 essential polite words</p><p class="es">Usar las 4 palabras de cortesía esenciales</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Apologize appropriately</p><p class="es">Disculparte apropiadamente</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Sound polite in daily interactions</p><p class="es">Sonar cortés en interacciones diarias</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">2</div><div class="section-title">Introduction <span class="es">· Introducción</span></div></div>
+      <div class="intro-box">
+        <div class="intro-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <div class="intro-text">
+          <p class="en">American English speakers use polite words constantly — much more often than many other languages. "Please" and "Thank you" are used in almost every request, even between close friends.</p>
+          <p class="es">Los hablantes de inglés americano usan palabras de cortesía constantemente — mucho más que en muchos otros idiomas. "Please" y "Thank you" se usan en casi cada petición, incluso entre amigos cercanos.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">3</div><div class="section-title">Detailed Explanation <span class="es">· Explicación detallada</span></div></div>
+      <div class="big4-grid">
+        <div class="big4-card"><div class="en">Please</div><div class="es">Por favor</div></div>
+        <div class="big4-card"><div class="en">Thank you</div><div class="es">Gracias</div></div>
+        <div class="big4-card"><div class="en">You're welcome</div><div class="es">De nada</div></div>
+        <div class="big4-card"><div class="en">Excuse me</div><div class="es">Disculpe</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 1 / Page 1</span></div>
+</div>
+
+<div class="page-label">Página 2 / Page 2 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 20</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">4</div><div class="section-title">Vocabulary <span class="es">· Vocabulario</span></div></div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div><div class="vocab-word">Please</div><div class="vocab-phon">/pliːz/</div></div><div class="vocab-es">Por favor</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Thank you / Thanks</div><div class="vocab-phon">/θæŋk juː/</div></div><div class="vocab-es">Gracias</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">You're welcome</div><div class="vocab-phon">/jʊr ˈwɛlkəm/</div></div><div class="vocab-es">De nada</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Excuse me</div><div class="vocab-phon">/ɪkˈskjuːz miː/</div></div><div class="vocab-es">Disculpe</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">I'm sorry</div><div class="vocab-phon">/aɪm ˈsɒri/</div></div><div class="vocab-es">Lo siento</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">No problem</div><div class="vocab-phon">/noʊ ˈprɒbləm/</div></div><div class="vocab-es">No hay problema</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">5</div><div class="section-title">Pronunciation <span class="es">· Pronunciación</span></div></div>
+      <div class="pron-row"><div class="pron-chip">ex-CUSE me</div><div class="pron-chip">I'm SOR-ry</div></div>
+      <p class="pron-note" style="margin-top:8px;">"Excuse me" is used both to get attention and to apologize for a small interruption. / "Excuse me" se usa para llamar la atención y para disculparse por una pequeña interrupción.</p>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">6</div><div class="section-title">Grammar <span class="es">· Gramática</span></div></div>
+      <div class="grammar-box"><p class="en">"Excuse me" (before an interruption) is different from "I'm sorry" (after a mistake). Native speakers choose carefully based on timing.</p><p class="es">"Excuse me" (antes de interrumpir) es diferente de "I'm sorry" (después de un error). Los nativos eligen cuidadosamente según el momento.</p></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">7</div><div class="section-title">Dialogues <span class="es">· Diálogos</span></div></div>
+      <div class="chat">
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Excuse me, can you help me, please?<span class="es">Disculpe, ¿puede ayudarme, por favor?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Of course! No problem at all.<span class="es">¡Por supuesto! No hay ningún problema.</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Thank you so much!<span class="es">¡Muchas gracias!</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">You're welcome!<span class="es">¡De nada!</span></div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 2 / Page 2</span></div>
+</div>
+
+<div class="page-label">Página 3 / Page 3 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 20</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">8</div><div class="section-title">Listening <span class="es">· Comprensión auditiva</span></div></div><div class="practice-box"><div class="instr">🎧 Listen to the full polite exchange and repeat each line.<span class="es">Escucha el intercambio cortés completo y repite cada línea.</span></div><div class="content">Audio track: <b>M1-L20-dialogue.mp3</b></div></div></div>
+    <div><div class="section-head"><div class="section-num">9</div><div class="section-title">Speaking <span class="es">· Expresión oral</span></div></div><div class="practice-box"><div class="instr">💬 Practice asking for help politely and responding with "You're welcome."<span class="es">Practica pedir ayuda cortésmente y responder con "You're welcome."</span></div><div class="content">Alone? Say the full dialogue both parts, out loud.</div></div></div>
+    <div><div class="section-head"><div class="section-num">10</div><div class="section-title">Reading <span class="es">· Lectura</span></div></div><p class="reading-passage">"Excuse me, could you please pass the salt?" "Of course, here you go." "Thank you so much!" "You're welcome!"<span class="es">"Disculpe, ¿me pasa la sal, por favor?" "Claro, aquí tienes." "¡Muchas gracias!" "¡De nada!"</span></p></div>
+    <div><div class="section-head"><div class="section-num">11</div><div class="section-title">Writing <span class="es">· Escritura</span></div></div><div class="practice-box"><div class="instr">✍️ Write a short polite exchange using all 4 essential words.<span class="es">Escribe un intercambio cortés corto usando las 4 palabras esenciales.</span></div><div class="writing-lines"></div><div class="writing-lines"></div></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 3 / Page 3</span></div>
+</div>
+
+<div class="page-label">Página 4 / Page 4 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 20</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">12</div><div class="section-title">Interactive Exercises <span class="es">· Ejercicios interactivos</span></div></div>
+      <div class="match-grid"><div class="match-col"><div class="match-item">Please</div><div class="match-item">I'm sorry</div><div class="match-item">No problem</div></div><div class="match-col"><div class="match-item">No hay problema</div><div class="match-item">Por favor</div><div class="match-item">Lo siento</div></div></div>
+      <div class="fill-blank">Complete: "Thank you!" "You're ___!" <span class="blank">welcome</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">13</div><div class="section-title">Quiz</div></div>
+      <div class="quiz-item"><div class="quiz-q">1. Which phrase do you use BEFORE interrupting someone?</div><div class="quiz-opts"><span class="quiz-opt">A) I'm sorry</span><span class="quiz-opt">B) Excuse me</span><span class="quiz-opt">C) You're welcome</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">2. "You're welcome" is the response to...</div><div class="quiz-opts"><span class="quiz-opt">A) Please</span><span class="quiz-opt">B) Thank you</span><span class="quiz-opt">C) Excuse me</span></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 4 / Page 4</span></div>
+</div>
+
+<div class="page-label">Página 5 / Page 5 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 20</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">14</div><div class="section-title">Homework <span class="es">· Tarea</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M9 22V12h6v10M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><p class="en">Use all 4 essential polite words in English today, in real situations.</p><p class="es">Usa las 4 palabras de cortesía esenciales hoy, en situaciones reales.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">15</div><div class="section-title">Project <span class="es">· Proyecto</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg><div><p class="en">Create a small "politeness poster" with the 4 essential expressions and drawings.</p><p class="es">Crea un pequeño "póster de cortesía" con las 4 expresiones esenciales y dibujos.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">16</div><div class="section-title">Review <span class="es">· Repaso</span></div></div><div class="review-tags"><span>Please</span><span>Thank you</span><span>You're welcome</span><span>Excuse me</span><span>I'm sorry</span><span>No problem</span></div></div>
+    <div><div class="section-head"><div class="section-num">17</div><div class="section-title">Assessment <span class="es">· Evaluación</span></div></div>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can use the 4 essential polite words correctly. <span class="es">Puedo usar las 4 palabras de cortesía correctamente.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I know when to use "Excuse me" vs. "I'm sorry." <span class="es">Sé cuándo usar "Excuse me" o "I'm sorry."</span></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 5 / Page 5</span></div>
+</div>
+
+<div class="page-label">Página 6 / Page 6 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 1 · Lesson 20</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">18</div><div class="section-title">Answer Key <span class="es">· Hoja de respuestas</span></div></div><div class="answer-box"><div class="label">Quiz answers</div><ol><li>B) Excuse me</li><li>B) Thank you</li></ol></div></div>
+    <div><div class="section-head"><div class="section-num">19</div><div class="section-title">Summary <span class="es">· Resumen</span></div></div><div class="summary-box"><p class="en">Today you learned the 4 essential polite expressions that native English speakers use constantly, in nearly every interaction.</p><p class="es">Hoy aprendiste las 4 expresiones de cortesía esenciales que los hablantes nativos usan constantemente, en casi cada interacción.</p></div></div>
+    <div><div class="section-head"><div class="section-num">20</div><div class="section-title">Coming Up <span class="es">· Próxima lección</span></div></div><div class="next-box"><div><div class="label">Lesson 21</div><div class="title">Everyday Expressions</div><div class="es">Frases comunes de la vida diaria.</div></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 6 / Page 6</span></div>
+</div>
+
+</body>
+</html>
