@@ -101,6 +101,36 @@ section{padding:60px 0;}
 
 footer{padding:30px 0; text-align:center; font-size:12px; color:var(--ink-soft); border-top:1px solid var(--border);}
 
+/* RECEIPT */
+.receipt-card{background:#fff; border-radius:16px; padding:0; overflow:hidden; display:none;}
+.receipt-card.show{display:block;}
+.receipt-head{background:var(--navy); color:#fff; padding:26px 28px; text-align:center; position:relative;}
+.receipt-head .logo-row{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:14px;}
+.receipt-head .logo-box{width:34px; height:34px; border-radius:9px; overflow:hidden; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center;}
+.receipt-head .logo-box img{width:100%; height:100%; object-fit:cover;}
+.receipt-head .logo-row span{font-weight:800; font-size:14px;}
+.receipt-check{width:44px; height:44px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 10px;}
+.receipt-check svg{width:22px; height:22px; stroke:var(--navy); fill:none; stroke-width:2.4;}
+.receipt-head h3{font-size:16px; font-weight:800; margin:0 0 4px;}
+.receipt-head p{font-size:12px; color:rgba(255,255,255,.6);}
+.receipt-body{padding:24px 28px;}
+.receipt-ticket{text-align:center; border:1.5px dashed var(--border); border-radius:10px; padding:12px; margin-bottom:20px;}
+.receipt-ticket .lbl{font-size:10px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em;}
+.receipt-ticket .code{font-family:monospace; font-size:19px; font-weight:800; color:var(--navy); letter-spacing:.05em; margin-top:3px;}
+.receipt-row{display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--border); font-size:12.5px;}
+.receipt-row:last-child{border-bottom:none;}
+.receipt-row .k{color:var(--ink-soft);}
+.receipt-row .v{font-weight:700; color:var(--navy); text-align:right;}
+.receipt-status{display:inline-block; background:var(--gold-pale); color:#8C6E23; font-size:11px; font-weight:800; padding:4px 12px; border-radius:12px;}
+.receipt-actions{display:flex; gap:10px; margin-top:20px;}
+.receipt-actions button, .receipt-actions a{flex:1; text-align:center; justify-content:center;}
+@media print{
+  body *{visibility:hidden;}
+  .receipt-card, .receipt-card *{visibility:visible;}
+  .receipt-card{position:absolute; top:0; left:0; width:100%; box-shadow:none;}
+  .receipt-actions{display:none;}
+}
+
 @media (max-width: 860px){
   .hero-grid, .buy-grid{grid-template-columns:1fr;}
   .hero-cover{order:-1; margin-bottom:20px;}
@@ -182,7 +212,7 @@ footer{padding:30px 0; text-align:center; font-size:12px; color:var(--ink-soft);
       <div class="address-box">📍 Alto de Friusa, Av. España, Plaza Stephanie, Bávaro — Lunes a Sábado, 9:00 AM – 6:00 PM</div>
     </div>
 
-    <div class="form-card">
+    <div class="form-card" id="form-card">
       <h3>Crear mi reserva</h3>
       <p class="sub">Solo toma un minuto. Usarás este email y contraseña para acceder al libro.</p>
       <form id="reserve-form">
@@ -194,6 +224,36 @@ footer{padding:30px 0; text-align:center; font-size:12px; color:var(--ink-soft);
         <div class="form-msg" id="form-msg"></div>
       </form>
       <div class="login-link">¿Ya reservaste? <a href="book1-reader.html">Inicia sesión aquí</a></div>
+    </div>
+
+    <div class="receipt-card" id="receipt-card">
+      <div class="receipt-head">
+        <div class="logo-row">
+          <div class="logo-box"><img src="assets/logo.png" alt="" onerror="this.parentElement.style.display='none'" /></div>
+          <span>ALTONEXO ACADEMY</span>
+        </div>
+        <div class="receipt-check"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></div>
+        <h3>¡Reserva confirmada!</h3>
+        <p>Guarda este comprobante como prueba de tu reserva</p>
+      </div>
+      <div class="receipt-body">
+        <div class="receipt-ticket">
+          <div class="lbl">N.º de tiquete</div>
+          <div class="code" id="rc-ticket">—</div>
+        </div>
+        <div class="receipt-row"><span class="k">Estudiante</span><span class="v" id="rc-name">—</span></div>
+        <div class="receipt-row"><span class="k">Correo</span><span class="v" id="rc-email">—</span></div>
+        <div class="receipt-row"><span class="k">Teléfono</span><span class="v" id="rc-phone">—</span></div>
+        <div class="receipt-row"><span class="k">Producto</span><span class="v">English Altonexo Academy — Libro 1</span></div>
+        <div class="receipt-row"><span class="k">Monto</span><span class="v" id="rc-amount">$14.99</span></div>
+        <div class="receipt-row"><span class="k">Fecha</span><span class="v" id="rc-date">—</span></div>
+        <div class="receipt-row"><span class="k">Estado</span><span class="v"><span class="receipt-status">Pendiente de pago</span></span></div>
+        <div class="address-box" style="margin-top:18px; color:var(--ink-soft); background:var(--surface-soft);">📍 Alto de Friusa, Av. España, Plaza Stephanie, Bávaro — Lunes a Sábado, 9:00 AM – 6:00 PM<br/>Presenta este comprobante (o tu nombre/correo) para pagar y desbloquear tu libro.</div>
+        <div class="receipt-actions">
+          <button class="btn btn-navy-outline" onclick="window.print()">🖨️ Imprimir</button>
+          <a class="btn btn-gold" href="book1-reader.html">Ir a mi cuenta →</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -238,7 +298,7 @@ form.addEventListener('submit', async (e) => {
     await sb.from('profiles').insert({ id: user.id, is_admin: false });
 
     // 3. Create the reservation (pending, cash)
-    const { error: purchaseError } = await sb.from('book_purchases').insert({
+    const { data: purchaseData, error: purchaseError } = await sb.from('book_purchases').insert({
       user_id: user.id,
       full_name,
       email,
@@ -247,10 +307,21 @@ form.addEventListener('submit', async (e) => {
       payment_method: 'cash',
       amount: 14.99,
       status: 'pending'
-    });
+    }).select().single();
     if (purchaseError) throw purchaseError;
 
-    showMsg('¡Reserva creada! Visítanos para pagar en efectivo y desbloquear tu libro. Revisa tu correo para confirmar tu cuenta si es necesario.', 'success');
+    // 4. Render the receipt
+    const ticketCode = 'B1-' + purchaseData.id.slice(0, 8).toUpperCase();
+    const dateStr = new Date(purchaseData.created_at).toLocaleString('es-DO', { dateStyle: 'medium', timeStyle: 'short' });
+    document.getElementById('rc-ticket').textContent = ticketCode;
+    document.getElementById('rc-name').textContent = full_name;
+    document.getElementById('rc-email').textContent = email;
+    document.getElementById('rc-phone').textContent = phone;
+    document.getElementById('rc-amount').textContent = '$' + Number(purchaseData.amount).toFixed(2);
+    document.getElementById('rc-date').textContent = dateStr;
+
+    document.getElementById('form-card').style.display = 'none';
+    document.getElementById('receipt-card').classList.add('show');
     form.reset();
   } catch (err) {
     showMsg(err.message || 'Ocurrió un error. Intenta de nuevo.', 'error');
