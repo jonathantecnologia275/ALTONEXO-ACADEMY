@@ -257,42 +257,63 @@ let allVideos = [];
 let progressMap = {};
 
 async function initDashboard(){
-  const { data: sessionData } = await supabaseClient.auth.getSession();
-  if(!sessionData.session){
-    window.location.href = 'estudiante.html';
-    return;
+  try{
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('TIMEOUT')), 12000)
+    );
+
+    const { data: sessionData } = await Promise.race([
+      supabaseClient.auth.getSession(),
+      timeoutPromise
+    ]);
+
+    if(!sessionData.session){
+      window.location.href = 'estudiante.html';
+      return;
+    }
+
+    const { data: student, error: studentError } = await Promise.race([
+      supabaseClient
+        .from('students')
+        .select('*, enrollments(id, status, classes(name, schedule_days, schedule_time, next_session_start_date))')
+        .eq('auth_user_id', sessionData.session.user.id)
+        .maybeSingle(),
+      timeoutPromise
+    ]);
+
+    if(studentError || !student){
+      await supabaseClient.auth.signOut();
+      window.location.href = 'estudiante.html';
+      return;
+    }
+
+    if(student.status === 'pendiente'){
+      document.getElementById('loadingScreen').textContent = 'Tu cuenta aún está pendiente de confirmación de pago. Por favor visita la academia o espera la confirmación de un administrador.';
+      return;
+    }
+
+    currentStudent = student;
+    currentEnrollment = (student.enrollments || [])[0] || null;
+    window.__studentData = student;
+
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('dashboardWrap').style.display = 'block';
+
+    document.getElementById('welcomeTitle').textContent = `¡Hola, ${student.full_name.split(' ')[0]}!`;
+    document.getElementById('studentCodeDisplay').textContent = student.student_code || '—';
+
+    renderClassInfo(student);
+    await loadVideosAndProgress();
+    await loadCertificate();
+  }catch(err){
+    console.error('initDashboard error:', err);
+    const loadingScreen = document.getElementById('loadingScreen');
+    if(err.message === 'TIMEOUT'){
+      loadingScreen.innerHTML = '⚠️ La conexión con el servidor está tardando demasiado.<br>Esto puede deberse a un problema temporal de Supabase.<br>Por favor intenta de nuevo en unos minutos.<br><br><a href="estudiante.html" style="color:var(--gold); font-weight:700;">Volver a iniciar sesión</a>';
+    } else {
+      loadingScreen.innerHTML = `⚠️ Ocurrió un error al cargar tu panel:<br><code style="font-size:11px;">${err.message}</code><br><br><a href="estudiante.html" style="color:var(--gold); font-weight:700;">Volver a iniciar sesión</a>`;
+    }
   }
-
-  const { data: student, error: studentError } = await supabaseClient
-    .from('students')
-    .select('*, enrollments(id, status, classes(name, schedule_days, schedule_time, next_session_start_date))')
-    .eq('auth_user_id', sessionData.session.user.id)
-    .maybeSingle();
-
-  if(studentError || !student){
-    await supabaseClient.auth.signOut();
-    window.location.href = 'estudiante.html';
-    return;
-  }
-
-  if(student.status === 'pendiente'){
-    document.getElementById('loadingScreen').textContent = 'Tu cuenta aún está pendiente de confirmación de pago. Por favor visita la academia o espera la confirmación de un administrador.';
-    return;
-  }
-
-  currentStudent = student;
-  currentEnrollment = (student.enrollments || [])[0] || null;
-  window.__studentData = student;
-
-  document.getElementById('loadingScreen').style.display = 'none';
-  document.getElementById('dashboardWrap').style.display = 'block';
-
-  document.getElementById('welcomeTitle').textContent = `¡Hola, ${student.full_name.split(' ')[0]}!`;
-  document.getElementById('studentCodeDisplay').textContent = student.student_code || '—';
-
-  renderClassInfo(student);
-  await loadVideosAndProgress();
-  await loadCertificate();
 }
 
 async function loadCertificate(){
