@@ -213,6 +213,7 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
       <button data-panel="panelPartners"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="7" height="7" rx="1"/><rect x="14" y="6" width="7" height="7" rx="1"/><rect x="3" y="17" width="7" height="4" rx="1"/><rect x="14" y="17" width="7" height="4" rx="1"/></svg>Aliados</button>
       <button data-panel="panelMessages"><svg viewBox="0 0 24 24"><path d="M4 4h16v14H8l-4 4z"/></svg>Mensajes <span id="unreadBadge" class="badge" style="margin-left:auto; display:none;"></span></button>
       <button data-panel="panelLibros"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Libros <span id="pendingLibrosBadge" class="badge" style="margin-left:auto; display:none;"></span></button>
+      <button data-panel="panelVideos"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="13" rx="2"/><circle cx="12" cy="13.5" r="4"/><path d="M8 7l1.5-3h5L16 7"/></svg>Videos <span id="videosCountBadge" class="badge" style="margin-left:auto; display:none;"></span></button>
     </nav>
     <div class="logout">
       <button id="logoutBtn"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8; margin-right:8px; display:inline-block; vertical-align:-3px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>Cerrar sesión</button>
@@ -435,6 +436,40 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
         <table>
           <thead><tr><th>Fecha</th><th>Nombre</th><th>Correo / Teléfono</th><th>Monto</th><th>Estado</th><th>Acciones</th></tr></thead>
           <tbody id="librosTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VIDEOS PANEL -->
+    <section class="panel" id="panelVideos">
+      <div class="main-header"><div><h1>Videos educativos</h1><p>Sube hasta 10 videos (máximo 30 minutos cada uno). Se guardan en Cloudflare R2.</p></div></div>
+      <div class="card">
+        <h3>Subir nuevo video</h3>
+        <form id="videoForm">
+          <div class="grid-2">
+            <div class="field-inline"><label>Título</label><input type="text" id="v_title" required /></div>
+            <div class="field-inline"><label>Categoría</label><input type="text" id="v_category" placeholder="idiomas, belleza, tecnología..." /></div>
+          </div>
+          <div class="field-inline"><label>Descripción</label><textarea id="v_description" rows="2"></textarea></div>
+          <div class="field-inline"><label>Orden de aparición</label><input type="number" id="v_order" value="0" /></div>
+          <div class="field-inline">
+            <label>Archivo de video (máx. 30 min)</label>
+            <input type="file" id="v_file" accept="video/*" required />
+          </div>
+          <div id="videoProgressWrap" style="display:none; margin-bottom:14px;">
+            <div style="background:var(--surface-soft); border-radius:8px; height:8px; overflow:hidden;">
+              <div id="videoProgressBar" style="background:var(--gold); height:100%; width:0%; transition:width .2s;"></div>
+            </div>
+            <p id="videoProgressText" style="font-size:11.5px; color:var(--ink-soft); margin-top:6px;">Subiendo...</p>
+          </div>
+          <button type="submit" class="btn btn-gold btn-sm" id="videoSubmitBtn">Subir video</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Videos existentes (<span id="videosCountText">0</span>/10)</h3>
+        <table>
+          <thead><tr><th>Título</th><th>Categoría</th><th>Orden</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody id="videosTableBody"></tbody>
         </table>
       </div>
     </section>
@@ -951,6 +986,166 @@ window.cancelLibro = async (id)=>{
 };
 
 /* ============================================================
+   VIDEOS (Cloudflare R2 upload)
+============================================================ */
+const MAX_VIDEOS = 10;
+const MAX_VIDEO_DURATION_SECONDS = 30 * 60; // 30 minutes
+
+async function loadVideos(){
+  const { data, error } = await supabaseClient.from('site_videos').select('*').order('display_order');
+  const tbody = document.getElementById('videosTableBody');
+  const countText = document.getElementById('videosCountText');
+  const countBadge = document.getElementById('videosCountBadge');
+
+  if(error || !data){
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Error al cargar videos.</td></tr>';
+    return;
+  }
+  countText.textContent = data.length;
+  if(data.length > 0){ countBadge.textContent = data.length; countBadge.style.display = 'inline-block'; countBadge.style.background = 'var(--gold)'; countBadge.style.color = 'var(--navy)'; }
+  else { countBadge.style.display = 'none'; }
+
+  if(!data.length){
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No hay videos todavía.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = data.map(v => `
+    <tr>
+      <td><b>${v.title}</b></td>
+      <td>${v.category || '-'}</td>
+      <td>${v.display_order}</td>
+      <td>${v.active ? '✅ Activo' : '⛔ Oculto'}</td>
+      <td class="actions">
+        <button class="btn btn-outline btn-sm" onclick="toggleVideoActive('${v.id}', ${!v.active})">${v.active ? 'Ocultar' : 'Mostrar'}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteVideo('${v.id}')">Eliminar</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+window.toggleVideoActive = async (id, newActive) => {
+  await supabaseClient.from('site_videos').update({ active: newActive }).eq('id', id);
+  showToast('Video actualizado');
+  loadVideos();
+};
+
+window.deleteVideo = async (id) => {
+  if(!confirm('¿Eliminar este video permanentemente? (El archivo seguirá en R2, pero desaparecerá del sitio)')) return;
+  await supabaseClient.from('site_videos').delete().eq('id', id);
+  showToast('Video eliminado');
+  loadVideos();
+};
+
+function getVideoDuration(file){
+  return new Promise((resolve, reject) => {
+    const video = document.createElement('video');
+    video.preload = 'metadata';
+    video.onloadedmetadata = () => {
+      URL.revokeObjectURL(video.src);
+      resolve(video.duration);
+    };
+    video.onerror = () => reject(new Error('No se pudo leer el video'));
+    video.src = URL.createObjectURL(file);
+  });
+}
+
+document.getElementById('videoForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const file = document.getElementById('v_file').files[0];
+  const title = document.getElementById('v_title').value.trim();
+  const category = document.getElementById('v_category').value.trim();
+  const description = document.getElementById('v_description').value.trim();
+  const order = parseInt(document.getElementById('v_order').value, 10) || 0;
+  const submitBtn = document.getElementById('videoSubmitBtn');
+  const progressWrap = document.getElementById('videoProgressWrap');
+  const progressBar = document.getElementById('videoProgressBar');
+  const progressText = document.getElementById('videoProgressText');
+
+  if(!file){ showToast('Selecciona un archivo de video'); return; }
+
+  // Check current count of videos (max 10)
+  const { count } = await supabaseClient.from('site_videos').select('*', { count: 'exact', head: true });
+  if(count >= MAX_VIDEOS){
+    showToast(`Ya tienes ${MAX_VIDEOS} videos (el máximo). Elimina uno antes de subir otro.`);
+    return;
+  }
+
+  // Check duration (max 30 min)
+  try {
+    const duration = await getVideoDuration(file);
+    if(duration > MAX_VIDEO_DURATION_SECONDS){
+      showToast('El video supera los 30 minutos máximos permitidos.');
+      return;
+    }
+  } catch(err) {
+    console.warn('No se pudo verificar la duración del video:', err);
+  }
+
+  submitBtn.disabled = true;
+  progressWrap.style.display = 'block';
+  progressBar.style.width = '0%';
+  progressText.textContent = 'Preparando subida...';
+
+  try {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+
+    // 1. Ask our serverless function for a presigned R2 upload URL
+    const urlResp = await fetch('/api/get-upload-url', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_token: session.access_token,
+        filename: file.name,
+        contentType: file.type || 'video/mp4',
+      }),
+    });
+    const urlData = await urlResp.json();
+    if(!urlResp.ok) throw new Error(urlData.error || 'No se pudo preparar la subida');
+
+    // 2. Upload the file DIRECTLY to R2 using XHR (so we get progress events)
+    await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', urlData.uploadUrl);
+      xhr.setRequestHeader('Content-Type', file.type || 'video/mp4');
+      xhr.upload.onprogress = (evt) => {
+        if(evt.lengthComputable){
+          const pct = Math.round((evt.loaded / evt.total) * 100);
+          progressBar.style.width = pct + '%';
+          progressText.textContent = `Subiendo... ${pct}%`;
+        }
+      };
+      xhr.onload = () => (xhr.status >= 200 && xhr.status < 300) ? resolve() : reject(new Error('Error al subir el archivo a R2'));
+      xhr.onerror = () => reject(new Error('Error de conexión al subir el archivo'));
+      xhr.send(file);
+    });
+
+    progressText.textContent = 'Guardando información...';
+
+    // 3. Save the video metadata + public URL in Supabase
+    const { error: insertError } = await supabaseClient.from('site_videos').insert({
+      title,
+      description,
+      youtube_url: urlData.publicUrl, // field reused to store the direct R2 video URL
+      category,
+      display_order: order,
+    });
+    if(insertError) throw insertError;
+
+    showToast('¡Video subido con éxito!');
+    document.getElementById('videoForm').reset();
+    loadVideos();
+  } catch(err) {
+    console.error(err);
+    showToast('Error: ' + err.message);
+  } finally {
+    submitBtn.disabled = false;
+    progressWrap.style.display = 'none';
+  }
+});
+
+/* ============================================================
    INIT
 ============================================================ */
 async function loadAllData(){
@@ -961,6 +1156,7 @@ async function loadAllData(){
   loadPartners();
   loadMessages();
   loadLibros();
+  loadVideos();
 }
 checkSession();
 </script>
