@@ -284,6 +284,7 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
       <li><a href="#programas" data-i18n="nav_programs">Programas</a></li>
       <li><a href="#precios" data-i18n="nav_pricing">Precios</a></li>
       <li><a href="#testimonios" data-i18n="nav_testi">Testimonios</a></li>
+      <li><a href="#videos-educativos" data-i18n="nav_videos">Videos</a></li>
       <li><a href="book1.html" class="nav-book-link">📘 <span data-i18n="nav_book">Libro</span></a></li>
       <li><a href="#contacto" data-i18n="nav_contact">Contacto</a></li>
     </ul>
@@ -372,6 +373,31 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
     </div>
   </div>
 </section>
+
+<section id="videos-educativos" style="display:none;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="pill pill-gold" style="margin:0 auto 16px;" data-i18n="videos_eyebrow">Contenido educativo</div>
+      <h2 data-i18n="videos_title">Aprende con nuestros videos.</h2>
+    </div>
+    <div class="prog-grid reveal" id="videosGrid"></div>
+  </div>
+</section>
+
+<div id="videoModal" style="display:none; position:fixed; inset:0; z-index:500; background:rgba(11,15,46,.92); align-items:center; justify-content:center; padding:20px;">
+  <div style="width:100%; max-width:860px;">
+    <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+      <button id="videoModalClose" style="background:none; border:none; cursor:pointer; color:#fff; font-size:14px; font-weight:700; display:flex; align-items:center; gap:6px;">
+        Cerrar <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <video id="videoModalPlayer" controls style="width:100%; border-radius:12px; background:#000; max-height:70vh;"></video>
+    <div style="background:#fff; padding:16px 20px; border-radius:0 0 12px 12px;">
+      <h3 id="videoModalTitle" style="font-size:16px; color:var(--navy); margin-bottom:6px;"></h3>
+      <p id="videoModalDesc" style="font-size:13px; color:var(--ink-soft);"></p>
+    </div>
+  </div>
+</div>
 
 <section class="partners">
   <div class="wrap">
@@ -533,7 +559,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 
 const siteTranslations = {
   es: {
-    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_contact:"Contacto", nav_enroll:"Inscríbete", nav_book:"Libro",
+    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_videos:"Videos", nav_contact:"Contacto", nav_enroll:"Inscríbete", nav_book:"Libro",
     hero_pill:"📍 Punta Cana, República Dominicana",
     hero_title:"Tu conexión <span class=\"accent\">con el éxito.</span>",
     hero_lead:"Formación profesional en idiomas, belleza, tecnología y fotografía, con profesores nativos e instructores certificados. Modalidad presencial y virtual.",
@@ -549,6 +575,7 @@ const siteTranslations = {
     programs_eyebrow:"Nuestros programas", programs_title:"Cuatro caminos, un mismo nivel de excelencia.",
     tab_languages:"Idiomas", tab_beauty:"Belleza", tab_tech:"Tecnología", tab_photo:"Fotografía",
     testi_eyebrow:"Testimonios", testi_title:"Historias de éxito reales.",
+    videos_eyebrow:"Contenido educativo", videos_title:"Aprende con nuestros videos.",
     partners_eyebrow:"Alianzas y certificaciones",
     pricing_eyebrow:"Inversión", pricing_title:"Planes claros, sin sorpresas.",
     plan1_title:"Nivel Básico", plan1_tag:"Por módulo", plan1_f1:"Clases presenciales o virtuales", plan1_f2:"Material didáctico incluido", plan1_f3:"Certificado de finalización",
@@ -572,7 +599,7 @@ const siteTranslations = {
     level_basic:"Básico", level_inter:"Intermedio", level_adv:"Avanzado"
   },
   en: {
-    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_contact:"Contact", nav_enroll:"Enroll now", nav_book:"Book",
+    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_videos:"Videos", nav_contact:"Contact", nav_enroll:"Enroll now", nav_book:"Book",
     hero_pill:"📍 Punta Cana, Dominican Republic",
     hero_title:"Your connection <span class=\"accent\">to success.</span>",
     hero_lead:"Professional training in languages, beauty, technology, and photography, with native-speaking teachers and certified instructors. In-person and online.",
@@ -588,6 +615,7 @@ const siteTranslations = {
     programs_eyebrow:"Our programs", programs_title:"Four paths, one same level of excellence.",
     tab_languages:"Languages", tab_beauty:"Beauty", tab_tech:"Technology", tab_photo:"Photography",
     testi_eyebrow:"Testimonials", testi_title:"Real success stories.",
+    videos_eyebrow:"Educational content", videos_title:"Learn with our videos.",
     partners_eyebrow:"Partnerships and certifications",
     pricing_eyebrow:"Investment", pricing_title:"Clear plans, no surprises.",
     plan1_title:"Basic Level", plan1_tag:"Per module", plan1_f1:"In-person or online classes", plan1_f2:"Course materials included", plan1_f3:"Completion certificate",
@@ -611,7 +639,7 @@ const siteTranslations = {
     level_basic:"Basic", level_inter:"Intermediate", level_adv:"Advanced"
   },
   fr: {
-    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_contact:"Contact", nav_enroll:"Inscrivez-vous", nav_book:"Livre",
+    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_videos:"Vidéos", nav_contact:"Contact", nav_enroll:"Inscrivez-vous", nav_book:"Livre",
     hero_pill:"📍 Punta Cana, République Dominicaine",
     hero_title:"Votre connexion <span class=\"accent\">vers le succès.</span>",
     hero_lead:"Formation professionnelle en langues, beauté, technologie et photographie, avec des professeurs natifs et des instructeurs certifiés. Présentiel et en ligne.",
@@ -627,6 +655,7 @@ const siteTranslations = {
     programs_eyebrow:"Nos programmes", programs_title:"Quatre parcours, un même niveau d'excellence.",
     tab_languages:"Langues", tab_beauty:"Beauté", tab_tech:"Technologie", tab_photo:"Photographie",
     testi_eyebrow:"Témoignages", testi_title:"De vraies histoires de réussite.",
+    videos_eyebrow:"Contenu éducatif", videos_title:"Apprenez avec nos vidéos.",
     partners_eyebrow:"Partenariats et certifications",
     pricing_eyebrow:"Investissement", pricing_title:"Des formules claires, sans surprise.",
     plan1_title:"Niveau Débutant", plan1_tag:"Par module", plan1_f1:"Cours en présentiel ou en ligne", plan1_f2:"Matériel pédagogique inclus", plan1_f3:"Certificat de fin de formation",
@@ -650,7 +679,7 @@ const siteTranslations = {
     level_basic:"Débutant", level_inter:"Intermédiaire", level_adv:"Avancé"
   },
   ht: {
-    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_contact:"Kontak", nav_enroll:"Enskri kounya", nav_book:"Liv",
+    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_videos:"Videyo", nav_contact:"Kontak", nav_enroll:"Enskri kounya", nav_book:"Liv",
     hero_pill:"📍 Punta Cana, Repiblik Dominikèn",
     hero_title:"Koneksyon ou <span class=\"accent\">ak siksè.</span>",
     hero_lead:"Fòmasyon pwofesyonèl nan lang, bote, teknoloji ak fotografi, ak pwofesè natif ak enstriktè sètifye. Prezansyèl ak vityèl.",
@@ -666,6 +695,7 @@ const siteTranslations = {
     programs_eyebrow:"Pwogram nou yo", programs_title:"Kat chemen, menm nivo eksèlans.",
     tab_languages:"Lang", tab_beauty:"Bote", tab_tech:"Teknoloji", tab_photo:"Fotografi",
     testi_eyebrow:"Temwayaj", testi_title:"Vrè istwa siksè.",
+    videos_eyebrow:"Kontni edikatif", videos_title:"Aprann ak videyo nou yo.",
     partners_eyebrow:"Patenarya ak sètifikasyon",
     pricing_eyebrow:"Envestisman", pricing_title:"Plan klè, san sipriz.",
     plan1_title:"Nivo Debitan", plan1_tag:"Pa modil", plan1_f1:"Klas prezansyèl oswa vityèl", plan1_f2:"Materyèl pedagojik enkli", plan1_f3:"Sètifika fen fòmasyon",
@@ -689,7 +719,7 @@ const siteTranslations = {
     level_basic:"Debitan", level_inter:"Entèmedyè", level_adv:"Avanse"
   },
   pt: {
-    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_contact:"Contato", nav_enroll:"Inscreva-se", nav_book:"Livro",
+    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_videos:"Vídeos", nav_contact:"Contato", nav_enroll:"Inscreva-se", nav_book:"Livro",
     hero_pill:"📍 Punta Cana, República Dominicana",
     hero_title:"Sua conexão <span class=\"accent\">com o sucesso.</span>",
     hero_lead:"Formação profissional em idiomas, beleza, tecnologia e fotografia, com professores nativos e instrutores certificados. Presencial e online.",
@@ -705,6 +735,7 @@ const siteTranslations = {
     programs_eyebrow:"Nossos programas", programs_title:"Quatro caminhos, um mesmo nível de excelência.",
     tab_languages:"Idiomas", tab_beauty:"Beleza", tab_tech:"Tecnologia", tab_photo:"Fotografia",
     testi_eyebrow:"Depoimentos", testi_title:"Histórias reais de sucesso.",
+    videos_eyebrow:"Conteúdo educativo", videos_title:"Aprenda com nossos vídeos.",
     partners_eyebrow:"Parcerias e certificações",
     pricing_eyebrow:"Investimento", pricing_title:"Planos claros, sem surpresas.",
     plan1_title:"Nível Básico", plan1_tag:"Por módulo", plan1_f1:"Aulas presenciais ou online", plan1_f2:"Material didático incluído", plan1_f3:"Certificado de conclusão",
@@ -779,6 +810,55 @@ const iconCamera = `<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height
 const iconCode = `<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 9l-3 3 3 3M16 9l3 3-3 3"/></svg>`;
 
 const iconMap = { book:iconBook, scissors:iconScissors, code:iconCode, camera:iconCamera };
+
+/* ============================================================
+   VIDEOS GALLERY
+============================================================ */
+const videosGrid = document.getElementById('videosGrid');
+const videosSection = document.getElementById('videos-educativos');
+const videoModal = document.getElementById('videoModal');
+const videoModalPlayer = document.getElementById('videoModalPlayer');
+const videoModalTitle = document.getElementById('videoModalTitle');
+const videoModalDesc = document.getElementById('videoModalDesc');
+const videoModalClose = document.getElementById('videoModalClose');
+
+function openVideoModal(video){
+  videoModalPlayer.src = video.youtube_url; // field stores the direct R2 video URL
+  videoModalTitle.textContent = video.title;
+  videoModalDesc.textContent = video.description || '';
+  videoModal.style.display = 'flex';
+  videoModalPlayer.play().catch(()=>{});
+}
+function closeVideoModal(){
+  videoModalPlayer.pause();
+  videoModalPlayer.src = '';
+  videoModal.style.display = 'none';
+}
+videoModalClose.addEventListener('click', closeVideoModal);
+videoModal.addEventListener('click', (e)=>{ if(e.target === videoModal) closeVideoModal(); });
+
+function renderVideos(videos){
+  if(!videos || !videos.length){
+    videosSection.style.display = 'none';
+    return;
+  }
+  videosSection.style.display = '';
+  videosGrid.innerHTML = videos.map(v => `
+    <div class="prog-card" style="cursor:pointer; position:relative;" onclick='playVideoById("${v.id}")'>
+      <div class="ic" style="background:var(--navy);">
+        <svg viewBox="0 0 24 24" style="stroke:var(--gold);"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <h4>${v.title}</h4>
+      <p>${v.description || ''}</p>
+      ${v.category ? `<div class="level-tags"><span>${v.category}</span></div>` : ''}
+    </div>
+  `).join('');
+  window.__videosCache = videos;
+}
+window.playVideoById = (id) => {
+  const video = (window.__videosCache || []).find(v => v.id === id);
+  if(video) openVideoModal(video);
+};
 
 // Fallback (used only if Supabase fetch fails or table is empty)
 const defaultCoursesData = {
@@ -945,6 +1025,11 @@ async function loadSiteData(){
     const { data: partners } = await supabaseClient.from('site_partners').select('*').eq('active',true).order('display_order',{ascending:true});
     if(partners && partners.length){ partnersData = partners; renderPartners(); }
   }catch(e){ console.warn('site_partners fetch failed', e); }
+
+  try{
+    const { data: videos } = await supabaseClient.from('site_videos').select('*').eq('active',true).order('display_order',{ascending:true});
+    renderVideos(videos);
+  }catch(e){ console.warn('site_videos fetch failed', e); }
 }
 
 document.getElementById('contactForm').addEventListener('submit', async (e)=>{
