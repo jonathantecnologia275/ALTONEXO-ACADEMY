@@ -1040,23 +1040,40 @@ window.confirmStudentPayment = async (studentId) => {
 
     const { data: { user } } = await supabaseClient.auth.getUser();
 
-    const { error: studentError } = await supabaseClient
+    const { data: studentData, error: studentError } = await supabaseClient
       .from('students')
       .update({ status: 'activo', student_code: studentCode })
-      .eq('id', studentId);
+      .eq('id', studentId)
+      .select();
     if(studentError) throw studentError;
+    if(!studentData || studentData.length === 0){
+      showToast('⚠️ No se pudo actualizar el estudiante — revisa permisos de administrador (tabla "profiles").');
+      return;
+    }
 
-    const { error: enrollError } = await supabaseClient
+    const { data: enrollData, error: enrollError } = await supabaseClient
       .from('enrollments')
       .update({ status: 'activo' })
-      .eq('id', enrollment.id);
+      .eq('id', enrollment.id)
+      .select();
     if(enrollError) throw enrollError;
+    if(!enrollData || enrollData.length === 0){
+      showToast('⚠️ Estudiante activado, pero la inscripción NO se pudo actualizar (revisa permisos o el id de la inscripción).');
+      loadInscripciones();
+      return;
+    }
 
-    const { error: paymentError } = await supabaseClient
+    const { data: paymentData, error: paymentError } = await supabaseClient
       .from('payments')
       .update({ payment_status: 'confirmado', confirmed_by: user.id, confirmed_at: new Date().toISOString() })
-      .eq('id', payment.id);
+      .eq('id', payment.id)
+      .select();
     if(paymentError) throw paymentError;
+    if(!paymentData || paymentData.length === 0){
+      showToast('⚠️ Inscripción activada, pero el pago NO se pudo marcar como confirmado.');
+      loadInscripciones();
+      return;
+    }
 
     showToast(`Pago confirmado — Código generado: ${studentCode}`);
     loadInscripciones();
