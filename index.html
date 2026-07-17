@@ -217,6 +217,46 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
 .fab:hover{transform:scale(1.08);}
 .fab svg{width:26px; height:26px; fill:var(--navy);}
 
+/* ===== AI CHAT WIDGET ===== */
+.chat-fab{
+  position:fixed; bottom:96px; right:26px; z-index:200; width:54px; height:54px; border-radius:50%;
+  background:var(--navy); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 22px rgba(11,15,46,.35);
+  transition:transform .25s var(--ease); border:none; cursor:pointer;
+}
+.chat-fab:hover{transform:scale(1.08);}
+.chat-fab svg{width:24px; height:24px; stroke:var(--gold); fill:none; stroke-width:1.8;}
+.chat-panel{
+  position:fixed; bottom:160px; right:26px; z-index:201; width:340px; max-width:calc(100vw - 32px);
+  height:460px; max-height:calc(100vh - 200px); background:#fff; border-radius:16px; box-shadow:0 24px 60px rgba(11,15,46,.3);
+  display:none; flex-direction:column; overflow:hidden;
+}
+.chat-panel.open{display:flex;}
+.chat-head{background:var(--navy); color:#fff; padding:16px 18px; display:flex; align-items:center; gap:10px;}
+.chat-head .dot{width:8px; height:8px; border-radius:50%; background:#4ADE80;}
+.chat-head .title{font-weight:800; font-size:13.5px;}
+.chat-head .sub{font-size:10.5px; color:rgba(255,255,255,.55);}
+.chat-head button{margin-left:auto; background:none; border:none; color:rgba(255,255,255,.6); cursor:pointer; padding:4px;}
+.chat-head button:hover{color:#fff;}
+.chat-body{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; background:var(--surface-soft);}
+.chat-msg{max-width:85%; padding:9px 13px; border-radius:12px; font-size:12.5px; line-height:1.5;}
+.chat-msg.bot{background:#fff; border:1px solid var(--border); align-self:flex-start; border-bottom-left-radius:3px;}
+.chat-msg.user{background:var(--gold); color:var(--navy); align-self:flex-end; border-bottom-right-radius:3px; font-weight:600;}
+.chat-msg.typing{background:#fff; border:1px solid var(--border); align-self:flex-start; border-bottom-left-radius:3px; display:flex; gap:4px; padding:11px 14px;}
+.chat-msg.typing span{width:6px; height:6px; border-radius:50%; background:var(--ink-soft); animation:chatBlink 1.2s infinite ease-in-out;}
+.chat-msg.typing span:nth-child(2){animation-delay:.2s;}
+.chat-msg.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes chatBlink{0%,80%,100%{opacity:.3;} 40%{opacity:1;}}
+.chat-input-row{display:flex; gap:8px; padding:12px; border-top:1px solid var(--border); background:#fff;}
+.chat-input-row input{flex:1; padding:10px 13px; border:1px solid var(--border); border-radius:20px; font-size:12.5px; font-family:var(--font); outline:none;}
+.chat-input-row input:focus{border-color:var(--gold);}
+.chat-input-row button{width:38px; height:38px; border-radius:50%; background:var(--navy); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;}
+.chat-input-row button:hover{background:var(--navy-2);}
+.chat-input-row button svg{width:16px; height:16px; stroke:var(--gold-bright,#F5D783); fill:none; stroke-width:2;}
+@media (max-width:480px){
+  .chat-panel{right:16px; left:16px; width:auto; bottom:150px;}
+  .chat-fab{right:16px;}
+}
+
 @media (max-width:980px){
   .navlinks{display:none;}
   .about-grid{grid-template-columns:1fr;}
@@ -459,6 +499,32 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
 <a class="fab" href="https://wa.me/18097075097" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.2.2-.3.2-.5.1-.2 0-.4 0-.5-.1-.1-.5-1.3-.7-1.8-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
 </a>
+
+<button class="chat-fab" id="chatFabBtn" aria-label="Chat con IA">
+  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9.2 8.4 8.6 8.6 0 0 1-3-.6L3 21l1.7-5a8.4 8.4 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <span class="dot"></span>
+    <div>
+      <div class="title">Asistente ALTONEXO</div>
+      <div class="sub">En línea · Responde al instante</div>
+    </div>
+    <button id="chatCloseBtn" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="chat-msg bot">¡Hola! 👋 Soy el asistente de ALTONEXO ACADEMY. Pregúntame sobre nuestros programas, precios, horarios o el libro de inglés.</div>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." />
+    <button id="chatSendBtn" aria-label="Enviar">
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+    </button>
+  </div>
+</div>
 
 <script>
 const SUPABASE_URL = "https://qmpoxscqjgtnlipadnmq.supabase.co";
@@ -907,6 +973,78 @@ document.getElementById('contactForm').addEventListener('submit', async (e)=>{
     document.getElementById('contactForm').reset();
   }
 });
+
+/* ============================================================
+   AI CHAT WIDGET
+============================================================ */
+const chatFabBtn = document.getElementById('chatFabBtn');
+const chatCloseBtn = document.getElementById('chatCloseBtn');
+const chatPanel = document.getElementById('chatPanel');
+const chatBody = document.getElementById('chatBody');
+const chatInput = document.getElementById('chatInput');
+const chatSendBtn = document.getElementById('chatSendBtn');
+let chatHistory = [];
+
+function toggleChat(open){
+  chatPanel.classList.toggle('open', open);
+  if(open) chatInput.focus();
+}
+chatFabBtn.addEventListener('click', ()=> toggleChat(!chatPanel.classList.contains('open')));
+chatCloseBtn.addEventListener('click', ()=> toggleChat(false));
+
+function addChatMessage(text, sender){
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + sender;
+  div.textContent = text;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  return div;
+}
+function showTyping(){
+  const div = document.createElement('div');
+  div.className = 'chat-msg typing';
+  div.id = 'chatTypingIndicator';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function hideTyping(){
+  const el = document.getElementById('chatTypingIndicator');
+  if(el) el.remove();
+}
+
+async function sendChatMessage(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+  addChatMessage(text, 'user');
+  chatInput.value = '';
+  chatInput.disabled = true;
+  chatSendBtn.disabled = true;
+  showTyping();
+
+  try{
+    const resp = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ message: text, history: chatHistory })
+    });
+    const data = await resp.json();
+    hideTyping();
+    const reply = data.reply || 'Lo siento, ocurrió un error. Intenta de nuevo o escríbenos por WhatsApp.';
+    addChatMessage(reply, 'bot');
+    chatHistory.push({ role: 'user', text });
+    chatHistory.push({ role: 'assistant', text: reply });
+  }catch(e){
+    hideTyping();
+    addChatMessage('Lo siento, ocurrió un error de conexión. Intenta de nuevo o escríbenos por WhatsApp.', 'bot');
+  }finally{
+    chatInput.disabled = false;
+    chatSendBtn.disabled = false;
+    chatInput.focus();
+  }
+}
+chatSendBtn.addEventListener('click', sendChatMessage);
+chatInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') sendChatMessage(); });
 
 setLang(getCurrentLang());
 loadSiteData();
