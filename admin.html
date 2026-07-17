@@ -83,11 +83,13 @@ a{color:inherit; text-decoration:none;}
 .card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:26px; margin-bottom:20px;}
 .card h3{font-size:15px; margin-bottom:18px;}
 .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;}
 .field-inline label{display:block; font-size:12px; font-weight:700; color:var(--ink-soft); margin-bottom:6px;}
 .field-inline input,.field-inline textarea,.field-inline select{
   width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-size:13.5px; background:var(--surface-soft);
 }
 .field-inline{margin-bottom:14px;}
+.field-inline small{display:block; font-size:11px; color:var(--ink-soft); margin-top:4px;}
 .btn-sm{padding:9px 18px; font-size:13px; width:auto;}
 .btn-outline{border:1px solid var(--border); background:var(--surface); color:var(--ink);}
 .btn-outline:hover{background:var(--surface-soft);}
@@ -156,6 +158,7 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
   .main-header{flex-direction:column; align-items:flex-start; gap:6px;}
   .main-header h1{font-size:19px;}
   .grid-2{grid-template-columns:1fr;}
+  .grid-3{grid-template-columns:1fr;}
   .card{padding:18px;}
   table{display:block;}
   .card > table, .card table{
@@ -209,6 +212,7 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
       <button data-panel="panelSettings" class="active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L10 21h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"/></svg>Configuración</button>
       <button data-panel="panelStats"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>Estadísticas</button>
       <button data-panel="panelCourses"><svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22.5z"/></svg>Cursos</button>
+      <button data-panel="panelClasses"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v0"/><path d="M16 4v0"/></svg>Clases <span id="classesCountBadge" class="badge" style="margin-left:auto; display:none;"></span></button>
       <button data-panel="panelTesti"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9.2 8.4 8.6 8.6 0 0 1-3-.6L3 21l1.7-5a8.4 8.4 0 0 1-.7-3.4A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>Testimonios</button>
       <button data-panel="panelPartners"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="7" height="7" rx="1"/><rect x="14" y="6" width="7" height="7" rx="1"/><rect x="3" y="17" width="7" height="4" rx="1"/><rect x="14" y="17" width="7" height="4" rx="1"/></svg>Aliados</button>
       <button data-panel="panelMessages"><svg viewBox="0 0 24 24"><path d="M4 4h16v14H8l-4 4z"/></svg>Mensajes <span id="unreadBadge" class="badge" style="margin-left:auto; display:none;"></span></button>
@@ -318,6 +322,90 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
         <table>
           <thead><tr><th>Categoría</th><th>Título</th><th>Orden</th><th>Estado</th><th>Acciones</th></tr></thead>
           <tbody id="coursesTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CLASSES PANEL (Panel Etidyan — jesyon klas, pri, requisitos, orè) -->
+    <section class="panel" id="panelClasses">
+      <div class="main-header"><div><h1>Clases (Panel del Estudiante)</h1><p>Precio, frecuencia de pago, requisitos y horario de cada clase — usados en la inscripción de estudiantes.</p></div></div>
+      <div class="card">
+        <h3 id="classFormTitle">Agregar nueva clase</h3>
+        <form id="classForm">
+          <input type="hidden" id="cl_id" />
+          <div class="grid-2">
+            <div class="field-inline">
+              <label>Nombre de la clase</label>
+              <input type="text" id="cl_name" placeholder="Inglés Básico" required />
+            </div>
+            <div class="field-inline">
+              <label>Prefijo del código</label>
+              <input type="text" id="cl_code_prefix" placeholder="ENG" maxlength="10" required style="text-transform:uppercase;" />
+              <small>Se usará para generar el código del estudiante, ej: ENG-2026-045-ALTONEXO</small>
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="field-inline">
+              <label>Precio de inscripción (RD$)</label>
+              <input type="number" id="cl_enrollment_price" min="0" step="0.01" value="0" />
+            </div>
+            <div class="field-inline">
+              <label>Precio del curso (RD$)</label>
+              <input type="number" id="cl_course_price" min="0" step="0.01" value="0" />
+            </div>
+            <div class="field-inline">
+              <label>Frecuencia de pago</label>
+              <select id="cl_payment_frequency">
+                <option value="daily">Cada día</option>
+                <option value="weekly">Cada semana</option>
+                <option value="biweekly">Cada 2 semanas</option>
+                <option value="monthly" selected>Cada mes</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-inline">
+            <label>Requisitos (se muestran como párrafo con buen estilo en la página de inscripción)</label>
+            <textarea id="cl_requisitos" rows="4" placeholder="Ej: Tener 16 años o más, nivel básico de lectura, compromiso de asistencia mínima del 80%..."></textarea>
+          </div>
+          <div class="grid-3">
+            <div class="field-inline">
+              <label>Días de clase</label>
+              <input type="text" id="cl_schedule_days" placeholder="Lunes, Miércoles, Viernes" />
+            </div>
+            <div class="field-inline">
+              <label>Horario</label>
+              <input type="text" id="cl_schedule_time" placeholder="6:00 PM - 8:00 PM" />
+            </div>
+            <div class="field-inline">
+              <label>Duración por sesión (horas)</label>
+              <input type="number" id="cl_session_duration" min="0.5" step="0.5" value="2" />
+            </div>
+          </div>
+          <div class="grid-3">
+            <div class="field-inline">
+              <label>Inicio de la próxima sesión</label>
+              <input type="date" id="cl_next_session_date" />
+            </div>
+            <div class="field-inline">
+              <label>Capacidad máxima</label>
+              <input type="number" id="cl_max_capacity" min="1" value="20" />
+            </div>
+            <div class="field-inline">
+              <label>Orden de aparición</label>
+              <input type="number" id="cl_order" value="0" />
+            </div>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button type="submit" class="btn btn-gold btn-sm">Guardar clase</button>
+            <button type="button" class="btn btn-outline btn-sm" id="classCancelBtn" style="display:none;">Cancelar edición</button>
+          </div>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Clases existentes</h3>
+        <table>
+          <thead><tr><th>Clase</th><th>Precio curso</th><th>Frecuencia</th><th>Próxima sesión</th><th>Estado</th><th>Acciones</th></tr></thead>
+          <tbody id="classesTableBody"></tbody>
         </table>
       </div>
     </section>
@@ -702,6 +790,137 @@ courseForm.addEventListener('submit', async (e)=>{
   else{ ({error} = await supabaseClient.from('site_courses').insert(payload)); }
   showToast(error ? 'Error al guardar' : 'Curso guardado');
   if(!error){ courseForm.reset(); document.getElementById('c_id').value=''; document.querySelectorAll('.c_level_box').forEach(box=>box.checked=false); document.getElementById('courseFormTitle').textContent='Agregar nuevo curso'; courseCancelBtn.style.display='none'; await refreshCoursesCache(); loadCourses(); }
+});
+
+/* ============================================================
+   CLASSES CRUD (Panel del Estudiante — precios, requisitos, horarios)
+============================================================ */
+const classForm = document.getElementById('classForm');
+const classCancelBtn = document.getElementById('classCancelBtn');
+let classesCache = [];
+
+const FREQ_LABELS = {
+  daily: 'Cada día',
+  weekly: 'Cada semana',
+  biweekly: 'Cada 2 semanas',
+  monthly: 'Cada mes'
+};
+
+async function loadClasses(){
+  const { data, error } = await supabaseClient.from('classes').select('*').order('display_order');
+  const tbody = document.getElementById('classesTableBody');
+  const countBadge = document.getElementById('classesCountBadge');
+  classesCache = data || [];
+
+  if(data && data.length){
+    countBadge.textContent = data.length;
+    countBadge.style.display = 'inline-block';
+    countBadge.style.background = 'var(--gold)';
+    countBadge.style.color = 'var(--navy)';
+  } else {
+    countBadge.style.display = 'none';
+  }
+
+  if(error || !data || !data.length){
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No hay clases todavía.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = data.map(cl => `
+    <tr>
+      <td><b>${cl.name}</b><br><span style="font-size:11px; color:var(--ink-soft);">${cl.code_prefix}</span></td>
+      <td>RD$${Number(cl.course_price).toFixed(2)}</td>
+      <td>${FREQ_LABELS[cl.payment_frequency] || cl.payment_frequency}</td>
+      <td>${cl.next_session_start_date ? new Date(cl.next_session_start_date + 'T00:00:00').toLocaleDateString('es-DO', {dateStyle:'medium'}) : '-'}</td>
+      <td>${cl.is_active ? '✅ Activa' : '⛔ Oculta'}</td>
+      <td class="actions">
+        <button class="btn btn-outline btn-sm" onclick="editClass('${cl.id}')">Editar</button>
+        <button class="btn btn-outline btn-sm" onclick="toggleClass('${cl.id}', ${!cl.is_active})">${cl.is_active?'Ocultar':'Mostrar'}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteClass('${cl.id}')">Eliminar</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+window.editClass = (id)=>{
+  const cl = classesCache.find(x=>x.id===id);
+  if(!cl) return;
+  document.getElementById('cl_id').value = cl.id;
+  document.getElementById('cl_name').value = cl.name || '';
+  document.getElementById('cl_code_prefix').value = cl.code_prefix || '';
+  document.getElementById('cl_enrollment_price').value = cl.enrollment_price || 0;
+  document.getElementById('cl_course_price').value = cl.course_price || 0;
+  document.getElementById('cl_payment_frequency').value = cl.payment_frequency || 'monthly';
+  document.getElementById('cl_requisitos').value = cl.requisitos || '';
+  document.getElementById('cl_schedule_days').value = cl.schedule_days || '';
+  document.getElementById('cl_schedule_time').value = cl.schedule_time || '';
+  document.getElementById('cl_session_duration').value = cl.session_duration_hours || 2;
+  document.getElementById('cl_next_session_date').value = cl.next_session_start_date || '';
+  document.getElementById('cl_max_capacity').value = cl.max_capacity || 20;
+  document.getElementById('cl_order').value = cl.display_order || 0;
+  document.getElementById('classFormTitle').textContent = 'Editar clase';
+  classCancelBtn.style.display = 'inline-flex';
+  window.scrollTo({top:0, behavior:'smooth'});
+};
+
+window.toggleClass = async (id, newActive)=>{
+  await supabaseClient.from('classes').update({ is_active: newActive }).eq('id', id);
+  showToast('Clase actualizada');
+  loadClasses();
+};
+
+window.deleteClass = async (id)=>{
+  if(!confirm('¿Eliminar esta clase permanentemente? Esto puede afectar a estudiantes ya inscritos.')) return;
+  const { error } = await supabaseClient.from('classes').delete().eq('id', id);
+  if(error){ showToast('Error al eliminar: ' + error.message); return; }
+  showToast('Clase eliminada');
+  loadClasses();
+};
+
+classCancelBtn.addEventListener('click', ()=>{
+  classForm.reset();
+  document.getElementById('cl_id').value = '';
+  document.getElementById('cl_payment_frequency').value = 'monthly';
+  document.getElementById('cl_session_duration').value = 2;
+  document.getElementById('cl_max_capacity').value = 20;
+  document.getElementById('classFormTitle').textContent = 'Agregar nueva clase';
+  classCancelBtn.style.display = 'none';
+});
+
+classForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const id = document.getElementById('cl_id').value;
+  const payload = {
+    name: document.getElementById('cl_name').value.trim(),
+    code_prefix: document.getElementById('cl_code_prefix').value.trim().toUpperCase(),
+    enrollment_price: parseFloat(document.getElementById('cl_enrollment_price').value) || 0,
+    course_price: parseFloat(document.getElementById('cl_course_price').value) || 0,
+    payment_frequency: document.getElementById('cl_payment_frequency').value,
+    requisitos: document.getElementById('cl_requisitos').value.trim(),
+    schedule_days: document.getElementById('cl_schedule_days').value.trim(),
+    schedule_time: document.getElementById('cl_schedule_time').value.trim(),
+    session_duration_hours: parseFloat(document.getElementById('cl_session_duration').value) || 2,
+    next_session_start_date: document.getElementById('cl_next_session_date').value || null,
+    max_capacity: parseInt(document.getElementById('cl_max_capacity').value, 10) || 20,
+    display_order: parseInt(document.getElementById('cl_order').value, 10) || 0
+  };
+  let error;
+  if(id){ ({error} = await supabaseClient.from('classes').update(payload).eq('id', id)); }
+  else{ ({error} = await supabaseClient.from('classes').insert(payload)); }
+
+  if(error){
+    showToast('Error al guardar: ' + error.message);
+    return;
+  }
+  showToast('Clase guardada');
+  classForm.reset();
+  document.getElementById('cl_id').value = '';
+  document.getElementById('cl_payment_frequency').value = 'monthly';
+  document.getElementById('cl_session_duration').value = 2;
+  document.getElementById('cl_max_capacity').value = 20;
+  document.getElementById('classFormTitle').textContent = 'Agregar nueva clase';
+  classCancelBtn.style.display = 'none';
+  loadClasses();
 });
 
 /* ============================================================
@@ -1152,6 +1371,7 @@ async function loadAllData(){
   await loadSettings();
   await loadStats();
   await refreshCoursesCache(); loadCourses();
+  loadClasses();
   loadTesti();
   loadPartners();
   loadMessages();
