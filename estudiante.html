@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mi Panel — ALTONEXO ACADEMY</title>
+<title>Acceso del Estudiante — ALTONEXO ACADEMY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -27,86 +27,105 @@
 *,*::before,*::after{box-sizing:border-box;}
 body{margin:0; font-family:var(--font); background:var(--surface-soft); color:var(--ink); -webkit-font-smoothing:antialiased;}
 button{font-family:inherit; cursor:pointer;}
-a{color:inherit; text-decoration:none;}
+input,textarea,select{font-family:inherit;}
 h1,h2,h3{margin:0; font-weight:800;}
 p{margin:0;}
+a{color:inherit; text-decoration:none;}
 
 /* ===== TOP BAR ===== */
 .topbar{background:var(--navy); padding:16px 0;}
-.topbar .wrap{max-width:1080px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between;}
+.topbar .wrap{max-width:900px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between;}
 .topbar-brand{display:flex; align-items:center; gap:10px;}
 .topbar-brand .box{width:32px; height:32px; border-radius:8px; overflow:hidden; background:var(--navy-2);}
 .topbar-brand .box img{width:100%; height:100%; object-fit:cover;}
 .topbar-brand span{font-weight:800; font-size:15px; color:#fff;}
-.topbar-right{display:flex; align-items:center; gap:14px;}
-.lang-select{
-  appearance:none; background:transparent; border:1px solid rgba(255,255,255,.25); color:#fff;
-  font-size:12.5px; font-weight:700; padding:7px 24px 7px 12px; border-radius:20px;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='white'/></svg>");
-  background-repeat:no-repeat; background-position:right 10px center;
+.topbar a.back{font-size:13px; font-weight:700; color:rgba(255,255,255,.7);}
+.topbar a.back:hover{color:#fff;}
+
+.page-wrap{max-width:780px; margin:0 auto; padding:44px 24px 90px;}
+
+/* ===== MODE TOGGLE ===== */
+.mode-toggle{display:flex; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:6px; margin-bottom:32px;}
+.mode-toggle button{flex:1; padding:12px; border-radius:8px; font-weight:700; font-size:14px; color:var(--ink-soft); background:none; transition:all .2s var(--ease);}
+.mode-toggle button.active{background:var(--navy); color:#fff;}
+
+.card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:32px; margin-bottom:20px;}
+.card h2{font-size:19px; margin-bottom:6px;}
+.card .sub{font-size:13.5px; color:var(--ink-soft); margin-bottom:24px;}
+
+.field{margin-bottom:16px;}
+.field label{display:block; font-size:12.5px; font-weight:700; margin-bottom:6px; color:var(--ink-soft);}
+.field label .req{color:var(--red);}
+.field input,.field select,.field textarea{
+  width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:8px; font-size:14px; background:var(--surface-soft);
 }
-.lang-select option{color:#111;}
-.logout-btn{font-size:13px; font-weight:700; color:rgba(255,255,255,.7); background:none; border:none;}
-.logout-btn:hover{color:#fff;}
+.field small{display:block; font-size:11.5px; color:var(--ink-soft); margin-top:5px;}
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media (max-width:600px){ .grid-2{grid-template-columns:1fr;} }
 
-.page-wrap{max-width:1080px; margin:0 auto; padding:36px 24px 80px;}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:700; font-size:14.5px; padding:13px 24px; border-radius:8px; border:none; transition:all .2s var(--ease); width:100%;}
+.btn-gold{background:var(--gold); color:var(--navy);}
+.btn-gold:hover{background:var(--gold-hover);}
+.btn-gold:disabled{opacity:.5; cursor:not-allowed;}
+.btn-outline{border:1px solid var(--border); background:var(--surface); color:var(--ink);}
+.btn-outline:hover{background:var(--surface-soft);}
+.btn-row{display:flex; gap:10px; margin-top:10px;}
+.btn-row .btn{width:auto; flex:1;}
 
-/* ===== WELCOME HEADER ===== */
-.welcome-card{
-  background:var(--navy); color:#fff; border-radius:16px; padding:32px 36px; margin-bottom:24px;
-  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+.error-box{background:#FDF0F0; border:1px solid #F3C6C6; color:var(--red); font-size:13.5px; padding:12px 14px; border-radius:8px; margin-bottom:18px; display:none;}
+
+/* ===== STEPPER ===== */
+.stepper{display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:30px;}
+.step-dot{width:30px; height:30px; border-radius:50%; background:var(--surface); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:800; color:var(--ink-soft); flex-shrink:0;}
+.step-dot.active{background:var(--gold); border-color:var(--gold); color:var(--navy);}
+.step-dot.done{background:var(--green); border-color:var(--green); color:#fff;}
+.step-line{width:32px; height:2px; background:var(--border);}
+.form-step{display:none;}
+.form-step.active{display:block;}
+
+/* ===== CLASS CARDS ===== */
+.class-option{
+  border:2px solid var(--border); border-radius:12px; padding:18px 20px; margin-bottom:12px; cursor:pointer; transition:all .2s var(--ease);
 }
-.welcome-card h1{font-size:22px; margin-bottom:6px;}
-.welcome-card p{color:rgba(255,255,255,.65); font-size:13.5px;}
-.welcome-code{background:rgba(227,167,59,.14); border:1px solid rgba(227,167,59,.35); border-radius:10px; padding:12px 18px; text-align:center;}
-.welcome-code span{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--gold); margin-bottom:4px;}
-.welcome-code b{font-size:15px; color:#fff; letter-spacing:.02em;}
+.class-option:hover{border-color:var(--gold);}
+.class-option.selected{border-color:var(--gold); background:rgba(227,167,59,.06);}
+.class-option h4{font-size:15.5px; margin-bottom:6px;}
+.class-option .meta{display:flex; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--ink-soft); margin-bottom:8px;}
+.class-option .meta span{background:var(--surface-soft); padding:3px 10px; border-radius:10px;}
+.class-option .requisitos{font-size:12.5px; color:var(--ink-soft); line-height:1.5; white-space:pre-line;}
+.class-option .price{font-weight:800; color:var(--gold); font-size:14px;}
 
-.grid-main{display:grid; grid-template-columns:1.6fr 1fr; gap:20px;}
-@media (max-width:860px){ .grid-main{grid-template-columns:1fr;} }
-
-.card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:26px; margin-bottom:20px;}
-.card h3{font-size:16px; margin-bottom:4px;}
-.card .sub{font-size:12.5px; color:var(--ink-soft); margin-bottom:18px;}
-
-/* ===== CLASS INFO ===== */
-.class-info-row{display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); font-size:13.5px;}
-.class-info-row:last-child{border-bottom:none;}
-.class-info-row span:first-child{color:var(--ink-soft);}
-.class-info-row span:last-child{font-weight:700;}
-
-/* ===== PROGRESS BAR ===== */
-.progress-bar-wrap{background:var(--surface-soft); border-radius:8px; height:10px; overflow:hidden; margin:10px 0 6px;}
-.progress-bar-fill{background:var(--gold); height:100%; transition:width .4s var(--ease);}
-.progress-label{font-size:12px; color:var(--ink-soft); text-align:right;}
-
-/* ===== VIDEO LIST ===== */
-.video-item{
-  display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--border);
+/* ===== PAYMENT METHODS ===== */
+.pay-option{
+  display:flex; align-items:center; gap:14px; border:2px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:12px; cursor:pointer; transition:all .2s var(--ease);
 }
-.video-item:last-child{border-bottom:none;}
-.video-check{
-  width:24px; height:24px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; transition:all .2s var(--ease);
-}
-.video-check.done{background:var(--green); border-color:var(--green);}
-.video-check.done svg{width:13px; height:13px; stroke:#fff; fill:none; stroke-width:3;}
-.video-item .info{flex:1;}
-.video-item .info b{display:block; font-size:14px; margin-bottom:2px;}
-.video-item .info span{font-size:12px; color:var(--ink-soft);}
-.video-item .play-btn{
-  width:34px; height:34px; border-radius:50%; background:var(--surface-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0;
-}
-.video-item .play-btn svg{width:14px; height:14px; fill:var(--navy);}
+.pay-option.selected{border-color:var(--gold); background:rgba(227,167,59,.06);}
+.pay-option.disabled{opacity:.5; cursor:not-allowed;}
+.pay-option .ic{width:36px; height:36px; border-radius:8px; background:var(--surface-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.pay-option .ic svg{width:19px; height:19px; stroke:var(--navy); fill:none; stroke-width:1.8;}
+.pay-option b{display:block; font-size:14px;}
+.pay-option span{font-size:11.5px; color:var(--ink-soft);}
+.soon-badge{margin-left:auto; font-size:10.5px; font-weight:800; background:var(--surface-soft); color:var(--ink-soft); padding:3px 10px; border-radius:10px;}
 
-/* ===== RESOURCES / CERT ===== */
-.empty-note{font-size:13px; color:var(--ink-soft); text-align:center; padding:20px 0;}
-.cert-locked{display:flex; align-items:center; gap:14px; padding:16px; background:var(--surface-soft); border-radius:10px;}
-.cert-locked .ic{width:38px; height:38px; border-radius:9px; background:var(--surface); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
-.cert-locked .ic svg{width:19px; height:19px; stroke:var(--ink-soft); fill:none; stroke-width:1.8;}
-.cert-locked p{font-size:12.5px; color:var(--ink-soft);}
+/* ===== RECEIPT ===== */
+.receipt{text-align:center; padding:20px 0;}
+.receipt .ic-big{width:64px; height:64px; border-radius:50%; background:rgba(30,142,90,.1); display:flex; align-items:center; justify-content:center; margin:0 auto 20px;}
+.receipt.pending .ic-big{background:rgba(227,167,59,.12);}
+.receipt .ic-big svg{width:32px; height:32px; stroke:var(--green); fill:none; stroke-width:2;}
+.receipt.pending .ic-big svg{stroke:var(--gold);}
+.receipt h3{font-size:20px; margin-bottom:10px;}
+.receipt p{color:var(--ink-soft); font-size:14px; margin-bottom:24px;}
+.receipt-box{background:var(--surface-soft); border-radius:10px; padding:20px; text-align:left; margin-bottom:24px;}
+.receipt-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13.5px;}
+.receipt-row:last-child{border-bottom:none;}
+.receipt-row span:first-child{color:var(--ink-soft);}
+.receipt-row span:last-child{font-weight:700;}
 
-.loading-note{font-size:13px; color:var(--ink-soft); text-align:center; padding:60px 0;}
+.toast{
+  position:fixed; bottom:24px; right:24px; background:var(--navy); color:#fff; padding:14px 20px; border-radius:10px;
+  font-size:13.5px; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,.2); display:none; z-index:999; max-width:320px;
+}
+.loading-note{font-size:12.5px; color:var(--ink-soft); text-align:center; margin-top:10px;}
 </style>
 </head>
 <body>
@@ -117,279 +136,520 @@ p{margin:0;}
       <div class="box"><img src="assets/logo.png" alt="" onerror="this.parentElement.style.display='none'" /></div>
       <span>ALTONEXO ACADEMY</span>
     </div>
-    <div class="topbar-right">
-      <select class="lang-select" id="langSelect" onchange="setLang(this.value)">
-        <option value="es">ES</option>
-        <option value="en">EN</option>
-        <option value="fr">FR</option>
-        <option value="ht">HT</option>
-        <option value="pt">PT</option>
-      </select>
-      <button class="logout-btn" id="logoutBtn" data-i18n="logout">Cerrar sesión</button>
-    </div>
+    <a href="index.html" class="back">← Volver al sitio</a>
   </div>
 </div>
 
-<div class="page-wrap" id="dashboardWrap" style="display:none;">
+<div class="page-wrap">
 
-  <div class="welcome-card">
-    <div>
-      <h1 id="welcomeTitle">¡Hola!</h1>
-      <p id="welcomeSub" data-i18n="welcome_sub">Este es tu panel de estudiante.</p>
-    </div>
-    <div class="welcome-code">
-      <span data-i18n="your_code">Tu código</span>
-      <b id="studentCodeDisplay">—</b>
-    </div>
+  <div class="mode-toggle">
+    <button id="modeLoginBtn" class="active">Iniciar sesión</button>
+    <button id="modeRegisterBtn">Inscribirme</button>
   </div>
 
-  <div class="grid-main">
-    <div>
-      <div class="card">
-        <h3 data-i18n="progress_title">Tu progreso</h3>
-        <p class="sub" data-i18n="progress_sub">Lecciones y videos completados.</p>
-        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%;"></div></div>
-        <p class="progress-label" id="progressLabel">0 / 0</p>
+  <!-- ===================== LOGIN ===================== -->
+  <div id="loginSection" class="card">
+    <h2>Acceso del Estudiante</h2>
+    <p class="sub">Ingresa con los datos que usaste al inscribirte.</p>
+    <div class="error-box" id="loginErrorBox"></div>
+    <form id="loginForm">
+      <div class="field">
+        <label>Nombre completo</label>
+        <input type="text" id="lg_full_name" required />
       </div>
+      <div class="field">
+        <label>Correo electrónico</label>
+        <input type="email" id="lg_email" required />
+      </div>
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" id="lg_password" required />
+      </div>
+      <div class="field">
+        <label>Código de Estudiante</label>
+        <input type="text" id="lg_student_code" placeholder="ENG-2026-045-ALTONEXO" required style="text-transform:uppercase;" />
+      </div>
+      <button type="submit" class="btn btn-gold" id="loginSubmitBtn">Entrar a mi panel</button>
+    </form>
+  </div>
 
-      <div class="card">
-        <h3 data-i18n="videos_title">Videos y lecciones</h3>
-        <p class="sub" data-i18n="videos_sub">Marca cada lección como completada a medida que avanzas.</p>
-        <div id="videoListWrap"><p class="loading-note" data-i18n="loading">Cargando...</p></div>
-      </div>
+  <!-- ===================== REGISTRATION ===================== -->
+  <div id="registerSection" style="display:none;">
+
+    <div class="stepper" id="stepperWrap">
+      <div class="step-dot active" data-step="1">1</div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="2">2</div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="3">3</div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="4">4</div>
     </div>
 
-    <div>
-      <div class="card">
-        <h3 data-i18n="class_title">Tu clase</h3>
-        <div id="classInfoWrap"><p class="loading-note" data-i18n="loading">Cargando...</p></div>
+    <div class="error-box" id="regErrorBox"></div>
+
+    <form id="registerForm">
+
+      <!-- STEP 1: Datos personales -->
+      <div class="form-step active" id="step1">
+        <div class="card">
+          <h2>Tus datos personales</h2>
+          <p class="sub">Toda la información es necesaria para tu inscripción.</p>
+
+          <div class="grid-2">
+            <div class="field"><label>Nombre completo <span class="req">*</span></label><input type="text" id="r_full_name" required /></div>
+            <div class="field"><label>Correo electrónico <span class="req">*</span></label><input type="email" id="r_email" required /></div>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>Contraseña (para tu acceso) <span class="req">*</span></label><input type="password" id="r_password" minlength="6" required /></div>
+            <div class="field"><label>Confirmar contraseña <span class="req">*</span></label><input type="password" id="r_password2" minlength="6" required /></div>
+          </div>
+          <div class="grid-2">
+            <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" id="r_dob" required /></div>
+            <div class="field"><label>Edad <span class="req">*</span></label><input type="number" id="r_age" min="3" max="100" required /></div>
+          </div>
+          <div class="field"><label>Nacionalidad <span class="req">*</span></label><input type="text" id="r_nationality" required /></div>
+
+          <div class="grid-2">
+            <div class="field"><label>Nivel de estudio <span class="req">*</span></label>
+              <select id="r_education_level" required>
+                <option value="">Selecciona...</option>
+                <option value="Primaria">Primaria</option>
+                <option value="Secundaria">Secundaria</option>
+                <option value="Bachillerato">Bachillerato</option>
+                <option value="Universitario">Universitario</option>
+                <option value="Postgrado">Postgrado</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="field" style="display:flex; align-items:flex-end;">
+              <label style="display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:600; color:var(--ink); margin-bottom:12px;">
+                <input type="checkbox" id="r_still_in_school" style="width:auto;" /> Actualmente estoy estudiando
+              </label>
+            </div>
+          </div>
+          <div class="field" id="schoolNameWrap" style="display:none;">
+            <label>Nombre de tu escuela/institución</label>
+            <input type="text" id="r_school_name" />
+          </div>
+
+          <div class="grid-2">
+            <div class="field"><label>¿Con quién vives? <span class="req">*</span></label><input type="text" id="r_lives_with" placeholder="Ej: mis padres, mi esposo/a..." required /></div>
+            <div class="field"><label>Nombre de tu padre/madre <span class="req">*</span></label><input type="text" id="r_parent_name" required /></div>
+          </div>
+          <div class="field" id="guardianWrap" style="display:none;">
+            <label>Nombre del responsable/tutor (obligatorio para menores de edad) <span class="req">*</span></label>
+            <input type="text" id="r_guardian_name" />
+          </div>
+          <div class="field" id="documentWrap" style="display:none;">
+            <label>Número de documento de identidad <span class="req">*</span></label>
+            <input type="text" id="r_document_number" />
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-gold" id="toStep2Btn">Siguiente →</button>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
-        <h3 data-i18n="resources_title">Recursos y materiales</h3>
-        <p class="sub" data-i18n="resources_sub">Documentos de apoyo para tu clase.</p>
-        <p class="empty-note" data-i18n="resources_empty">Aún no hay recursos disponibles para tu clase.</p>
+      <!-- STEP 2: Selección de clase -->
+      <div class="form-step" id="step2">
+        <div class="card">
+          <h2>Elige tu clase</h2>
+          <p class="sub">Selecciona el programa en el que deseas inscribirte.</p>
+          <div id="classOptionsWrap">
+            <p class="loading-note">Cargando clases disponibles...</p>
+          </div>
+
+          <div class="grid-2" style="margin-top:20px;">
+            <div class="field"><label>Días disponibles para asistir</label><input type="text" id="r_preferred_days" placeholder="Ej: Lunes, Miércoles, Viernes" /></div>
+            <div class="field"><label>Horario disponible</label><input type="text" id="r_preferred_time" placeholder="Ej: 6:00 PM - 8:00 PM" /></div>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-outline" id="backToStep1Btn">← Atrás</button>
+            <button type="button" class="btn btn-gold" id="toStep3Btn">Siguiente →</button>
+          </div>
+        </div>
       </div>
 
+      <!-- STEP 3: Pago -->
+      <div class="form-step" id="step3">
+        <div class="card">
+          <h2>Método de pago</h2>
+          <p class="sub" id="paymentSummary">Resumen de tu inscripción.</p>
+
+          <div class="pay-option selected" data-method="cash">
+            <div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <div><b>Efectivo (Cash)</b><span>Paga en la academia — tu cuenta quedará pendiente hasta confirmar el pago</span></div>
+          </div>
+          <div class="pay-option disabled" data-method="paypal">
+            <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg></div>
+            <div><b>PayPal</b><span>Pago en línea instantáneo</span></div>
+            <span class="soon-badge">Muy pronto</span>
+          </div>
+          <div class="pay-option disabled" data-method="card">
+            <div class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+            <div><b>Tarjeta de Débito/Crédito</b><span>Pago en línea instantáneo</span></div>
+            <span class="soon-badge">Muy pronto</span>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-outline" id="backToStep2Btn">← Atrás</button>
+            <button type="submit" class="btn btn-gold" id="registerSubmitBtn">Confirmar inscripción</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- STEP 4: Recibo -->
+    <div class="form-step" id="step4">
       <div class="card">
-        <h3 data-i18n="cert_title">Certificado</h3>
-        <div class="cert-locked">
-          <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-          <p id="certStatusText" data-i18n="cert_locked">Disponible cuando completes tu curso.</p>
+        <div class="receipt pending" id="receiptWrap">
+          <div class="ic-big"><svg viewBox="0 0 24 24"><path d="M12 8v5l3 3"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <h3 id="receiptTitle">Inscripción registrada</h3>
+          <p id="receiptSubtitle">Tu pago está pendiente de confirmación.</p>
+          <div class="receipt-box" id="receiptBox"></div>
+          <a href="index.html" class="btn btn-outline">Volver al sitio</a>
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
 
-<div id="loadingScreen" class="loading-note" style="padding:100px 0; text-align:center;">Cargando tu panel...</div>
-
-<div class="toast" id="toast" style="position:fixed; bottom:24px; right:24px; background:var(--navy); color:#fff; padding:14px 20px; border-radius:10px; font-size:13.5px; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,.2); display:none; z-index:999; max-width:320px;"></div>
+<div class="toast" id="toast"></div>
 
 <script>
 const SUPABASE_URL = "https://qmpoxscqjgtnlipadnmq.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_AbWohQb6y4oozbcH-t4nyw_PrDW8n4G";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const dashTranslations = {
-  es: { welcome_sub:"Este es tu panel de estudiante.", your_code:"Tu código", progress_title:"Tu progreso", progress_sub:"Lecciones y videos completados.",
-    videos_title:"Videos y lecciones", videos_sub:"Marca cada lección como completada a medida que avanzas.",
-    class_title:"Tu clase", resources_title:"Recursos y materiales", resources_sub:"Documentos de apoyo para tu clase.",
-    resources_empty:"Aún no hay recursos disponibles para tu clase.", cert_title:"Certificado", cert_locked:"Disponible cuando completes tu curso.",
-    cert_unlocked:"¡Felicidades! Tu certificado está listo.", logout:"Cerrar sesión", loading:"Cargando...",
-    class_name:"Clase", class_schedule_days:"Días", class_schedule_time:"Horario", class_next_session:"Próxima sesión", class_status:"Estado",
-    status_pendiente:"Pendiente", status_activo:"Activo", status_completado:"Completado" },
-  en: { welcome_sub:"This is your student panel.", your_code:"Your code", progress_title:"Your progress", progress_sub:"Completed lessons and videos.",
-    videos_title:"Videos and lessons", videos_sub:"Mark each lesson as completed as you progress.",
-    class_title:"Your class", resources_title:"Resources and materials", resources_sub:"Support documents for your class.",
-    resources_empty:"No resources available for your class yet.", cert_title:"Certificate", cert_locked:"Available once you complete your course.",
-    cert_unlocked:"Congratulations! Your certificate is ready.", logout:"Log out", loading:"Loading...",
-    class_name:"Class", class_schedule_days:"Days", class_schedule_time:"Schedule", class_next_session:"Next session", class_status:"Status",
-    status_pendiente:"Pending", status_activo:"Active", status_completado:"Completed" },
-  fr: { welcome_sub:"Voici votre panneau étudiant.", your_code:"Votre code", progress_title:"Votre progression", progress_sub:"Leçons et vidéos terminées.",
-    videos_title:"Vidéos et leçons", videos_sub:"Marquez chaque leçon comme terminée au fur et à mesure.",
-    class_title:"Votre classe", resources_title:"Ressources et matériels", resources_sub:"Documents de support pour votre classe.",
-    resources_empty:"Aucune ressource disponible pour votre classe pour le moment.", cert_title:"Certificat", cert_locked:"Disponible une fois votre cours terminé.",
-    cert_unlocked:"Félicitations! Votre certificat est prêt.", logout:"Se déconnecter", loading:"Chargement...",
-    class_name:"Classe", class_schedule_days:"Jours", class_schedule_time:"Horaire", class_next_session:"Prochaine session", class_status:"Statut",
-    status_pendiente:"En attente", status_activo:"Actif", status_completado:"Terminé" },
-  ht: { welcome_sub:"Sa a se panel etidyan ou.", your_code:"Kòd ou", progress_title:"Pwogrè ou", progress_sub:"Leson ak videyo fin fèt.",
-    videos_title:"Videyo ak leson", videos_sub:"Make chak leson kòm fin fèt pandan w ap avanse.",
-    class_title:"Klas ou", resources_title:"Resous ak materyèl", resources_sub:"Dokiman sipò pou klas ou.",
-    resources_empty:"Poko gen resous disponib pou klas ou.", cert_title:"Sètifika", cert_locked:"Disponib lè w fini kou a.",
-    cert_unlocked:"Felisitasyon! Sètifika ou pare.", logout:"Dekonekte", loading:"Chajman...",
-    class_name:"Klas", class_schedule_days:"Jou", class_schedule_time:"Orè", class_next_session:"Pwochèn sesyon", class_status:"Estati",
-    status_pendiente:"Pandan", status_activo:"Aktif", status_completado:"Fini" },
-  pt: { welcome_sub:"Este é o seu painel de estudante.", your_code:"Seu código", progress_title:"Seu progresso", progress_sub:"Aulas e vídeos concluídos.",
-    videos_title:"Vídeos e aulas", videos_sub:"Marque cada aula como concluída conforme avança.",
-    class_title:"Sua turma", resources_title:"Recursos e materiais", resources_sub:"Documentos de apoio para sua turma.",
-    resources_empty:"Ainda não há recursos disponíveis para sua turma.", cert_title:"Certificado", cert_locked:"Disponível ao concluir seu curso.",
-    cert_unlocked:"Parabéns! Seu certificado está pronto.", logout:"Sair", loading:"Carregando...",
-    class_name:"Turma", class_schedule_days:"Dias", class_schedule_time:"Horário", class_next_session:"Próxima sessão", class_status:"Status",
-    status_pendiente:"Pendente", status_activo:"Ativo", status_completado:"Concluído" }
-};
-
-function getCurrentLang(){ return localStorage.getItem('altonexo_lang') || 'es'; }
-function t(key){ return (dashTranslations[getCurrentLang()] || dashTranslations.es)[key] || key; }
-
-function setLang(lang){
-  localStorage.setItem('altonexo_lang', lang);
-  document.getElementById('langSelect').value = lang;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key = el.getAttribute('data-i18n');
-    const dict = dashTranslations[lang] || dashTranslations.es;
-    if(dict[key] !== undefined) el.textContent = dict[key];
-  });
-  if(window.__studentData) renderClassInfo(window.__studentData);
-}
-
 function showToast(msg){
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.style.display = 'block';
-  setTimeout(()=>{ el.style.display = 'none'; }, 3000);
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  setTimeout(()=>{ t.style.display = 'none'; }, 3200);
 }
 
-let currentStudent = null;
-let currentEnrollment = null;
-let allVideos = [];
-let progressMap = {};
+/* ============================================================
+   MODE TOGGLE (Login vs Registro)
+============================================================ */
+const modeLoginBtn = document.getElementById('modeLoginBtn');
+const modeRegisterBtn = document.getElementById('modeRegisterBtn');
+const loginSection = document.getElementById('loginSection');
+const registerSection = document.getElementById('registerSection');
 
-async function initDashboard(){
-  const { data: sessionData } = await supabaseClient.auth.getSession();
-  if(!sessionData.session){
-    window.location.href = 'estudiante.html';
-    return;
-  }
-
-  const { data: student, error: studentError } = await supabaseClient
-    .from('students')
-    .select('*, enrollments(id, status, classes(name, schedule_days, schedule_time, next_session_start_date))')
-    .eq('auth_user_id', sessionData.session.user.id)
-    .maybeSingle();
-
-  if(studentError || !student){
-    await supabaseClient.auth.signOut();
-    window.location.href = 'estudiante.html';
-    return;
-  }
-
-  if(student.status === 'pendiente'){
-    document.getElementById('loadingScreen').textContent = 'Tu cuenta aún está pendiente de confirmación de pago. Por favor visita la academia o espera la confirmación de un administrador.';
-    return;
-  }
-
-  currentStudent = student;
-  currentEnrollment = (student.enrollments || [])[0] || null;
-  window.__studentData = student;
-
-  document.getElementById('loadingScreen').style.display = 'none';
-  document.getElementById('dashboardWrap').style.display = 'block';
-
-  document.getElementById('welcomeTitle').textContent = `¡Hola, ${student.full_name.split(' ')[0]}!`;
-  document.getElementById('studentCodeDisplay').textContent = student.student_code || '—';
-
-  renderClassInfo(student);
-  await loadVideosAndProgress();
-}
-
-function renderClassInfo(student){
-  const wrap = document.getElementById('classInfoWrap');
-  const cls = currentEnrollment?.classes;
-  if(!cls){
-    wrap.innerHTML = `<p class="empty-note">${t('resources_empty')}</p>`;
-    return;
-  }
-  const statusKey = 'status_' + (currentEnrollment.status || 'activo');
-  wrap.innerHTML = `
-    <div class="class-info-row"><span>${t('class_name')}</span><span>${cls.name}</span></div>
-    ${cls.schedule_days ? `<div class="class-info-row"><span>${t('class_schedule_days')}</span><span>${cls.schedule_days}</span></div>` : ''}
-    ${cls.schedule_time ? `<div class="class-info-row"><span>${t('class_schedule_time')}</span><span>${cls.schedule_time}</span></div>` : ''}
-    ${cls.next_session_start_date ? `<div class="class-info-row"><span>${t('class_next_session')}</span><span>${new Date(cls.next_session_start_date+'T00:00:00').toLocaleDateString('es-DO',{dateStyle:'medium'})}</span></div>` : ''}
-    <div class="class-info-row"><span>${t('class_status')}</span><span>${t(statusKey)}</span></div>
-  `;
-}
-
-async function loadVideosAndProgress(){
-  const wrap = document.getElementById('videoListWrap');
-
-  const { data: videos } = await supabaseClient.from('site_videos').select('*').eq('active', true).order('display_order');
-  allVideos = videos || [];
-
-  const { data: progress } = await supabaseClient.from('student_progress').select('*').eq('student_id', currentStudent.id);
-  progressMap = {};
-  (progress || []).forEach(p => { progressMap[p.video_id] = p.completed; });
-
-  if(!allVideos.length){
-    wrap.innerHTML = `<p class="empty-note">${t('resources_empty')}</p>`;
-    updateProgressBar();
-    return;
-  }
-
-  renderVideoList();
-  updateProgressBar();
-}
-
-function renderVideoList(){
-  const wrap = document.getElementById('videoListWrap');
-  wrap.innerHTML = allVideos.map(v => {
-    const done = !!progressMap[v.id];
-    return `
-      <div class="video-item">
-        <div class="video-check ${done ? 'done' : ''}" onclick="toggleVideoProgress('${v.id}')">
-          ${done ? '<svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>' : ''}
-        </div>
-        <div class="play-btn" style="cursor:pointer;" onclick="window.open('${v.youtube_url}', '_blank')">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <div class="info">
-          <b>${v.title}</b>
-          <span>${v.description || v.category || ''}</span>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function updateProgressBar(){
-  const total = allVideos.length;
-  const done = allVideos.filter(v => progressMap[v.id]).length;
-  const pct = total > 0 ? Math.round((done/total)*100) : 0;
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = `${done} / ${total}`;
-}
-
-window.toggleVideoProgress = async (videoId) => {
-  const newState = !progressMap[videoId];
-  progressMap[videoId] = newState;
-  renderVideoList();
-  updateProgressBar();
-
-  try{
-    const { error } = await supabaseClient.from('student_progress').upsert({
-      student_id: currentStudent.id,
-      video_id: videoId,
-      completed: newState,
-      completed_at: newState ? new Date().toISOString() : null
-    }, { onConflict: 'student_id,video_id' });
-    if(error) throw error;
-  }catch(err){
-    console.error(err);
-    showToast('Error al guardar tu progreso');
-    progressMap[videoId] = !newState;
-    renderVideoList();
-    updateProgressBar();
-  }
-};
-
-document.getElementById('logoutBtn').addEventListener('click', async ()=>{
-  await supabaseClient.auth.signOut();
-  window.location.href = 'estudiante.html';
+modeLoginBtn.addEventListener('click', ()=>{
+  modeLoginBtn.classList.add('active');
+  modeRegisterBtn.classList.remove('active');
+  loginSection.style.display = 'block';
+  registerSection.style.display = 'none';
+});
+modeRegisterBtn.addEventListener('click', ()=>{
+  modeRegisterBtn.classList.add('active');
+  modeLoginBtn.classList.remove('active');
+  loginSection.style.display = 'none';
+  registerSection.style.display = 'block';
+  loadClassesForRegistration();
 });
 
-setLang(getCurrentLang());
-initDashboard();
+/* ============================================================
+   LOGIN
+============================================================ */
+const loginForm = document.getElementById('loginForm');
+const loginErrorBox = document.getElementById('loginErrorBox');
+
+loginForm.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  loginErrorBox.style.display = 'none';
+  const submitBtn = document.getElementById('loginSubmitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Verificando...';
+
+  const fullName = document.getElementById('lg_full_name').value.trim();
+  const email = document.getElementById('lg_email').value.trim();
+  const password = document.getElementById('lg_password').value;
+  const studentCode = document.getElementById('lg_student_code').value.trim().toUpperCase();
+
+  try{
+    const { data: authData, error: authError } = await supabaseClient.auth.signInWithPassword({ email, password });
+    if(authError) throw new Error('Correo o contraseña incorrectos.');
+
+    const { data: student, error: studentError } = await supabaseClient
+      .from('students')
+      .select('*')
+      .eq('auth_user_id', authData.user.id)
+      .maybeSingle();
+
+    if(studentError || !student) throw new Error('No se encontró tu perfil de estudiante.');
+
+    if(student.full_name.trim().toLowerCase() !== fullName.toLowerCase()){
+      throw new Error('El nombre completo no coincide con nuestros registros.');
+    }
+
+    if(student.status === 'pendiente'){
+      await supabaseClient.auth.signOut();
+      throw new Error('Tu pago aún está pendiente de confirmación por un administrador. Por favor visita la academia o espera la confirmación para recibir tu código y acceder a tu panel.');
+    }
+
+    if(!student.student_code || student.student_code !== studentCode){
+      await supabaseClient.auth.signOut();
+      throw new Error('El código de estudiante no coincide.');
+    }
+
+    // Todo correcto — redirigir al dashboard del estudiante
+    window.location.href = 'dashboard-estudiante.html';
+
+  }catch(err){
+    loginErrorBox.textContent = err.message;
+    loginErrorBox.style.display = 'block';
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Entrar a mi panel';
+  }
+});
+
+/* ============================================================
+   REGISTRATION — STEP LOGIC
+============================================================ */
+let currentStep = 1;
+let selectedClass = null;
+let selectedPaymentMethod = 'cash';
+let classesAvailable = [];
+
+function goToStep(step){
+  document.querySelectorAll('.form-step').forEach(el=>el.classList.remove('active'));
+  document.getElementById('step'+step).classList.add('active');
+  document.querySelectorAll('.step-dot').forEach(dot=>{
+    const n = parseInt(dot.getAttribute('data-step'),10);
+    dot.classList.remove('active','done');
+    if(n < step) dot.classList.add('done');
+    if(n === step) dot.classList.add('active');
+  });
+  currentStep = step;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* --- Age / minor logic --- */
+const dobInput = document.getElementById('r_dob');
+const ageInput = document.getElementById('r_age');
+dobInput.addEventListener('change', ()=>{
+  const dob = new Date(dobInput.value);
+  if(isNaN(dob)) return;
+  const today = new Date();
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  if(m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+  ageInput.value = age;
+  toggleMinorFields(age);
+});
+ageInput.addEventListener('input', ()=> toggleMinorFields(parseInt(ageInput.value,10)));
+
+function toggleMinorFields(age){
+  const isMinor = !isNaN(age) && age < 18;
+  document.getElementById('guardianWrap').style.display = isMinor ? 'block' : 'none';
+  document.getElementById('documentWrap').style.display = (!isNaN(age) && age >= 18) ? 'block' : 'none';
+  document.getElementById('r_guardian_name').required = isMinor;
+  document.getElementById('r_document_number').required = (!isNaN(age) && age >= 18);
+}
+
+document.getElementById('r_still_in_school').addEventListener('change', (e)=>{
+  document.getElementById('schoolNameWrap').style.display = e.target.checked ? 'block' : 'none';
+});
+
+/* --- Step navigation --- */
+const regErrorBox = document.getElementById('regErrorBox');
+function showRegError(msg){
+  regErrorBox.textContent = msg;
+  regErrorBox.style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function clearRegError(){ regErrorBox.style.display = 'none'; }
+
+document.getElementById('toStep2Btn').addEventListener('click', ()=>{
+  clearRegError();
+  const requiredIds = ['r_full_name','r_email','r_password','r_password2','r_dob','r_age','r_nationality','r_education_level','r_lives_with','r_parent_name'];
+  for(const id of requiredIds){
+    const el = document.getElementById(id);
+    if(!el.value.trim()){ showRegError('Por favor completa todos los campos obligatorios.'); el.focus(); return; }
+  }
+  const age = parseInt(ageInput.value,10);
+  if(age < 18 && !document.getElementById('r_guardian_name').value.trim()){
+    showRegError('El nombre del responsable es obligatorio para menores de edad.'); return;
+  }
+  if(age >= 18 && !document.getElementById('r_document_number').value.trim()){
+    showRegError('El número de documento es obligatorio para mayores de 18 años.'); return;
+  }
+  if(document.getElementById('r_password').value !== document.getElementById('r_password2').value){
+    showRegError('Las contraseñas no coinciden.'); return;
+  }
+  if(document.getElementById('r_password').value.length < 6){
+    showRegError('La contraseña debe tener al menos 6 caracteres.'); return;
+  }
+  goToStep(2);
+});
+
+document.getElementById('backToStep1Btn').addEventListener('click', ()=> goToStep(1));
+
+document.getElementById('toStep3Btn').addEventListener('click', ()=>{
+  clearRegError();
+  if(!selectedClass){ showRegError('Por favor selecciona una clase.'); return; }
+  updatePaymentSummary();
+  goToStep(3);
+});
+
+document.getElementById('backToStep2Btn').addEventListener('click', ()=> goToStep(2));
+
+/* --- Payment method selection --- */
+document.querySelectorAll('.pay-option').forEach(opt=>{
+  opt.addEventListener('click', ()=>{
+    if(opt.classList.contains('disabled')){
+      showToast('Este método de pago estará disponible muy pronto. Por favor selecciona Efectivo por ahora.');
+      return;
+    }
+    document.querySelectorAll('.pay-option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    selectedPaymentMethod = opt.getAttribute('data-method');
+  });
+});
+
+function updatePaymentSummary(){
+  const total = (Number(selectedClass.enrollment_price)||0) + (Number(selectedClass.course_price)||0);
+  document.getElementById('paymentSummary').textContent =
+    `Clase: ${selectedClass.name} — Total a pagar: RD$${total.toFixed(2)} (Inscripción + primer pago del curso, ${freqLabel(selectedClass.payment_frequency)})`;
+}
+function freqLabel(f){
+  return { daily:'pago diario', weekly:'pago semanal', biweekly:'pago cada 2 semanas', monthly:'pago mensual' }[f] || f;
+}
+
+/* --- Load classes from Supabase --- */
+async function loadClassesForRegistration(){
+  const wrap = document.getElementById('classOptionsWrap');
+  const { data, error } = await supabaseClient.from('classes').select('*').eq('is_active', true).order('display_order');
+  classesAvailable = data || [];
+  if(error || !data || !data.length){
+    wrap.innerHTML = '<p class="loading-note">No hay clases disponibles en este momento. Por favor contáctanos.</p>';
+    return;
+  }
+  wrap.innerHTML = data.map(cl => `
+    <div class="class-option" data-id="${cl.id}">
+      <h4>${cl.name}</h4>
+      <div class="meta">
+        <span>💰 RD$${Number(cl.course_price).toFixed(2)} (${freqLabel(cl.payment_frequency)})</span>
+        ${cl.schedule_days ? `<span>📅 ${cl.schedule_days}</span>` : ''}
+        ${cl.schedule_time ? `<span>🕐 ${cl.schedule_time}</span>` : ''}
+        ${cl.next_session_start_date ? `<span>▶️ Inicia: ${new Date(cl.next_session_start_date+'T00:00:00').toLocaleDateString('es-DO',{dateStyle:'medium'})}</span>` : ''}
+      </div>
+      ${cl.requisitos ? `<p class="requisitos">${cl.requisitos}</p>` : ''}
+    </div>
+  `).join('');
+
+  wrap.querySelectorAll('.class-option').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      wrap.querySelectorAll('.class-option').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      selectedClass = classesAvailable.find(c => c.id === card.getAttribute('data-id'));
+    });
+  });
+}
+
+/* ============================================================
+   FINAL SUBMISSION
+============================================================ */
+document.getElementById('registerForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  clearRegError();
+  const submitBtn = document.getElementById('registerSubmitBtn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Procesando...';
+
+  try{
+    const fullName = document.getElementById('r_full_name').value.trim();
+    const email = document.getElementById('r_email').value.trim();
+    const password = document.getElementById('r_password').value;
+    const age = parseInt(ageInput.value,10);
+    const isMinor = age < 18;
+
+    // 1. Create the Supabase Auth user
+    const { data: authData, error: authError } = await supabaseClient.auth.signUp({ email, password });
+    if(authError) throw new Error(authError.message.includes('already registered') ? 'Este correo ya está registrado. Intenta iniciar sesión.' : authError.message);
+
+    const authUserId = authData.user ? authData.user.id : null;
+    if(!authUserId) throw new Error('No se pudo crear la cuenta. Intenta de nuevo.');
+
+    // 2. Insert student profile
+    const studentPayload = {
+      auth_user_id: authUserId,
+      full_name: fullName,
+      email: email,
+      date_of_birth: dobInput.value,
+      age: age,
+      nationality: document.getElementById('r_nationality').value.trim(),
+      is_minor: isMinor,
+      education_level: document.getElementById('r_education_level').value,
+      school_name: document.getElementById('r_school_name').value.trim() || null,
+      still_in_school: document.getElementById('r_still_in_school').checked,
+      lives_with: document.getElementById('r_lives_with').value.trim(),
+      parent_name: document.getElementById('r_parent_name').value.trim(),
+      guardian_name: isMinor ? document.getElementById('r_guardian_name').value.trim() : null,
+      document_number: !isMinor ? document.getElementById('r_document_number').value.trim() : null,
+      preferred_days: document.getElementById('r_preferred_days').value.trim() || null,
+      preferred_time: document.getElementById('r_preferred_time').value.trim() || null,
+      status: 'pendiente',
+      registration_type: 'online'
+    };
+    const { data: studentRow, error: studentError } = await supabaseClient
+      .from('students').insert(studentPayload).select().single();
+    if(studentError) throw new Error('Error al guardar tus datos: ' + studentError.message);
+
+    // 3. Insert enrollment
+    const { data: enrollmentRow, error: enrollError } = await supabaseClient
+      .from('enrollments')
+      .insert({ student_id: studentRow.id, class_id: selectedClass.id, status: 'pendiente' })
+      .select().single();
+    if(enrollError) throw new Error('Error al inscribir en la clase: ' + enrollError.message);
+
+    // 4. Insert payment record
+    const totalAmount = (Number(selectedClass.enrollment_price)||0) + (Number(selectedClass.course_price)||0);
+    const receiptNumber = 'REC-' + Date.now().toString(36).toUpperCase();
+    const { error: paymentError } = await supabaseClient
+      .from('payments')
+      .insert({
+        student_id: studentRow.id,
+        enrollment_id: enrollmentRow.id,
+        amount: totalAmount,
+        payment_method: selectedPaymentMethod,
+        payment_status: 'pendiente',
+        receipt_number: receiptNumber
+      });
+    if(paymentError) throw new Error('Error al registrar el pago: ' + paymentError.message);
+
+    // 5. Show receipt
+    document.getElementById('receiptBox').innerHTML = `
+      <div class="receipt-row"><span>Nombre</span><span>${fullName}</span></div>
+      <div class="receipt-row"><span>Clase</span><span>${selectedClass.name}</span></div>
+      <div class="receipt-row"><span>Monto total</span><span>RD$${totalAmount.toFixed(2)}</span></div>
+      <div class="receipt-row"><span>Método de pago</span><span>Efectivo</span></div>
+      <div class="receipt-row"><span>N° de recibo</span><span>${receiptNumber}</span></div>
+      <div class="receipt-row"><span>Estado</span><span>Pendiente de confirmación</span></div>
+    `;
+    document.getElementById('receiptTitle').textContent = 'Inscripción registrada — Pago pendiente';
+    document.getElementById('receiptSubtitle').textContent = 'Por favor acércate a la academia para realizar tu pago en efectivo. Una vez confirmado por un administrador, recibirás tu Código de Estudiante y podrás acceder a tu panel.';
+
+    document.querySelectorAll('.form-step').forEach(el=>el.classList.remove('active'));
+    document.getElementById('step4').classList.add('active');
+    document.getElementById('stepperWrap').style.display = 'none';
+    window.scrollTo({top:0, behavior:'smooth'});
+
+  }catch(err){
+    showRegError(err.message);
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Confirmar inscripción';
+  }
+});
 </script>
 </body>
 </html>
