@@ -292,6 +292,32 @@ async function initDashboard(){
 
   renderClassInfo(student);
   await loadVideosAndProgress();
+  await loadCertificate();
+}
+
+async function loadCertificate(){
+  const { data } = await supabaseClient
+    .from('certificates')
+    .select('*')
+    .eq('student_id', currentStudent.id)
+    .eq('is_valid', true)
+    .order('issued_at', { ascending: false })
+    .maybeSingle();
+
+  if(!data) return;
+
+  const certBox = document.querySelector('.cert-locked');
+  certBox.style.background = 'rgba(30,142,90,.08)';
+  certBox.innerHTML = `
+    <div class="ic" style="background:rgba(30,142,90,.15);">
+      <svg viewBox="0 0 24 24" style="stroke:var(--green);"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+    </div>
+    <div style="flex:1;">
+      <p style="font-weight:700; margin-bottom:4px;">${t('cert_unlocked')}</p>
+      <p style="font-size:11.5px; color:var(--ink-soft); margin-bottom:8px;">${t('your_code')}: ${data.certificate_code}</p>
+      <a href="${data.certificate_url}" target="_blank" rel="noopener" style="display:inline-block; background:var(--gold); color:var(--navy); font-weight:700; font-size:12.5px; padding:8px 16px; border-radius:8px;">Descargar PDF</a>
+    </div>
+  `;
 }
 
 function renderClassInfo(student){

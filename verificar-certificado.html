@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Verificar Certificado — ALTONEXO ACADEMY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --navy:#0B0F2E; --gold:#E3A73B; --ink:#0B0F2E; --ink-soft:#5B6178;
+  --surface:#FFFFFF; --surface-soft:#F5F6FA; --border:#E3E6F0; --green:#1E8E5A; --red:#D64545;
+  --font:"Manrope", sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:var(--surface-soft); color:var(--ink);}
+button,input{font-family:inherit;}
+a{color:inherit; text-decoration:none;}
+
+.topbar{background:var(--navy); padding:16px 0;}
+.topbar .wrap{max-width:700px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between;}
+.topbar-brand{display:flex; align-items:center; gap:10px;}
+.topbar-brand .box{width:32px; height:32px; border-radius:8px; overflow:hidden; background:#141A45;}
+.topbar-brand .box img{width:100%; height:100%; object-fit:cover;}
+.topbar-brand span{font-weight:800; font-size:15px; color:#fff;}
+.topbar a.back{font-size:13px; font-weight:700; color:rgba(255,255,255,.7);}
+
+.page-wrap{max-width:600px; margin:0 auto; padding:50px 24px 90px;}
+h1{font-size:22px; margin:0 0 8px; text-align:center;}
+p.sub{color:var(--ink-soft); font-size:14px; text-align:center; margin-bottom:32px;}
+
+.card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:32px;}
+.search-row{display:flex; gap:10px;}
+.search-row input{flex:1; padding:13px 16px; border:1px solid var(--border); border-radius:8px; font-size:14px; background:var(--surface-soft); text-transform:uppercase;}
+.search-row button{padding:13px 22px; border-radius:8px; border:none; background:var(--gold); color:var(--navy); font-weight:700; font-size:14px; cursor:pointer;}
+.search-row button:hover{background:#CC9330;}
+
+.result{margin-top:26px; display:none;}
+.result.valid .status-badge{background:rgba(30,142,90,.1); color:var(--green); border:1px solid rgba(30,142,90,.3);}
+.result.invalid .status-badge{background:rgba(214,69,69,.1); color:var(--red); border:1px solid rgba(214,69,69,.3);}
+.status-badge{display:flex; align-items:center; gap:10px; padding:14px 18px; border-radius:10px; font-weight:700; font-size:14.5px; margin-bottom:20px;}
+.status-badge svg{width:22px; height:22px; flex-shrink:0;}
+.detail-row{display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--border); font-size:13.5px;}
+.detail-row:last-child{border-bottom:none;}
+.detail-row span:first-child{color:var(--ink-soft);}
+.detail-row span:last-child{font-weight:700; text-align:right;}
+.pdf-link{display:block; text-align:center; margin-top:20px; padding:12px; border-radius:8px; background:var(--surface-soft); font-weight:700; font-size:13.5px; color:var(--navy);}
+.pdf-link:hover{background:var(--border);}
+.loading-note{text-align:center; color:var(--ink-soft); font-size:13.5px; padding:20px 0; display:none;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-brand">
+      <div class="box"><img src="assets/logo.png" alt="" onerror="this.parentElement.style.display='none'" /></div>
+      <span>ALTONEXO ACADEMY</span>
+    </div>
+    <a href="index.html" class="back">← Volver al sitio</a>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <h1>Verificación de Certificado</h1>
+  <p class="sub">Introduce el código que aparece en el certificado para confirmar su autenticidad.</p>
+
+  <div class="card">
+    <div class="search-row">
+      <input type="text" id="codeInput" placeholder="ALTONEXO-2026-00001" />
+      <button id="searchBtn">Verificar</button>
+    </div>
+    <p class="loading-note" id="loadingNote">Verificando...</p>
+
+    <div class="result" id="resultWrap">
+      <div class="status-badge" id="statusBadge"></div>
+      <div id="detailsWrap"></div>
+      <a class="pdf-link" id="pdfLink" href="#" target="_blank" rel="noopener">Ver / Descargar PDF del certificado</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://qmpoxscqjgtnlipadnmq.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_AbWohQb6y4oozbcH-t4nyw_PrDW8n4G";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const codeInput = document.getElementById('codeInput');
+const searchBtn = document.getElementById('searchBtn');
+const resultWrap = document.getElementById('resultWrap');
+const statusBadge = document.getElementById('statusBadge');
+const detailsWrap = document.getElementById('detailsWrap');
+const pdfLink = document.getElementById('pdfLink');
+const loadingNote = document.getElementById('loadingNote');
+
+async function verifyCode(){
+  const code = codeInput.value.trim().toUpperCase();
+  if(!code) return;
+
+  resultWrap.style.display = 'none';
+  loadingNote.style.display = 'block';
+
+  const { data, error } = await supabaseClient
+    .from('certificates')
+    .select('*')
+    .eq('certificate_code', code)
+    .maybeSingle();
+
+  loadingNote.style.display = 'none';
+  resultWrap.style.display = 'block';
+
+  if(error || !data){
+    resultWrap.className = 'result invalid';
+    statusBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg> Certificado no encontrado`;
+    detailsWrap.innerHTML = `<p style="font-size:13px; color:var(--ink-soft);">No existe ningún certificado con este código. Verifica que lo hayas escrito correctamente.</p>`;
+    pdfLink.style.display = 'none';
+    return;
+  }
+
+  if(data.is_valid){
+    resultWrap.className = 'result valid';
+    statusBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Certificado válido y auténtico`;
+  } else {
+    resultWrap.className = 'result invalid';
+    statusBadge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> Este certificado ha sido anulado`;
+  }
+
+  detailsWrap.innerHTML = `
+    <div class="detail-row"><span>Estudiante</span><span>${data.student_full_name}</span></div>
+    <div class="detail-row"><span>Programa</span><span>${data.class_name}</span></div>
+    <div class="detail-row"><span>Fecha de finalización</span><span>${new Date(data.completion_date+'T00:00:00').toLocaleDateString('es-DO', {dateStyle:'long'})}</span></div>
+    <div class="detail-row"><span>Código de certificado</span><span>${data.certificate_code}</span></div>
+    <div class="detail-row"><span>Código de seguridad</span><span>${data.security_code}</span></div>
+  `;
+  pdfLink.href = data.certificate_url;
+  pdfLink.style.display = 'block';
+}
+
+searchBtn.addEventListener('click', verifyCode);
+codeInput.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') verifyCode(); });
+
+// Auto-fill and verify if ?code=... is present in the URL (from QR scan)
+const params = new URLSearchParams(window.location.search);
+if(params.get('code')){
+  codeInput.value = params.get('code');
+  verifyCode();
+}
+</script>
+</body>
+</html>
