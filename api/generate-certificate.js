@@ -153,7 +153,7 @@ export default async function handler(req, res) {
     drawSealText(page, 'ALTONEXO ACADEMY', sealCenter.x, sealCenter.y + 14, fontBold, 6.5, navy);
     drawSealText(page, 'SELLO OFICIAL', sealCenter.x, sealCenter.y + 2, fontBold, 7.5, gold);
     drawSealText(page, 'REPÚBLICA DOMINICANA', sealCenter.x, sealCenter.y - 10, fontRegular, 5.5, navy);
-    drawSealText(page, '★', sealCenter.x, sealCenter.y - 24, fontBold, 9, gold);
+    drawSealText(page, '*', sealCenter.x, sealCenter.y - 24, fontBold, 9, gold);
 
     function drawSealText(pg, text, cx, y, font, size, color) {
       const w = font.widthOfTextAtSize(text, size);
