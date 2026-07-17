@@ -287,7 +287,6 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
       <li><a href="#videos-educativos" data-i18n="nav_videos">Videos</a></li>
       <li><a href="book1.html" class="nav-book-link">📘 <span data-i18n="nav_book">Libro</span></a></li>
       <li><a href="estudiante.html" class="nav-book-link">🎓 <span data-i18n="nav_student">Acceso Estudiante</span></a></li>
-      <li><a href="estudiante.html" class="nav-book-link">🎓 <span data-i18n="nav_student">Acceso Estudiante</span></a></li>
       <li><a href="#contacto" data-i18n="nav_contact">Contacto</a></li>
     </ul>
     <div class="nav-actions">
@@ -506,7 +505,6 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
           <li><a href="#testimonios" data-i18n="nav_testi">Testimonios</a></li>
           <li><a href="#precios" data-i18n="nav_pricing">Precios</a></li>
           <li><a href="book1.html" data-i18n="nav_book">Libro</a></li>
-          <li><a href="estudiante.html" data-i18n="nav_student">Acceso Estudiante</a></li>
           <li><a href="estudiante.html" data-i18n="nav_student">Acceso Estudiante</a></li>
         </ul>
       </div>
@@ -967,12 +965,19 @@ function animateCount(el, target){
   }
   requestAnimationFrame(tick);
 }
+let statsData = null;
+let statsInView = false;
+function tryAnimateStats(){
+  if(!statsInView || !statsData) return;
+  animateCount(document.getElementById('statVisitors'), statsData.visitors_count ?? 0);
+  animateCount(document.getElementById('statEnrolled'), statsData.enrolled_count ?? 0);
+  animateCount(document.getElementById('statActive'), statsData.active_students_count ?? 0);
+}
 const statsObserver = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      animateCount(document.getElementById('statVisitors'), window.__altonexoStats?.visitors_count ?? 0);
-      animateCount(document.getElementById('statEnrolled'), window.__altonexoStats?.enrolled_count ?? 0);
-      animateCount(document.getElementById('statActive'), window.__altonexoStats?.active_students_count ?? 0);
+      statsInView = true;
+      tryAnimateStats();
       statsObserver.disconnect();
     }
   });
@@ -998,7 +1003,7 @@ async function loadSiteData(){
 
   try{
     const { data: stats } = await supabaseClient.from('site_stats').select('*').eq('id',1).maybeSingle();
-    if(stats) window.__altonexoStats = stats;
+    if(stats){ statsData = stats; tryAnimateStats(); }
   }catch(e){ console.warn('site_stats fetch failed', e); }
 
   try{
