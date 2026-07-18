@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 2 · Lesson 34 — The Alphabet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A; --navy-light:#161C4A;
+  --gold:#E3A73B; --gold-bright:#F5D783; --gold-pale:#FBF0DA;
+  --ink:#0B0F2E; --ink-soft:#5B6178; --ice:#F3F5FB; --ice-dim:#E4E8F5; --white:#FFFFFF;
+  --green:#1E8E5A; --green-pale:#E7F5EE; --blue:#2E6FD6; --blue-pale:#E9F1FC; --pink:#C24E7A; --pink-pale:#FAEAF1;
+  --font:"Manrope", sans-serif; --mono:"Space Grotesk", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:#3a3d4a; color:var(--ink); padding:40px 20px;}
+h1,h2,h3,h4{margin:0;} p{margin:0; line-height:1.55;}
+.page-label{max-width:816px; margin:0 auto 8px; color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;}
+.page{width:816px; height:1056px; background:var(--white); margin:0 auto 34px; box-shadow:0 20px 50px rgba(0,0,0,.4); padding:54px 58px 44px; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.page-header{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); border-bottom:1px solid var(--ice-dim); padding-bottom:12px; margin-bottom:22px;}
+.page-header .brand{color:var(--gold); font-weight:700;}
+.page-footer{position:absolute; bottom:24px; left:58px; right:58px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-soft); border-top:1px solid var(--ice-dim); padding-top:12px;}
+.page-body{flex:1; display:flex; flex-direction:column; gap:20px; min-height:0;}
+.lesson-cover{background:linear-gradient(160deg, var(--navy), var(--navy-deep)); color:#fff; padding:30px 34px; border-radius:14px; position:relative; overflow:hidden; margin-bottom:4px;}
+.lesson-cover::before{content:""; position:absolute; top:-80px; right:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.2), transparent 70%);}
+.crumbs{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:9px; position:relative;}
+.lesson-title{font-size:28px; font-weight:800; position:relative;}
+.lesson-title .es{font-size:13.5px; font-weight:600; color:rgba(255,255,255,.65); font-style:italic; margin-top:4px;}
+.lesson-badges{display:flex; gap:8px; margin-top:12px; position:relative; flex-wrap:wrap;}
+.badge{font-family:var(--mono); font-size:10px; font-weight:700; padding:5px 12px; border-radius:14px;}
+.badge-gold{background:var(--gold); color:var(--navy);}
+.badge-outline{border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85);}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:11px;}
+.section-num{width:26px; height:26px; border-radius:7px; background:var(--navy); color:var(--gold-bright); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:12px; flex-shrink:0;}
+.section-title{font-size:14.5px; font-weight:800; color:var(--navy);}
+.section-title .es{font-size:11.5px; font-weight:600; color:var(--ink-soft); font-style:italic;}
+.obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.obj-card{background:var(--gold-pale); border-radius:10px; padding:13px; border:1px solid rgba(227,167,59,.3);}
+.obj-card svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.8; margin-bottom:6px;}
+.obj-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; line-height:1.35;}
+.obj-card p.es{font-size:10px; color:var(--ink-soft); font-style:italic; line-height:1.35;}
+.intro-box{display:flex; gap:14px; align-items:flex-start;}
+.intro-icon{width:36px; height:36px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.intro-icon svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.intro-text p.en{font-size:12.5px; margin-bottom:7px;}
+.intro-text p.es{font-size:11.5px; color:var(--ink-soft); font-style:italic;}
+.fact-box{display:flex; gap:12px; align-items:flex-start; background:var(--blue-pale); border-radius:10px; padding:13px 15px; margin-top:4px;}
+.fact-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.fact-box .ic svg{width:15px; height:15px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.fact-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.fact-box p.en{font-size:11.5px; color:var(--navy);}
+.fact-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.alpha-grid{display:grid; grid-template-columns:repeat(9,1fr); gap:6px;}
+.alpha-card{background:var(--ice); border-radius:8px; padding:8px 3px; text-align:center;}
+.alpha-card .letter{font-size:15px; font-weight:800; color:var(--navy); font-family:var(--mono);}
+.alpha-card .sound{font-size:8.5px; color:var(--ink-soft); font-family:var(--mono); margin-top:1px;}
+.vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+.vocab-card{background:var(--ice); border-radius:9px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.vocab-word{font-weight:800; font-size:12.5px; color:var(--navy);}
+.vocab-phon{font-family:var(--mono); font-size:9.5px; color:var(--ink-soft);}
+.vocab-es{font-size:10.5px; color:var(--ink-soft); font-style:italic; text-align:right;}
+.pron-row{display:flex; flex-wrap:wrap; gap:8px;}
+.pron-chip{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; font-weight:600; padding:7px 13px; border-radius:16px;}
+.pron-note{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.mistake-box{background:var(--pink-pale); border-radius:10px; padding:12px 15px; margin-top:4px;}
+.mistake-box .row{display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+.mistake-box .row:last-child{margin-bottom:0;}
+.mistake-box .wrong{font-size:11.5px; color:var(--pink); text-decoration:line-through; font-weight:600;}
+.mistake-box .right{font-size:11.5px; color:var(--green); font-weight:700;}
+.mistake-box svg{width:13px; height:13px; stroke:var(--ink-soft); flex-shrink:0;}
+.grammar-box{background:var(--pink-pale); border-left:4px solid var(--pink); border-radius:0 9px 9px 0; padding:13px 16px;}
+.grammar-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.grammar-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.chat{display:flex; flex-direction:column; gap:8px; max-width:490px;}
+.chat-row{display:flex; gap:8px; align-items:flex-end;}
+.chat-row.right{flex-direction:row-reverse;}
+.chat-avatar{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:10.5px; flex-shrink:0;}
+.chat-row.left .chat-avatar{background:var(--navy); color:var(--gold-bright);}
+.chat-row.right .chat-avatar{background:var(--gold); color:var(--navy);}
+.chat-bubble{padding:7px 12px; border-radius:14px; font-size:11px; max-width:330px;}
+.chat-row.left .chat-bubble{background:var(--ice); border-bottom-left-radius:3px;}
+.chat-row.right .chat-bubble{background:var(--gold-pale); border-bottom-right-radius:3px;}
+.chat-bubble .es{display:block; font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.practice-box{background:var(--ice); border-radius:10px; padding:14px;}
+.practice-box .instr{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.practice-box .instr .es{display:block; font-weight:500; font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.practice-box .content{font-size:11.5px; color:var(--ink-soft);}
+.reading-passage{font-size:12px; line-height:1.65; font-style:italic; color:var(--navy); border-left:3px solid var(--gold); padding-left:14px;}
+.reading-passage .es{display:block; font-size:10.5px; margin-top:6px; color:var(--ink-soft); font-style:normal;}
+.writing-lines{border-bottom:1px dashed var(--ice-dim); height:20px; margin-top:6px;}
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px; max-width:420px;}
+.match-col{display:flex; flex-direction:column; gap:7px;}
+.match-item{background:var(--ice); border-radius:7px; padding:7px 12px; font-size:11px; font-weight:600; text-align:center;}
+.fill-blank{font-size:12px; margin-top:10px; padding:9px 14px; background:var(--blue-pale); border-radius:9px;}
+.fill-blank .blank{border-bottom:2px solid var(--blue); padding:0 16px; font-weight:700;}
+.quiz-item{margin-bottom:10px;}
+.quiz-q{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:5px;}
+.quiz-opts{display:flex; gap:8px; flex-wrap:wrap;}
+.quiz-opt{border:1px solid var(--ice-dim); border-radius:7px; padding:6px 12px; font-size:10.5px;}
+.task-card{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:14px;}
+.task-card svg{width:17px; height:17px; stroke:var(--green); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:1px;}
+.task-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px;}
+.task-card p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.review-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.review-tags span{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:10.5px; padding:5px 12px; border-radius:12px;}
+.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+.check-list li{display:flex; align-items:flex-start; gap:8px; font-size:11.5px;}
+.check-list li svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px;}
+.check-list li .es{color:var(--ink-soft); font-style:italic;}
+.answer-box{background:var(--navy); color:#fff; border-radius:10px; padding:15px;}
+.answer-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px;}
+.answer-box ol{margin:0; padding-left:16px; font-size:11.5px; line-height:1.75;}
+.summary-box{background:var(--gold-pale); border-radius:10px; padding:15px; border:1px solid rgba(227,167,59,.35);}
+.summary-box p.en{font-size:11.5px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.summary-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.next-box{display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff; border-radius:10px; padding:16px 20px;}
+.next-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;}
+.next-box .title{font-size:14px; font-weight:800;}
+.next-box .es{font-size:10.5px; color:rgba(255,255,255,.65); font-style:italic; margin-top:2px;}
+.next-box svg{width:19px; height:19px; stroke:var(--gold-bright); fill:none; stroke-width:2;}
+.nato-grid{display:grid; grid-template-columns:repeat(6,1fr); gap:6px;}
+.nato-card{background:var(--ice); border-radius:8px; padding:8px 4px; text-align:center;}
+.nato-card .l{font-family:var(--mono); font-weight:800; font-size:12px; color:var(--gold-hover,var(--gold));}
+.nato-card .w{font-size:9px; color:var(--navy); font-weight:600; margin-top:2px;}
+.tip-box{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:13px 15px;}
+.tip-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.tip-box .ic svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:1.8;}
+.tip-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.tip-box p.en{font-size:11.5px; color:var(--navy);}
+.tip-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.bonus-box{background:var(--gold-pale); border-radius:10px; padding:14px 16px; border:1px dashed rgba(227,167,59,.5);}
+.bonus-box .label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--gold-hover,#CC9330); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px;}
+.spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<div class="page-label">Página 1 / Page 1 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 34</span></div>
+  <div class="page-body">
+    <div class="lesson-cover">
+      <div class="crumbs">Module 2 · Life Vocabulary — Lesson 34 of 57</div>
+      <div class="lesson-title">The Alphabet<div class="es">Lección 34 — El alfabeto</div></div>
+      <div class="lesson-badges"><span class="badge badge-gold">Level A0</span><span class="badge badge-outline">15 min</span><span class="badge badge-outline">🎧 Audio</span><span class="badge badge-outline">🎬 Video</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">1</div><div class="section-title">Objectives <span class="es">· Objetivos</span></div></div>
+      <div class="obj-grid">
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Say all 26 letters of the alphabet</p><p class="es">Decir las 26 letras del alfabeto</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Spell your name out loud</p><p class="es">Deletrear tu nombre en voz alta</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Identify vowels and consonants</p><p class="es">Identificar vocales y consonantes</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">2</div><div class="section-title">Introduction <span class="es">· Introducción</span></div></div>
+      <div class="intro-box">
+        <div class="intro-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <div class="intro-text">
+          <p class="en">The English alphabet has 26 letters — 5 main vowels (a, e, i, o, u) and 21 consonants. Knowing the alphabet lets you spell names, ask for clarification, and read new words.</p>
+          <p class="es">El alfabeto inglés tiene 26 letras — 5 vocales principales (a, e, i, o, u) y 21 consonantes. Conocer el alfabeto te permite deletrear nombres, pedir aclaraciones y leer palabras nuevas.</p>
+        </div>
+      </div>
+      <div class="fact-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
+        <div><p class="label">Did you know? / ¿Sabías qué?</p><p class="en">"Y" can act as both a vowel and a consonant, depending on the word (e.g., "gym" vs. "yellow").</p><p class="es">"Y" puede actuar como vocal y como consonante, según la palabra (ej: "gym" vs. "yellow").</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">3</div><div class="section-title">Detailed Explanation <span class="es">· Explicación detallada — The 26 Letters</span></div></div>
+      <div class="alpha-grid">
+        <div class="alpha-card"><div class="letter">A a</div><div class="sound">/eɪ/</div></div>
+        <div class="alpha-card"><div class="letter">B b</div><div class="sound">/biː/</div></div>
+        <div class="alpha-card"><div class="letter">C c</div><div class="sound">/siː/</div></div>
+        <div class="alpha-card"><div class="letter">D d</div><div class="sound">/diː/</div></div>
+        <div class="alpha-card"><div class="letter">E e</div><div class="sound">/iː/</div></div>
+        <div class="alpha-card"><div class="letter">F f</div><div class="sound">/ɛf/</div></div>
+        <div class="alpha-card"><div class="letter">G g</div><div class="sound">/dʒiː/</div></div>
+        <div class="alpha-card"><div class="letter">H h</div><div class="sound">/eɪtʃ/</div></div>
+        <div class="alpha-card"><div class="letter">I i</div><div class="sound">/aɪ/</div></div>
+        <div class="alpha-card"><div class="letter">J j</div><div class="sound">/dʒeɪ/</div></div>
+        <div class="alpha-card"><div class="letter">K k</div><div class="sound">/keɪ/</div></div>
+        <div class="alpha-card"><div class="letter">L l</div><div class="sound">/ɛl/</div></div>
+        <div class="alpha-card"><div class="letter">M m</div><div class="sound">/ɛm/</div></div>
+        <div class="alpha-card"><div class="letter">N n</div><div class="sound">/ɛn/</div></div>
+        <div class="alpha-card"><div class="letter">O o</div><div class="sound">/oʊ/</div></div>
+        <div class="alpha-card"><div class="letter">P p</div><div class="sound">/piː/</div></div>
+        <div class="alpha-card"><div class="letter">Q q</div><div class="sound">/kjuː/</div></div>
+        <div class="alpha-card"><div class="letter">R r</div><div class="sound">/ɑːr/</div></div>
+        <div class="alpha-card"><div class="letter">S s</div><div class="sound">/ɛs/</div></div>
+        <div class="alpha-card"><div class="letter">T t</div><div class="sound">/tiː/</div></div>
+        <div class="alpha-card"><div class="letter">U u</div><div class="sound">/juː/</div></div>
+        <div class="alpha-card"><div class="letter">V v</div><div class="sound">/viː/</div></div>
+        <div class="alpha-card"><div class="letter">W w</div><div class="sound">/ˈdʌbəljuː/</div></div>
+        <div class="alpha-card"><div class="letter">X x</div><div class="sound">/ɛks/</div></div>
+        <div class="alpha-card"><div class="letter">Y y</div><div class="sound">/waɪ/</div></div>
+        <div class="alpha-card"><div class="letter">Z z</div><div class="sound">/ziː/</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 1 / Page 1</span></div>
+</div>
+
+<div class="page-label">Página 2 / Page 2 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 34</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">4</div><div class="section-title">Vocabulary <span class="es">· Vocabulario</span></div></div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div><div class="vocab-word">Letter</div><div class="vocab-phon">/ˈlɛtər/</div></div><div class="vocab-es">Letra</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Spell</div><div class="vocab-phon">/spɛl/</div></div><div class="vocab-es">Deletrear</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Vowel</div><div class="vocab-phon">/ˈvaʊəl/</div></div><div class="vocab-es">Vocal</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Consonant</div><div class="vocab-phon">/ˈkɒnsənənt/</div></div><div class="vocab-es">Consonante</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Capital letter</div><div class="vocab-phon">/ˈkæpɪtəl/</div></div><div class="vocab-es">Letra mayúscula</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Lowercase</div><div class="vocab-phon">/ˈloʊərkeɪs/</div></div><div class="vocab-es">Minúscula</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">How do you spell...?</div><div class="vocab-phon">/haʊ duː juː spɛl/</div></div><div class="vocab-es">¿Cómo se deletrea...?</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Can you repeat that?</div><div class="vocab-phon">/kæn juː rɪˈpiːt ðæt/</div></div><div class="vocab-es">¿Puedes repetir eso?</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">5</div><div class="section-title">Pronunciation <span class="es">· Pronunciación — Tricky Letters</span></div></div>
+      <div class="pron-row"><div class="pron-chip">G vs. J</div><div class="pron-chip">I vs. E</div><div class="pron-chip">W = "double-u"</div></div>
+      <p class="pron-note" style="margin-top:8px;">Spanish speakers often confuse "G" (/dʒiː/) with "J" (/dʒeɪ/), and "I" (/aɪ/) with "E" (/iː/). Practice these pairs slowly. / Los hispanohablantes suelen confundir "G" con "J", e "I" con "E". Practica estos pares despacio.</p>
+      <div class="mistake-box">
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg><span class="wrong">Saying "I" like Spanish "i"</span></div>
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg><span class="right">English "I" sounds like "eye" — /aɪ/</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">6</div><div class="section-title">Grammar <span class="es">· Gramática</span></div></div>
+      <div class="grammar-box"><p class="en">To spell a word, say each letter separately: "C-A-T, cat." Capital letters are always used for names, countries, and the pronoun "I."</p><p class="es">Para deletrear una palabra, di cada letra por separado: "C-A-T, cat." Las mayúsculas siempre se usan para nombres, países y el pronombre "I."</p></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">7</div><div class="section-title">Dialogues <span class="es">· Diálogos</span></div></div>
+      <div class="chat">
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">What's your last name?<span class="es">¿Cuál es tu apellido?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Smith.<span class="es">Smith.</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">How do you spell that?<span class="es">¿Cómo se deletrea?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">S-M-I-T-H.<span class="es">S-M-I-T-H.</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Got it, thank you!<span class="es">Entendido, ¡gracias!</span></div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 2 / Page 2</span></div>
+</div>
+
+<div class="page-label">Página 3 / Page 3 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 34</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">8</div><div class="section-title">Listening <span class="es">· Comprensión auditiva</span></div></div><div class="practice-box"><div class="instr">🎧 Listen to the full alphabet song, then listen again and repeat each letter.<span class="es">Escucha la canción completa del alfabeto, luego escucha de nuevo y repite cada letra.</span></div><div class="content">Audio track: <b>M2-L34-alphabet-song.mp3</b> · Audio track: <b>M2-L34-dialogue.mp3</b></div></div></div>
+    <div><div class="section-head"><div class="section-num">9</div><div class="section-title">Speaking <span class="es">· Expresión oral</span></div></div><div class="practice-box"><div class="instr">💬 Spell your full name out loud to a partner, letter by letter.<span class="es">Deletrea tu nombre completo en voz alta a un compañero, letra por letra.</span></div><div class="content">Then ask: "How do you spell your name?" and listen to their answer. Take turns until every student in the group has spelled their name at least twice.</div></div></div>
+    <div><div class="section-head"><div class="section-num">10</div><div class="section-title">Reading <span class="es">· Lectura</span></div></div><p class="reading-passage">"The alphabet has 26 letters. Five of them are vowels: A, E, I, O, U. The rest are consonants. Learning to spell helps you write new words correctly and helps other people understand names they have never heard before."<span class="es">"El alfabeto tiene 26 letras. Cinco de ellas son vocales: A, E, I, O, U. El resto son consonantes. Aprender a deletrear te ayuda a escribir palabras nuevas correctamente y ayuda a otras personas a entender nombres que nunca han escuchado antes."</span></p></div>
+    <div>
+      <div class="section-head"><div class="section-num">11</div><div class="section-title">Culture Note <span class="es">· Nota cultural — The Phonetic Alphabet</span></div></div>
+      <p class="pron-note" style="margin-bottom:8px;">In English-speaking countries, people often use a "phonetic alphabet" to spell names clearly over the phone or radio — each letter gets a word. / En países de habla inglesa, se usa un "alfabeto fonético" para deletrear nombres claramente por teléfono o radio — cada letra tiene una palabra.</p>
+      <div class="nato-grid">
+        <div class="nato-card"><div class="l">A</div><div class="w">Alpha</div></div>
+        <div class="nato-card"><div class="l">B</div><div class="w">Bravo</div></div>
+        <div class="nato-card"><div class="l">C</div><div class="w">Charlie</div></div>
+        <div class="nato-card"><div class="l">D</div><div class="w">Delta</div></div>
+        <div class="nato-card"><div class="l">E</div><div class="w">Echo</div></div>
+        <div class="nato-card"><div class="l">F</div><div class="w">Foxtrot</div></div>
+        <div class="nato-card"><div class="l">G</div><div class="w">Golf</div></div>
+        <div class="nato-card"><div class="l">H</div><div class="w">Hotel</div></div>
+        <div class="nato-card"><div class="l">I</div><div class="w">India</div></div>
+        <div class="nato-card"><div class="l">J</div><div class="w">Juliet</div></div>
+        <div class="nato-card"><div class="l">K</div><div class="w">Kilo</div></div>
+        <div class="nato-card"><div class="l">L</div><div class="w">Lima</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">12</div><div class="section-title">Writing <span class="es">· Escritura</span></div></div>
+      <div class="practice-box"><div class="instr">✍️ Write the alphabet in order, then write your full name in capital letters. Finally, write your name again using the phonetic alphabet above (e.g., "Ana" = Alpha - November - Alpha).<span class="es">Escribe el alfabeto en orden, luego tu nombre en mayúsculas. Finalmente, escribe tu nombre usando el alfabeto fonético de arriba.</span></div><div class="writing-lines"></div><div class="writing-lines"></div><div class="writing-lines"></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 3 / Page 3</span></div>
+</div>
+
+<div class="page-label">Página 4 / Page 4 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 34</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">13</div><div class="section-title">Interactive Exercises <span class="es">· Ejercicios interactivos</span></div></div>
+      <div class="match-grid"><div class="match-col"><div class="match-item">Vowel</div><div class="match-item">Consonant</div><div class="match-item">Capital</div></div><div class="match-col"><div class="match-item">Mayúscula</div><div class="match-item">Vocal</div><div class="match-item">Consonante</div></div></div>
+      <div class="fill-blank">Complete: "How do you ___ your name?" <span class="blank">spell</span></div>
+      <div class="fill-blank" style="margin-top:10px;">Which letters are vowels? A, E, ___, O, U <span class="blank">I</span></div>
+      <div class="bonus-box" style="margin-top:12px;">
+        <div class="label">Bonus Challenge / Reto adicional</div>
+        <p style="font-size:11.5px; color:var(--navy);">Use the phonetic alphabet to spell the word "CAT": <b>Charlie - Alpha - Tango</b>. Now try spelling "DOG" the same way on your own.</p>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">14</div><div class="section-title">Quiz</div></div>
+      <div class="quiz-item"><div class="quiz-q">1. How many letters are in the English alphabet?</div><div class="quiz-opts"><span class="quiz-opt">A) 24</span><span class="quiz-opt">B) 26</span><span class="quiz-opt">C) 28</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">2. How many main vowels are there?</div><div class="quiz-opts"><span class="quiz-opt">A) 3</span><span class="quiz-opt">B) 5</span><span class="quiz-opt">C) 7</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">3. How do you say "W"?</div><div class="quiz-opts"><span class="quiz-opt">A) Double-u</span><span class="quiz-opt">B) We</span><span class="quiz-opt">C) Wuh</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">4. In the phonetic alphabet, "B" is:</div><div class="quiz-opts"><span class="quiz-opt">A) Bravo</span><span class="quiz-opt">B) Boy</span><span class="quiz-opt">C) Bear</span></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 4 / Page 4</span></div>
+</div>
+
+<div class="page-label">Página 5 / Page 5 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 34</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">15</div><div class="section-title">Homework <span class="es">· Tarea</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M9 22V12h6v10M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><p class="en">Practice spelling the names of 5 family members out loud, letter by letter. Then write down which letters in each name are vowels.</p><p class="es">Practica deletrear los nombres de 5 familiares en voz alta, letra por letra. Luego escribe cuáles letras de cada nombre son vocales.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">16</div><div class="section-title">Project <span class="es">· Proyecto</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg><div><p class="en">Make an illustrated alphabet poster: one word starting with each letter (A for Apple, B for Book...). Add a small drawing next to each word.</p><p class="es">Haz un póster ilustrado del alfabeto: una palabra que empiece con cada letra (A de Apple, B de Book...). Agrega un pequeño dibujo junto a cada palabra.</p></div></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">17</div><div class="section-title">Tip <span class="es">· Consejo del profesor</span></div></div>
+      <div class="tip-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 2z"/></svg></div>
+        <div><p class="label">Study Tip / Consejo de estudio</p><p class="en">Practice the alphabet a little every day instead of all at once — 5 minutes daily works better than 30 minutes once a week.</p><p class="es">Practica el alfabeto un poco cada día en lugar de todo de una vez — 5 minutos diarios funcionan mejor que 30 minutos una vez a la semana.</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">18</div><div class="section-title">Review <span class="es">· Repaso</span></div></div><div class="review-tags"><span>Letter</span><span>Spell</span><span>Vowel</span><span>Consonant</span><span>Capital</span><span>Lowercase</span><span>How do you spell...?</span><span>Phonetic alphabet</span></div></div>
+    <div><div class="section-head"><div class="section-num">19</div><div class="section-title">Assessment <span class="es">· Evaluación</span></div></div>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can say all 26 letters of the alphabet. <span class="es">Puedo decir las 26 letras del alfabeto.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can spell my own name. <span class="es">Puedo deletrear mi propio nombre.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I know which letters are vowels. <span class="es">Sé cuáles letras son vocales.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can use a few words from the phonetic alphabet. <span class="es">Puedo usar algunas palabras del alfabeto fonético.</span></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 5 / Page 5</span></div>
+</div>
+
+<div class="page-label">Página 6 / Page 6 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 34</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">20</div><div class="section-title">Answer Key <span class="es">· Hoja de respuestas</span></div></div><div class="answer-box"><div class="label">Quiz answers</div><ol><li>B) 26</li><li>B) 5</li><li>A) Double-u</li><li>A) Bravo</li></ol></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">21</div><div class="section-title">Summary <span class="es">· Resumen</span></div></div>
+      <div class="summary-box">
+        <p class="en">Today you learned all 26 letters of the English alphabet, the difference between vowels and consonants, how to spell your name out loud, and even a few words from the international phonetic alphabet used for clear communication over the phone.</p>
+        <p class="es">Hoy aprendiste las 26 letras del alfabeto inglés, la diferencia entre vocales y consonantes, cómo deletrear tu nombre en voz alta, e incluso algunas palabras del alfabeto fonético internacional usado para comunicarte claramente por teléfono.</p>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">22</div><div class="section-title">Coming Up <span class="es">· Próxima lección</span></div></div><div class="next-box"><div><div class="label">Lesson 35</div><div class="title">Family Members</div><div class="es">Los miembros de la familia.</div></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 6 / Page 6</span></div>
+</div>
+
+</body>
+</html>
