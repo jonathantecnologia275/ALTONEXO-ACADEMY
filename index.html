@@ -163,6 +163,17 @@ section{padding:96px 0;}
 }
 @keyframes partnersScroll{from{transform:translateX(0);} to{transform:translateX(-50%);}}
 
+/* ===== FLYERS / PROMOCIONES ===== */
+.flyers-section{background:var(--surface);}
+.flyers-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;}
+.flyer-card{
+  border-radius:12px; overflow:hidden; border:1px solid var(--border); background:var(--surface-soft);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease); display:block;
+}
+.flyer-card:hover{transform:translateY(-4px); box-shadow:0 16px 32px rgba(11,15,46,.12);}
+.flyer-card img{width:100%; height:320px; object-fit:cover; display:block;}
+.flyer-card .flyer-title{padding:12px 16px; font-size:13.5px; font-weight:700; color:var(--ink);}
+
 /* ===== PRICING ===== */
 .pricing{background:var(--surface-soft);}
 .price-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px;}
@@ -437,6 +448,16 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
   </div>
 </section>
 
+<section class="flyers-section" id="promociones" style="display:none;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="pill pill-gold" style="margin:0 auto 16px;" data-i18n="flyers_eyebrow">Promociones</div>
+      <h2 data-i18n="flyers_title">Nuestras últimas promociones.</h2>
+    </div>
+    <div class="flyers-grid reveal" id="flyersGrid"></div>
+  </div>
+</section>
+
 <section class="pricing" id="precios">
   <div class="wrap">
     <div class="section-head reveal">
@@ -606,7 +627,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 
 const siteTranslations = {
   es: {
-    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_videos:"Videos", nav_contact:"Contacto", nav_enroll:"Inscríbete", nav_book:"Libro", nav_student:"Acceso Estudiante", map_eyebrow:"Encuéntranos", map_title:"Visítanos en nuestra sede.", map_directions:"Cómo llegar",
+    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_videos:"Videos", nav_contact:"Contacto", nav_enroll:"Inscríbete", nav_book:"Libro", nav_student:"Acceso Estudiante", map_eyebrow:"Encuéntranos", map_title:"Visítanos en nuestra sede.", map_directions:"Cómo llegar", flyers_eyebrow:"Promociones", flyers_title:"Nuestras últimas promociones.",
     hero_pill:"📍 Punta Cana, República Dominicana",
     hero_title:"Tu conexión <span class=\"accent\">con el éxito.</span>",
     hero_lead:"Formación profesional en idiomas, belleza, tecnología y fotografía, con profesores nativos e instructores certificados. Modalidad presencial y virtual.",
@@ -646,7 +667,7 @@ const siteTranslations = {
     level_basic:"Básico", level_inter:"Intermedio", level_adv:"Avanzado"
   },
   en: {
-    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_videos:"Videos", nav_contact:"Contact", nav_enroll:"Enroll now", nav_book:"Book", nav_student:"Student Access", map_eyebrow:"Find us", map_title:"Visit us at our campus.", map_directions:"Get directions",
+    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_videos:"Videos", nav_contact:"Contact", nav_enroll:"Enroll now", nav_book:"Book", nav_student:"Student Access", map_eyebrow:"Find us", map_title:"Visit us at our campus.", map_directions:"Get directions", flyers_eyebrow:"Promotions", flyers_title:"Our latest promotions.",
     hero_pill:"📍 Punta Cana, Dominican Republic",
     hero_title:"Your connection <span class=\"accent\">to success.</span>",
     hero_lead:"Professional training in languages, beauty, technology, and photography, with native-speaking teachers and certified instructors. In-person and online.",
@@ -686,7 +707,7 @@ const siteTranslations = {
     level_basic:"Basic", level_inter:"Intermediate", level_adv:"Advanced"
   },
   fr: {
-    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_videos:"Vidéos", nav_contact:"Contact", nav_enroll:"Inscrivez-vous", nav_book:"Livre", nav_student:"Accès Étudiant", map_eyebrow:"Trouvez-nous", map_title:"Visitez notre campus.", map_directions:"Itinéraire",
+    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_videos:"Vidéos", nav_contact:"Contact", nav_enroll:"Inscrivez-vous", nav_book:"Livre", nav_student:"Accès Étudiant", map_eyebrow:"Trouvez-nous", map_title:"Visitez notre campus.", map_directions:"Itinéraire", flyers_eyebrow:"Promotions", flyers_title:"Nos dernières promotions.",
     hero_pill:"📍 Punta Cana, République Dominicaine",
     hero_title:"Votre connexion <span class=\"accent\">vers le succès.</span>",
     hero_lead:"Formation professionnelle en langues, beauté, technologie et photographie, avec des professeurs natifs et des instructeurs certifiés. Présentiel et en ligne.",
@@ -726,7 +747,7 @@ const siteTranslations = {
     level_basic:"Débutant", level_inter:"Intermédiaire", level_adv:"Avancé"
   },
   ht: {
-    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_videos:"Videyo", nav_contact:"Kontak", nav_enroll:"Enskri kounya", nav_book:"Liv", nav_student:"Aksè Etidyan", map_eyebrow:"Jwenn nou", map_title:"Vizite nou nan sit nou an.", map_directions:"Kijan pou rive",
+    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_videos:"Videyo", nav_contact:"Kontak", nav_enroll:"Enskri kounya", nav_book:"Liv", nav_student:"Aksè Etidyan", map_eyebrow:"Jwenn nou", map_title:"Vizite nou nan sit nou an.", map_directions:"Kijan pou rive", flyers_eyebrow:"Pwomosyon", flyers_title:"Dènye pwomosyon nou yo.",
     hero_pill:"📍 Punta Cana, Repiblik Dominikèn",
     hero_title:"Koneksyon ou <span class=\"accent\">ak siksè.</span>",
     hero_lead:"Fòmasyon pwofesyonèl nan lang, bote, teknoloji ak fotografi, ak pwofesè natif ak enstriktè sètifye. Prezansyèl ak vityèl.",
@@ -766,7 +787,7 @@ const siteTranslations = {
     level_basic:"Debitan", level_inter:"Entèmedyè", level_adv:"Avanse"
   },
   pt: {
-    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_videos:"Vídeos", nav_contact:"Contato", nav_enroll:"Inscreva-se", nav_book:"Livro", nav_student:"Acesso Estudante", map_eyebrow:"Encontre-nos", map_title:"Visite nosso campus.", map_directions:"Como chegar",
+    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_videos:"Vídeos", nav_contact:"Contato", nav_enroll:"Inscreva-se", nav_book:"Livro", nav_student:"Acesso Estudante", map_eyebrow:"Encontre-nos", map_title:"Visite nosso campus.", map_directions:"Como chegar", flyers_eyebrow:"Promoções", flyers_title:"Nossas últimas promoções.",
     hero_pill:"📍 Punta Cana, República Dominicana",
     hero_title:"Sua conexão <span class=\"accent\">com o sucesso.</span>",
     hero_lead:"Formação profissional em idiomas, beleza, tecnologia e fotografia, com professores nativos e instrutores certificados. Presencial e online.",
@@ -1056,6 +1077,25 @@ function initAcademyMap(lat, lng, name){
   setTimeout(() => map.invalidateSize(), 300);
 }
 
+function renderFlyers(flyers){
+  const section = document.getElementById('promociones');
+  const grid = document.getElementById('flyersGrid');
+  if(!flyers || !flyers.length){
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = '';
+  grid.innerHTML = flyers.map(f => {
+    const inner = `
+      <img src="${f.image_url}" alt="${f.title || 'Promoción ALTONEXO ACADEMY'}" loading="lazy" />
+      ${f.title ? `<div class="flyer-title">${f.title}</div>` : ''}
+    `;
+    return f.link_url
+      ? `<a class="flyer-card" href="${f.link_url}" target="_blank" rel="noopener">${inner}</a>`
+      : `<div class="flyer-card">${inner}</div>`;
+  }).join('');
+}
+
 async function loadSiteData(){
   try{
     const { data: settings } = await supabaseClient.from('site_settings').select('*').eq('id',1).maybeSingle();
@@ -1114,6 +1154,11 @@ async function loadSiteData(){
     const { data: videos } = await supabaseClient.from('site_videos').select('*').eq('active',true).order('display_order',{ascending:true});
     renderVideos(videos);
   }catch(e){ console.warn('site_videos fetch failed', e); }
+
+  try{
+    const { data: flyers } = await supabaseClient.from('site_flyers').select('*').eq('active',true).order('display_order',{ascending:true});
+    renderFlyers(flyers);
+  }catch(e){ console.warn('site_flyers fetch failed', e); }
 }
 
 document.getElementById('contactForm').addEventListener('submit', async (e)=>{
