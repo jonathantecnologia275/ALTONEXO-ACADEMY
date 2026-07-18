@@ -193,6 +193,32 @@ section{padding:96px 0;}
 }
 .contact-form textarea{resize:vertical; min-height:90px;}
 
+/* ===== MAP SECTION ===== */
+.map-section{background:var(--surface-soft); padding-bottom:96px;}
+.map-frame{
+  max-width:1180px; margin:0 auto; padding:0 32px; position:relative;
+}
+#academyMap{
+  width:100%; height:420px; border-radius:16px; overflow:hidden;
+  border:1px solid var(--border); box-shadow:0 20px 50px rgba(11,15,46,.1);
+  filter:grayscale(.15) contrast(1.05);
+}
+.map-directions-btn{
+  position:absolute; bottom:32px; left:56px; z-index:10;
+  display:inline-flex; align-items:center; gap:9px;
+  background:var(--navy); color:#fff; font-weight:700; font-size:14px;
+  padding:14px 24px; border-radius:10px; box-shadow:0 12px 30px rgba(11,15,46,.35);
+  transition:all .25s var(--ease);
+}
+.map-directions-btn:hover{background:var(--gold); color:var(--navy); transform:translateY(-2px);}
+.map-directions-btn svg{width:17px; height:17px; stroke:var(--gold); fill:none; flex-shrink:0;}
+.map-directions-btn:hover svg{stroke:var(--navy);}
+.leaflet-control-attribution{font-size:9px !important;}
+@media (max-width:600px){
+  .map-directions-btn{left:24px; bottom:24px; font-size:12.5px; padding:11px 18px;}
+  #academyMap{height:320px;}
+}
+
 /* ===== FOOTER ===== */
 footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; font-size:13px;}
 .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; padding-bottom:38px; border-bottom:1px solid rgba(255,255,255,.1);}
@@ -479,7 +505,24 @@ footer{background:var(--navy); color:rgba(255,255,255,.6); padding:56px 0 24px; 
   </div>
 </section>
 
-<footer>
+<section class="map-section" id="ubicacion" style="display:none;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="pill pill-gold" style="margin:0 auto 16px;" data-i18n="map_eyebrow">Encuéntranos</div>
+      <h2 data-i18n="map_title">Visítanos en nuestra sede.</h2>
+    </div>
+  </div>
+  <div class="map-frame reveal">
+    <div id="academyMap"></div>
+    <a id="mapDirectionsBtn" href="#" target="_blank" rel="noopener" class="map-directions-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      <span data-i18n="map_directions">Cómo llegar</span>
+    </a>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <div class="wrap">
     <div class="foot-grid">
       <div>
@@ -561,7 +604,7 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 
 const siteTranslations = {
   es: {
-    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_videos:"Videos", nav_contact:"Contacto", nav_enroll:"Inscríbete", nav_book:"Libro", nav_student:"Acceso Estudiante",
+    nav_home:"Inicio", nav_about:"Nosotros", nav_programs:"Programas", nav_pricing:"Precios", nav_testi:"Testimonios", nav_videos:"Videos", nav_contact:"Contacto", nav_enroll:"Inscríbete", nav_book:"Libro", nav_student:"Acceso Estudiante", map_eyebrow:"Encuéntranos", map_title:"Visítanos en nuestra sede.", map_directions:"Cómo llegar",
     hero_pill:"📍 Punta Cana, República Dominicana",
     hero_title:"Tu conexión <span class=\"accent\">con el éxito.</span>",
     hero_lead:"Formación profesional en idiomas, belleza, tecnología y fotografía, con profesores nativos e instructores certificados. Modalidad presencial y virtual.",
@@ -601,7 +644,7 @@ const siteTranslations = {
     level_basic:"Básico", level_inter:"Intermedio", level_adv:"Avanzado"
   },
   en: {
-    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_videos:"Videos", nav_contact:"Contact", nav_enroll:"Enroll now", nav_book:"Book", nav_student:"Student Access",
+    nav_home:"Home", nav_about:"About", nav_programs:"Programs", nav_pricing:"Pricing", nav_testi:"Testimonials", nav_videos:"Videos", nav_contact:"Contact", nav_enroll:"Enroll now", nav_book:"Book", nav_student:"Student Access", map_eyebrow:"Find us", map_title:"Visit us at our campus.", map_directions:"Get directions",
     hero_pill:"📍 Punta Cana, Dominican Republic",
     hero_title:"Your connection <span class=\"accent\">to success.</span>",
     hero_lead:"Professional training in languages, beauty, technology, and photography, with native-speaking teachers and certified instructors. In-person and online.",
@@ -641,7 +684,7 @@ const siteTranslations = {
     level_basic:"Basic", level_inter:"Intermediate", level_adv:"Advanced"
   },
   fr: {
-    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_videos:"Vidéos", nav_contact:"Contact", nav_enroll:"Inscrivez-vous", nav_book:"Livre", nav_student:"Accès Étudiant",
+    nav_home:"Accueil", nav_about:"À propos", nav_programs:"Programmes", nav_pricing:"Tarifs", nav_testi:"Témoignages", nav_videos:"Vidéos", nav_contact:"Contact", nav_enroll:"Inscrivez-vous", nav_book:"Livre", nav_student:"Accès Étudiant", map_eyebrow:"Trouvez-nous", map_title:"Visitez notre campus.", map_directions:"Itinéraire",
     hero_pill:"📍 Punta Cana, République Dominicaine",
     hero_title:"Votre connexion <span class=\"accent\">vers le succès.</span>",
     hero_lead:"Formation professionnelle en langues, beauté, technologie et photographie, avec des professeurs natifs et des instructeurs certifiés. Présentiel et en ligne.",
@@ -681,7 +724,7 @@ const siteTranslations = {
     level_basic:"Débutant", level_inter:"Intermédiaire", level_adv:"Avancé"
   },
   ht: {
-    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_videos:"Videyo", nav_contact:"Kontak", nav_enroll:"Enskri kounya", nav_book:"Liv", nav_student:"Aksè Etidyan",
+    nav_home:"Akèy", nav_about:"Sou nou", nav_programs:"Pwogram", nav_pricing:"Pri", nav_testi:"Temwayaj", nav_videos:"Videyo", nav_contact:"Kontak", nav_enroll:"Enskri kounya", nav_book:"Liv", nav_student:"Aksè Etidyan", map_eyebrow:"Jwenn nou", map_title:"Vizite nou nan sit nou an.", map_directions:"Kijan pou rive",
     hero_pill:"📍 Punta Cana, Repiblik Dominikèn",
     hero_title:"Koneksyon ou <span class=\"accent\">ak siksè.</span>",
     hero_lead:"Fòmasyon pwofesyonèl nan lang, bote, teknoloji ak fotografi, ak pwofesè natif ak enstriktè sètifye. Prezansyèl ak vityèl.",
@@ -721,7 +764,7 @@ const siteTranslations = {
     level_basic:"Debitan", level_inter:"Entèmedyè", level_adv:"Avanse"
   },
   pt: {
-    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_videos:"Vídeos", nav_contact:"Contato", nav_enroll:"Inscreva-se", nav_book:"Livro", nav_student:"Acesso Estudante",
+    nav_home:"Início", nav_about:"Sobre nós", nav_programs:"Programas", nav_pricing:"Preços", nav_testi:"Depoimentos", nav_videos:"Vídeos", nav_contact:"Contato", nav_enroll:"Inscreva-se", nav_book:"Livro", nav_student:"Acesso Estudante", map_eyebrow:"Encontre-nos", map_title:"Visite nosso campus.", map_directions:"Como chegar",
     hero_pill:"📍 Punta Cana, República Dominicana",
     hero_title:"Sua conexão <span class=\"accent\">com o sucesso.</span>",
     hero_lead:"Formação profissional em idiomas, beleza, tecnologia e fotografia, com professores nativos e instrutores certificados. Presencial e online.",
@@ -984,6 +1027,33 @@ const statsObserver = new IntersectionObserver((entries)=>{
 }, {threshold:.4});
 statsObserver.observe(document.querySelector('.hero-stats'));
 
+function initAcademyMap(lat, lng, name){
+  const section = document.getElementById('ubicacion');
+  section.style.display = '';
+
+  const map = L.map('academyMap', { scrollWheelZoom: false }).setView([lat, lng], 16);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  const goldIcon = L.divIcon({
+    className: 'custom-map-marker',
+    html: `<div style="width:34px; height:34px; border-radius:50% 50% 50% 0; background:#E3A73B; transform:rotate(-45deg); border:3px solid #0B0F2E; box-shadow:0 4px 10px rgba(0,0,0,.3);"></div>`,
+    iconSize: [34, 34],
+    iconAnchor: [17, 34]
+  });
+
+  L.marker([lat, lng], { icon: goldIcon }).addTo(map)
+    .bindPopup(`<b>${name}</b>`)
+    .openPopup();
+
+  document.getElementById('mapDirectionsBtn').href =
+    `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
+  setTimeout(() => map.invalidateSize(), 300);
+}
+
 async function loadSiteData(){
   try{
     const { data: settings } = await supabaseClient.from('site_settings').select('*').eq('id',1).maybeSingle();
@@ -997,6 +1067,9 @@ async function loadSiteData(){
         const footLogo = document.getElementById('footLogoImg');
         if(navLogo) navLogo.src = settings.logo_url;
         if(footLogo) footLogo.src = settings.logo_url;
+      }
+      if(settings.latitude && settings.longitude){
+        initAcademyMap(settings.latitude, settings.longitude, settings.school_name || 'ALTONEXO ACADEMY');
       }
     }
   }catch(e){ console.warn('site_settings fetch failed', e); }

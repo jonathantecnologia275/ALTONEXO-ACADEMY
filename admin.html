@@ -251,6 +251,8 @@ td.actions{display:flex; gap:6px; white-space:nowrap;}
             <div class="field-inline"><label>Teléfono 2</label><input type="text" id="s_phone_2" /></div>
             <div class="field-inline"><label>Correo electrónico</label><input type="email" id="s_email" /></div>
             <div class="field-inline"><label>Dirección</label><input type="text" id="s_address" /></div>
+            <div class="field-inline"><label>Latitud (ej: 18.5601)</label><input type="number" step="0.0000001" id="s_latitude" placeholder="18.5601234" /></div>
+            <div class="field-inline"><label>Longitud (ej: -68.3725)</label><input type="number" step="0.0000001" id="s_longitude" placeholder="-68.3725678" /></div>
             <div class="field-inline"><label>Enlace de WhatsApp</label><input type="text" id="s_whatsapp_link" placeholder="https://wa.me/18097075097" /></div>
             <div class="field-inline"><label>Facebook</label><input type="text" id="s_facebook_link" /></div>
             <div class="field-inline"><label>Instagram</label><input type="text" id="s_instagram_link" /></div>
@@ -691,6 +693,8 @@ async function loadSettings(){
   document.getElementById('s_phone_2').value = data.phone_2 || '';
   document.getElementById('s_email').value = data.email || '';
   document.getElementById('s_address').value = data.address || '';
+  document.getElementById('s_latitude').value = data.latitude ?? '';
+  document.getElementById('s_longitude').value = data.longitude ?? '';
   document.getElementById('s_whatsapp_link').value = data.whatsapp_link || '';
   document.getElementById('s_facebook_link').value = data.facebook_link || '';
   document.getElementById('s_instagram_link').value = data.instagram_link || '';
@@ -718,6 +722,8 @@ document.getElementById('settingsForm').addEventListener('submit', async (e)=>{
     phone_2: document.getElementById('s_phone_2').value,
     email: document.getElementById('s_email').value,
     address: document.getElementById('s_address').value,
+    latitude: document.getElementById('s_latitude').value ? parseFloat(document.getElementById('s_latitude').value) : null,
+    longitude: document.getElementById('s_longitude').value ? parseFloat(document.getElementById('s_longitude').value) : null,
     whatsapp_link: document.getElementById('s_whatsapp_link').value,
     facebook_link: document.getElementById('s_facebook_link').value,
     instagram_link: document.getElementById('s_instagram_link').value
