@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://altonexoacademy.com/sitemap.xml
