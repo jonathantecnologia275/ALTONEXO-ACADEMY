@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 5 · Lesson 71 — Comparatives and Superlatives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A; --navy-light:#161C4A;
+  --gold:#E3A73B; --gold-bright:#F5D783; --gold-pale:#FBF0DA;
+  --ink:#0B0F2E; --ink-soft:#5B6178; --ice:#F3F5FB; --ice-dim:#E4E8F5; --white:#FFFFFF;
+  --green:#1E8E5A; --green-pale:#E7F5EE; --blue:#2E6FD6; --blue-pale:#E9F1FC; --pink:#C24E7A; --pink-pale:#FAEAF1;
+  --font:"Manrope", sans-serif; --mono:"Space Grotesk", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:#3a3d4a; color:var(--ink); padding:40px 20px;}
+h1,h2,h3,h4{margin:0;} p{margin:0; line-height:1.55;}
+.page-label{max-width:816px; margin:0 auto 8px; color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;}
+.page{width:816px; height:1056px; background:var(--white); margin:0 auto 34px; box-shadow:0 20px 50px rgba(0,0,0,.4); padding:54px 58px 44px; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.page-header{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); border-bottom:1px solid var(--ice-dim); padding-bottom:12px; margin-bottom:22px;}
+.page-header .brand{color:var(--gold); font-weight:700;}
+.page-footer{position:absolute; bottom:24px; left:58px; right:58px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-soft); border-top:1px solid var(--ice-dim); padding-top:12px;}
+.page-body{flex:1; display:flex; flex-direction:column; gap:20px; min-height:0;}
+.lesson-cover{background:linear-gradient(160deg, var(--navy), var(--navy-deep)); color:#fff; padding:30px 34px; border-radius:14px; position:relative; overflow:hidden; margin-bottom:4px;}
+.lesson-cover::before{content:""; position:absolute; top:-80px; right:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.2), transparent 70%);}
+.crumbs{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:9px; position:relative;}
+.lesson-title{font-size:28px; font-weight:800; position:relative;}
+.lesson-title .es{font-size:13.5px; font-weight:600; color:rgba(255,255,255,.65); font-style:italic; margin-top:4px;}
+.lesson-badges{display:flex; gap:8px; margin-top:12px; position:relative; flex-wrap:wrap;}
+.badge{font-family:var(--mono); font-size:10px; font-weight:700; padding:5px 12px; border-radius:14px;}
+.badge-gold{background:var(--gold); color:var(--navy);}
+.badge-outline{border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85);}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:11px;}
+.section-num{width:26px; height:26px; border-radius:7px; background:var(--navy); color:var(--gold-bright); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:12px; flex-shrink:0;}
+.section-title{font-size:14.5px; font-weight:800; color:var(--navy);}
+.section-title .es{font-size:11.5px; font-weight:600; color:var(--ink-soft); font-style:italic;}
+.obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.obj-card{background:var(--gold-pale); border-radius:10px; padding:13px; border:1px solid rgba(227,167,59,.3);}
+.obj-card svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.8; margin-bottom:6px;}
+.obj-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; line-height:1.35;}
+.obj-card p.es{font-size:10px; color:var(--ink-soft); font-style:italic; line-height:1.35;}
+.intro-box{display:flex; gap:14px; align-items:flex-start;}
+.intro-icon{width:36px; height:36px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.intro-icon svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.intro-text p.en{font-size:12.5px; margin-bottom:7px;}
+.intro-text p.es{font-size:11.5px; color:var(--ink-soft); font-style:italic;}
+.fact-box{display:flex; gap:12px; align-items:flex-start; background:var(--blue-pale); border-radius:10px; padding:13px 15px; margin-top:4px;}
+.fact-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.fact-box .ic svg{width:15px; height:15px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.fact-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.fact-box p.en{font-size:11.5px; color:var(--navy);}
+.fact-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.family-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+.family-card{background:var(--ice); border-radius:10px; padding:11px 8px; text-align:center;}
+.family-card .w{font-size:12px; font-weight:800; color:var(--navy);}
+.family-card .es{font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+.vocab-card{background:var(--ice); border-radius:9px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.vocab-word{font-weight:800; font-size:12.5px; color:var(--navy);}
+.vocab-phon{font-family:var(--mono); font-size:9.5px; color:var(--ink-soft);}
+.vocab-es{font-size:10.5px; color:var(--ink-soft); font-style:italic; text-align:right;}
+.pron-row{display:flex; flex-wrap:wrap; gap:8px;}
+.pron-chip{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; font-weight:600; padding:7px 13px; border-radius:16px;}
+.pron-note{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.mistake-box{background:var(--pink-pale); border-radius:10px; padding:12px 15px; margin-top:4px;}
+.mistake-box .row{display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+.mistake-box .row:last-child{margin-bottom:0;}
+.mistake-box .wrong{font-size:11.5px; color:var(--pink); text-decoration:line-through; font-weight:600;}
+.mistake-box .right{font-size:11.5px; color:var(--green); font-weight:700;}
+.mistake-box svg{width:13px; height:13px; stroke:var(--ink-soft); flex-shrink:0;}
+.grammar-box{background:var(--pink-pale); border-left:4px solid var(--pink); border-radius:0 9px 9px 0; padding:13px 16px;}
+.grammar-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.grammar-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.chat{display:flex; flex-direction:column; gap:8px; max-width:490px;}
+.chat-row{display:flex; gap:8px; align-items:flex-end;}
+.chat-row.right{flex-direction:row-reverse;}
+.chat-avatar{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:10.5px; flex-shrink:0;}
+.chat-row.left .chat-avatar{background:var(--navy); color:var(--gold-bright);}
+.chat-row.right .chat-avatar{background:var(--gold); color:var(--navy);}
+.chat-bubble{padding:7px 12px; border-radius:14px; font-size:11px; max-width:330px;}
+.chat-row.left .chat-bubble{background:var(--ice); border-bottom-left-radius:3px;}
+.chat-row.right .chat-bubble{background:var(--gold-pale); border-bottom-right-radius:3px;}
+.chat-bubble .es{display:block; font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.practice-box{background:var(--ice); border-radius:10px; padding:14px;}
+.practice-box .instr{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.practice-box .instr .es{display:block; font-weight:500; font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.practice-box .content{font-size:11.5px; color:var(--ink-soft);}
+.reading-passage{font-size:12px; line-height:1.65; font-style:italic; color:var(--navy); border-left:3px solid var(--gold); padding-left:14px;}
+.reading-passage .es{display:block; font-size:10.5px; margin-top:6px; color:var(--ink-soft); font-style:normal;}
+.writing-lines{border-bottom:1px dashed var(--ice-dim); height:20px; margin-top:6px;}
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px; max-width:420px;}
+.match-col{display:flex; flex-direction:column; gap:7px;}
+.match-item{background:var(--ice); border-radius:7px; padding:7px 12px; font-size:11px; font-weight:600; text-align:center;}
+.fill-blank{font-size:12px; margin-top:10px; padding:9px 14px; background:var(--blue-pale); border-radius:9px;}
+.fill-blank .blank{border-bottom:2px solid var(--blue); padding:0 16px; font-weight:700;}
+.quiz-item{margin-bottom:10px;}
+.quiz-q{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:5px;}
+.quiz-opts{display:flex; gap:8px; flex-wrap:wrap;}
+.quiz-opt{border:1px solid var(--ice-dim); border-radius:7px; padding:6px 12px; font-size:10.5px;}
+.task-card{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:14px;}
+.task-card svg{width:17px; height:17px; stroke:var(--green); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:1px;}
+.task-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px;}
+.task-card p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.review-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.review-tags span{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:10.5px; padding:5px 12px; border-radius:12px;}
+.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+.check-list li{display:flex; align-items:flex-start; gap:8px; font-size:11.5px;}
+.check-list li svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px;}
+.check-list li .es{color:var(--ink-soft); font-style:italic;}
+.answer-box{background:var(--navy); color:#fff; border-radius:10px; padding:15px;}
+.answer-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px;}
+.answer-box ol{margin:0; padding-left:16px; font-size:11.5px; line-height:1.75;}
+.summary-box{background:var(--gold-pale); border-radius:10px; padding:15px; border:1px solid rgba(227,167,59,.35);}
+.summary-box p.en{font-size:11.5px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.summary-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.next-box{display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff; border-radius:10px; padding:16px 20px;}
+.next-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;}
+.next-box .title{font-size:14px; font-weight:800;}
+.next-box .es{font-size:10.5px; color:rgba(255,255,255,.65); font-style:italic; margin-top:2px;}
+.next-box svg{width:19px; height:19px; stroke:var(--gold-bright); fill:none; stroke-width:2;}
+.tip-box{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:13px 15px;}
+.tip-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.tip-box .ic svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:1.8;}
+.tip-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.tip-box p.en{font-size:11.5px; color:var(--navy);}
+.tip-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.tree-box{background:var(--ice); border-radius:10px; padding:16px; text-align:center;}
+.tree-row{display:flex; justify-content:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+.tree-row:last-child{margin-bottom:0;}
+.tree-node{background:var(--white); border:1px solid var(--ice-dim); border-radius:8px; padding:6px 12px; font-size:10.5px; font-weight:700; color:var(--navy);}
+.tree-node.me{background:var(--gold); color:var(--navy); border-color:var(--gold);}
+.spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<div class="page-label">Página 1 / Page 1 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 71</span></div>
+  <div class="page-body">
+    <div class="lesson-cover">
+      <div class="crumbs">Module 5 · Language, Logic & Reference — Lesson 71 of 50</div>
+      <div class="lesson-title">Comparatives and Superlatives<div class="es">Lección 71 — Los comparativos y superlativos</div></div>
+      <div class="lesson-badges"><span class="badge badge-gold">Level A0</span><span class="badge badge-outline">15 min</span><span class="badge badge-outline">🎧 Audio</span><span class="badge badge-outline">🎬 Video</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">1</div><div class="section-title">Objectives <span class="es">· Objetivos</span></div></div>
+      <div class="obj-grid">
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Form regular comparative and superlative adjectives</p><p class="es">Formar adjetivos comparativos y superlativos regulares</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Use 'more/most' with longer adjectives</p><p class="es">Usar 'more/most' con adjetivos más largos</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Memorize the most common irregular forms</p><p class="es">Memorizar las formas irregulares más comunes</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">2</div><div class="section-title">Introduction <span class="es">· Introducción</span></div></div>
+      <div class="intro-box">
+        <div class="intro-icon"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+        <div class="intro-text">
+          <p class="en">Comparatives compare two things (bigger, more expensive), while superlatives compare three or more things, identifying the extreme (biggest, most expensive). The rule you use depends on the length of the adjective.</p>
+          <p class="es">Los comparativos comparan dos cosas (bigger, more expensive), mientras que los superlativos comparan tres o más cosas, identificando el extremo (biggest, most expensive). La regla que uses depende de la longitud del adjetivo.</p>
+        </div>
+      </div>
+      <div class="fact-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
+        <div><p class="label">Did you know? / ¿Sabías qué?</p><p class="en">For short adjectives (1 syllable), add "-er/-est": tall→taller→tallest. For long adjectives (3+ syllables), use "more/most": expensive→more expensive→most expensive.</p><p class="es">Para adjetivos cortos (1 sílaba), agrega "-er/-est": tall→taller→tallest. Para adjetivos largos (3+ sílabas), usa "more/most": expensive→more expensive→most expensive.</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">3</div><div class="section-title">Detailed Explanation <span class="es">· Explicación detallada</span></div></div>
+      <div class="family-grid">
+        <div class="family-card"><div class="w">Tall → Taller → Tallest</div><div class="es">Alto → Más alto → El más alto</div></div>
+        <div class="family-card"><div class="w">Big → Bigger → Biggest</div><div class="es">Grande → Más grande → El más grande</div></div>
+        <div class="family-card"><div class="w">Happy → Happier → Happiest</div><div class="es">Feliz → Más feliz → El más feliz</div></div>
+        <div class="family-card"><div class="w">Expensive → More expensive → Most expensive</div><div class="es">Caro → Más caro → El más caro</div></div>
+        <div class="family-card"><div class="w">Good → Better → Best</div><div class="es">Bueno → Mejor → El mejor</div></div>
+        <div class="family-card"><div class="w">Bad → Worse → Worst</div><div class="es">Malo → Peor → El peor</div></div>
+        <div class="family-card"><div class="w">Far → Farther/Further → Farthest/Furthest</div><div class="es">Lejos → Más lejos → El más lejano</div></div>
+        <div class="family-card"><div class="w">Little → Less → Least</div><div class="es">Poco → Menos → Lo menos</div></div>
+        <div class="family-card"><div class="w">As...as (equal)</div><div class="es">Tan...como (igual)</div></div>
+        <div class="family-card"><div class="w">Not as...as</div><div class="es">No tan...como</div></div>
+        <div class="family-card"><div class="w">Than</div><div class="es">Que (comparación)</div></div>
+        <div class="family-card"><div class="w">The + superlative + of/in</div><div class="es">El/la + superlativo + de/en</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 1 / Page 1</span></div>
+</div>
+
+<div class="page-label">Página 2 / Page 2 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 71</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">4</div><div class="section-title">Vocabulary <span class="es">· Vocabulario</span></div></div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div><div class="vocab-word">Comparative</div><div class="vocab-phon">/kəmˈpærətɪv/</div></div><div class="vocab-es">Comparativo</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Superlative</div><div class="vocab-phon">/suːˈpɜːrlətɪv/</div></div><div class="vocab-es">Superlativo</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Equal comparison</div><div class="vocab-phon">/ˈiːkwəl kəmˈpærɪsən/</div></div><div class="vocab-es">Comparación de igualdad</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">The most</div><div class="vocab-phon">/ðə moʊst/</div></div><div class="vocab-es">El/la más</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">The least</div><div class="vocab-phon">/ðə liːst/</div></div><div class="vocab-es">El/la menos</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Twice as...as</div><div class="vocab-phon">/twaɪs æz æz/</div></div><div class="vocab-es">El doble de...que</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">A little...er</div><div class="vocab-phon">/ə ˈlɪtəl/</div></div><div class="vocab-es">Un poco más...</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">By far</div><div class="vocab-phon">/baɪ fɑːr/</div></div><div class="vocab-es">Por mucho / con diferencia</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">5</div><div class="section-title">Pronunciation <span class="es">· Pronunciación</span></div></div>
+      <div class="pron-row"><div class="pron-chip">-er /ər/</div><div class="pron-chip">-est /ɪst/</div></div>
+      <p class="pron-note" style="margin-top:8px;">Double the final consonant before "-er/-est" in short adjectives ending in one vowel + one consonant: big→bigger, hot→hotter. / Duplica la consonante final antes de "-er/-est" en adjetivos cortos que terminan en una vocal + una consonante: big→bigger, hot→hotter.</p>
+      <div class="mistake-box">
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg><span class="wrong">"This is more bigger than that" (double comparative)</span></div>
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg><span class="right">"This is bigger than that" (use only one comparative form, never both -er AND more)</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">6</div><div class="section-title">Grammar <span class="es">· Choosing -er/-est vs more/most</span></div></div>
+      <div class="grammar-box"><p class="en">1 syllable: add -er/-est (tall/taller/tallest). 2 syllables ending in -y: change y to i + er/est (happy/happier/happiest). 2+ syllables (other): use more/most (careful/more careful/most careful). 3+ syllables: always more/most.</p><p class="es">1 sílaba: agrega -er/-est (tall/taller/tallest). 2 sílabas terminadas en -y: cambia y por i + er/est (happy/happier/happiest). 2+ sílabas (otras): usa more/most (careful/more careful/most careful). 3+ sílabas: siempre more/most.</p></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">7</div><div class="section-title">Dialogues <span class="es">· Diálogos</span></div></div>
+      <div class="chat">
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Is this restaurant more expensive than that one?<span class="es">¿Este restaurante es más caro que ese?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Yes, but it's also the best restaurant in the city.<span class="es">Sí, pero también es el mejor restaurante de la ciudad.</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Which is bigger, your house or mine?<span class="es">¿Cuál es más grande, tu casa o la mía?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Yours is bigger, but mine is the closest to work.<span class="es">La tuya es más grande, pero la mía es la más cercana al trabajo.</span></div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 2 / Page 2</span></div>
+</div>
+
+<div class="page-label">Página 3 / Page 3 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 71</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">8</div><div class="section-title">Listening <span class="es">· Comprensión auditiva</span></div></div><div class="practice-box"><div class="instr">🎧 Listen to 3 people comparing cities, foods, or jobs and write down every comparative and superlative you hear.<span class="es">Escucha a 3 personas comparando ciudades, comidas, o trabajos y escribe cada comparativo y superlativo que escuches.</span></div><div class="content">Audio track: <b>M5-L71-dialogue.mp3</b></div></div></div>
+    <div><div class="section-head"><div class="section-num">9</div><div class="section-title">Speaking <span class="es">· Expresión oral</span></div></div><div class="practice-box"><div class="instr">💬 Compare 3 members of your family (height, age, or personality) using comparatives, then say who is the most/best in a category using a superlative.<span class="es">Compara a 3 miembros de tu familia (altura, edad, o personalidad) usando comparativos, luego di quién es el más/mejor en una categoría usando un superlativo.</span></div><div class="content">Try to use at least 6 new vocabulary words.</div></div></div>
+    <div><div class="section-head"><div class="section-num">10</div><div class="section-title">Reading <span class="es">· Lectura</span></div></div><p class="reading-passage">"My brother is taller than me, but I am smarter than him — at least, that's what I always say! Our little sister is the funniest person in the family, and she is also the most creative."<span class="es">"Mi hermano es más alto que yo, pero yo soy más inteligente que él — al menos, ¡eso es lo que siempre digo! Nuestra hermana pequeña es la persona más graciosa de la familia, y también es la más creativa."</span></p></div>
+    <div>
+      <div class="section-head"><div class="section-num">11</div><div class="section-title">Interactive: Short vs Long Adjectives <span class="es">· Adjetivos cortos vs largos</span></div></div>
+      <div class="tree-box">
+        <div class="tree-row"><div class="tree-node">Short (-er/-est)</div></div>
+        <div class="tree-row"><div class="tree-node">Tall-Taller-Tallest</div><div class="tree-node">Big-Bigger-Biggest</div></div>
+        <div class="tree-row"><div class="tree-node">Long (more/most)</div></div>
+        <div class="tree-row"><div class="tree-node">Expensive</div><div class="tree-node">Beautiful</div><div class="tree-node me">Interesting</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 3 / Page 3</span></div>
+</div>
+
+<div class="page-label">Página 4 / Page 4 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 71</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">12</div><div class="section-title">Writing <span class="es">· Escritura</span></div></div>
+      <div class="practice-box"><div class="instr">✍️ Write 3 comparative sentences and 3 superlative sentences comparing places, foods, or people you know.<span class="es">Escribe 3 oraciones comparativas y 3 oraciones superlativas comparando lugares, comidas, o personas que conoces.</span></div><div class="writing-lines"></div><div class="writing-lines"></div><div class="writing-lines"></div></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">13</div><div class="section-title">Interactive Exercises <span class="es">· Ejercicios interactivos</span></div></div>
+      <div class="match-grid"><div class="match-col"><div class="match-item">Taller</div><div class="match-item">Best</div><div class="match-item">More expensive</div></div><div class="match-col"><div class="match-item">Más caro</div><div class="match-item">Más alto</div><div class="match-item">El mejor</div></div></div>
+      <div class="fill-blank">Complete: "This is the ___ day of my life!" (good, superlative) <span class="blank">best</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">14</div><div class="section-title">Quiz</div></div>
+      <div class="quiz-item"><div class="quiz-q">1. What is the comparative of 'good'?</div><div class="quiz-opts"><span class="quiz-opt">A) Gooder</span><span class="quiz-opt">B) Better</span><span class="quiz-opt">C) More good</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">2. Which sentence is correct?</div><div class="quiz-opts"><span class="quiz-opt">A) More bigger</span><span class="quiz-opt">B) Bigger</span><span class="quiz-opt">C) Bigest</span></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 4 / Page 4</span></div>
+</div>
+
+<div class="page-label">Página 5 / Page 5 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 71</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">15</div><div class="section-title">Homework <span class="es">· Tarea</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M9 22V12h6v10M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><p class="en">Write 10 sentences comparing things in your life (jobs, cities, foods, family members) using a mix of comparatives and superlatives.</p><p class="es">Escribe 10 oraciones comparando cosas en tu vida (trabajos, ciudades, comidas, familiares) usando una mezcla de comparativos y superlativos.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">16</div><div class="section-title">Project <span class="es">· Proyecto</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg><div><p class="en">Create a 'Superlatives Awards' poster for your family or friends: 'Most funny,' 'Best cook,' 'Tallest,' with a photo or drawing for each award.</p><p class="es">Crea un póster de 'Premios superlativos' para tu familia o amigos: 'Most funny,' 'Best cook,' 'Tallest,' con una foto o dibujo para cada premio.</p></div></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">17</div><div class="section-title">Tip <span class="es">· Consejo del profesor</span></div></div>
+      <div class="tip-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 2z"/></svg></div>
+        <div><p class="label">Study Tip / Consejo de estudio</p><p class="en">Memorize the irregular forms (good/better/best, bad/worse/worst) separately — they don't follow any pattern, so repetition is the only way to learn them.</p><p class="es">Memoriza las formas irregulares (good/better/best, bad/worse/worst) por separado — no siguen ningún patrón, así que la repetición es la única forma de aprenderlas.</p></div>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">18</div><div class="section-title">Review <span class="es">· Repaso</span></div></div><div class="review-tags"><span>Taller</span><span>Biggest</span><span>Better</span><span>Best</span><span>Worse</span><span>Worst</span><span>More expensive</span></div></div>
+    <div><div class="section-head"><div class="section-num">19</div><div class="section-title">Assessment <span class="es">· Evaluación</span></div></div>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can form regular comparatives and superlatives. <span class="es">Puedo formar comparativos y superlativos regulares.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can use 'more/most' with longer adjectives. <span class="es">Puedo usar 'more/most' con adjetivos más largos.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can use common irregular forms. <span class="es">Puedo usar las formas irregulares comunes.</span></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 5 / Page 5</span></div>
+</div>
+
+<div class="page-label">Página 6 / Page 6 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 71</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">20</div><div class="section-title">Answer Key <span class="es">· Hoja de respuestas</span></div></div><div class="answer-box"><div class="label">Quiz answers</div><ol><li>B) Better</li><li>B) Bigger</li></ol></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">21</div><div class="section-title">Summary <span class="es">· Resumen</span></div></div>
+      <div class="summary-box">
+        <p class="en">Today you learned to form comparative and superlative adjectives, when to use '-er/-est' versus 'more/most,' and the most common irregular comparison forms.</p>
+        <p class="es">Hoy aprendiste a formar adjetivos comparativos y superlativos, cuándo usar '-er/-est' versus 'more/most,' y las formas irregulares de comparación más comunes.</p>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">22</div><div class="section-title">Coming Up <span class="es">· Próxima lección</span></div></div><div class="next-box"><div><div class="label">Lesson 72</div><div class="title">Modal Verbs: Can, Could, Must, Should, Might</div><div class="es">Los verbos modales: can, could, must, should, might.</div></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 6 / Page 6</span></div>
+</div>
+
+</body>
+</html>

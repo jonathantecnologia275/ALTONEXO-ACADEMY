@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 5 · Lesson 68 — Logical Reasoning: Major and Minor Premise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A; --navy-light:#161C4A;
+  --gold:#E3A73B; --gold-bright:#F5D783; --gold-pale:#FBF0DA;
+  --ink:#0B0F2E; --ink-soft:#5B6178; --ice:#F3F5FB; --ice-dim:#E4E8F5; --white:#FFFFFF;
+  --green:#1E8E5A; --green-pale:#E7F5EE; --blue:#2E6FD6; --blue-pale:#E9F1FC; --pink:#C24E7A; --pink-pale:#FAEAF1;
+  --font:"Manrope", sans-serif; --mono:"Space Grotesk", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:#3a3d4a; color:var(--ink); padding:40px 20px;}
+h1,h2,h3,h4{margin:0;} p{margin:0; line-height:1.55;}
+.page-label{max-width:816px; margin:0 auto 8px; color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;}
+.page{width:816px; height:1056px; background:var(--white); margin:0 auto 34px; box-shadow:0 20px 50px rgba(0,0,0,.4); padding:54px 58px 44px; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.page-header{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); border-bottom:1px solid var(--ice-dim); padding-bottom:12px; margin-bottom:22px;}
+.page-header .brand{color:var(--gold); font-weight:700;}
+.page-footer{position:absolute; bottom:24px; left:58px; right:58px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-soft); border-top:1px solid var(--ice-dim); padding-top:12px;}
+.page-body{flex:1; display:flex; flex-direction:column; gap:20px; min-height:0;}
+.lesson-cover{background:linear-gradient(160deg, var(--navy), var(--navy-deep)); color:#fff; padding:30px 34px; border-radius:14px; position:relative; overflow:hidden; margin-bottom:4px;}
+.lesson-cover::before{content:""; position:absolute; top:-80px; right:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.2), transparent 70%);}
+.crumbs{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:9px; position:relative;}
+.lesson-title{font-size:28px; font-weight:800; position:relative;}
+.lesson-title .es{font-size:13.5px; font-weight:600; color:rgba(255,255,255,.65); font-style:italic; margin-top:4px;}
+.lesson-badges{display:flex; gap:8px; margin-top:12px; position:relative; flex-wrap:wrap;}
+.badge{font-family:var(--mono); font-size:10px; font-weight:700; padding:5px 12px; border-radius:14px;}
+.badge-gold{background:var(--gold); color:var(--navy);}
+.badge-outline{border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85);}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:11px;}
+.section-num{width:26px; height:26px; border-radius:7px; background:var(--navy); color:var(--gold-bright); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:12px; flex-shrink:0;}
+.section-title{font-size:14.5px; font-weight:800; color:var(--navy);}
+.section-title .es{font-size:11.5px; font-weight:600; color:var(--ink-soft); font-style:italic;}
+.obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.obj-card{background:var(--gold-pale); border-radius:10px; padding:13px; border:1px solid rgba(227,167,59,.3);}
+.obj-card svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.8; margin-bottom:6px;}
+.obj-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; line-height:1.35;}
+.obj-card p.es{font-size:10px; color:var(--ink-soft); font-style:italic; line-height:1.35;}
+.intro-box{display:flex; gap:14px; align-items:flex-start;}
+.intro-icon{width:36px; height:36px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.intro-icon svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.intro-text p.en{font-size:12.5px; margin-bottom:7px;}
+.intro-text p.es{font-size:11.5px; color:var(--ink-soft); font-style:italic;}
+.fact-box{display:flex; gap:12px; align-items:flex-start; background:var(--blue-pale); border-radius:10px; padding:13px 15px; margin-top:4px;}
+.fact-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.fact-box .ic svg{width:15px; height:15px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.fact-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.fact-box p.en{font-size:11.5px; color:var(--navy);}
+.fact-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.family-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+.family-card{background:var(--ice); border-radius:10px; padding:11px 8px; text-align:center;}
+.family-card .w{font-size:12px; font-weight:800; color:var(--navy);}
+.family-card .es{font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+.vocab-card{background:var(--ice); border-radius:9px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.vocab-word{font-weight:800; font-size:12.5px; color:var(--navy);}
+.vocab-phon{font-family:var(--mono); font-size:9.5px; color:var(--ink-soft);}
+.vocab-es{font-size:10.5px; color:var(--ink-soft); font-style:italic; text-align:right;}
+.pron-row{display:flex; flex-wrap:wrap; gap:8px;}
+.pron-chip{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; font-weight:600; padding:7px 13px; border-radius:16px;}
+.pron-note{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.mistake-box{background:var(--pink-pale); border-radius:10px; padding:12px 15px; margin-top:4px;}
+.mistake-box .row{display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+.mistake-box .row:last-child{margin-bottom:0;}
+.mistake-box .wrong{font-size:11.5px; color:var(--pink); text-decoration:line-through; font-weight:600;}
+.mistake-box .right{font-size:11.5px; color:var(--green); font-weight:700;}
+.mistake-box svg{width:13px; height:13px; stroke:var(--ink-soft); flex-shrink:0;}
+.grammar-box{background:var(--pink-pale); border-left:4px solid var(--pink); border-radius:0 9px 9px 0; padding:13px 16px;}
+.grammar-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.grammar-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.chat{display:flex; flex-direction:column; gap:8px; max-width:490px;}
+.chat-row{display:flex; gap:8px; align-items:flex-end;}
+.chat-row.right{flex-direction:row-reverse;}
+.chat-avatar{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:10.5px; flex-shrink:0;}
+.chat-row.left .chat-avatar{background:var(--navy); color:var(--gold-bright);}
+.chat-row.right .chat-avatar{background:var(--gold); color:var(--navy);}
+.chat-bubble{padding:7px 12px; border-radius:14px; font-size:11px; max-width:330px;}
+.chat-row.left .chat-bubble{background:var(--ice); border-bottom-left-radius:3px;}
+.chat-row.right .chat-bubble{background:var(--gold-pale); border-bottom-right-radius:3px;}
+.chat-bubble .es{display:block; font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.practice-box{background:var(--ice); border-radius:10px; padding:14px;}
+.practice-box .instr{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.practice-box .instr .es{display:block; font-weight:500; font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.practice-box .content{font-size:11.5px; color:var(--ink-soft);}
+.reading-passage{font-size:12px; line-height:1.65; font-style:italic; color:var(--navy); border-left:3px solid var(--gold); padding-left:14px;}
+.reading-passage .es{display:block; font-size:10.5px; margin-top:6px; color:var(--ink-soft); font-style:normal;}
+.writing-lines{border-bottom:1px dashed var(--ice-dim); height:20px; margin-top:6px;}
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px; max-width:420px;}
+.match-col{display:flex; flex-direction:column; gap:7px;}
+.match-item{background:var(--ice); border-radius:7px; padding:7px 12px; font-size:11px; font-weight:600; text-align:center;}
+.fill-blank{font-size:12px; margin-top:10px; padding:9px 14px; background:var(--blue-pale); border-radius:9px;}
+.fill-blank .blank{border-bottom:2px solid var(--blue); padding:0 16px; font-weight:700;}
+.quiz-item{margin-bottom:10px;}
+.quiz-q{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:5px;}
+.quiz-opts{display:flex; gap:8px; flex-wrap:wrap;}
+.quiz-opt{border:1px solid var(--ice-dim); border-radius:7px; padding:6px 12px; font-size:10.5px;}
+.task-card{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:14px;}
+.task-card svg{width:17px; height:17px; stroke:var(--green); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:1px;}
+.task-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px;}
+.task-card p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.review-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.review-tags span{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:10.5px; padding:5px 12px; border-radius:12px;}
+.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+.check-list li{display:flex; align-items:flex-start; gap:8px; font-size:11.5px;}
+.check-list li svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px;}
+.check-list li .es{color:var(--ink-soft); font-style:italic;}
+.answer-box{background:var(--navy); color:#fff; border-radius:10px; padding:15px;}
+.answer-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px;}
+.answer-box ol{margin:0; padding-left:16px; font-size:11.5px; line-height:1.75;}
+.summary-box{background:var(--gold-pale); border-radius:10px; padding:15px; border:1px solid rgba(227,167,59,.35);}
+.summary-box p.en{font-size:11.5px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.summary-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.next-box{display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff; border-radius:10px; padding:16px 20px;}
+.next-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;}
+.next-box .title{font-size:14px; font-weight:800;}
+.next-box .es{font-size:10.5px; color:rgba(255,255,255,.65); font-style:italic; margin-top:2px;}
+.next-box svg{width:19px; height:19px; stroke:var(--gold-bright); fill:none; stroke-width:2;}
+.tip-box{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:13px 15px;}
+.tip-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.tip-box .ic svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:1.8;}
+.tip-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.tip-box p.en{font-size:11.5px; color:var(--navy);}
+.tip-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.tree-box{background:var(--ice); border-radius:10px; padding:16px; text-align:center;}
+.tree-row{display:flex; justify-content:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+.tree-row:last-child{margin-bottom:0;}
+.tree-node{background:var(--white); border:1px solid var(--ice-dim); border-radius:8px; padding:6px 12px; font-size:10.5px; font-weight:700; color:var(--navy);}
+.tree-node.me{background:var(--gold); color:var(--navy); border-color:var(--gold);}
+.spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<div class="page-label">Página 1 / Page 1 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 68</span></div>
+  <div class="page-body">
+    <div class="lesson-cover">
+      <div class="crumbs">Module 5 · Language, Logic & Reference — Lesson 68 of 50</div>
+      <div class="lesson-title">Logical Reasoning: Major and Minor Premise<div class="es">Lección 68 — Razonamiento lógico: premisa mayor y premisa menor</div></div>
+      <div class="lesson-badges"><span class="badge badge-gold">Level A0</span><span class="badge badge-outline">15 min</span><span class="badge badge-outline">🎧 Audio</span><span class="badge badge-outline">🎬 Video</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">1</div><div class="section-title">Objectives <span class="es">· Objetivos</span></div></div>
+      <div class="obj-grid">
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Define major premise, minor premise, and conclusion</p><p class="es">Definir premisa mayor, premisa menor, y conclusión</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Build a valid syllogism in English</p><p class="es">Construir un silogismo válido en inglés</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Identify logical fallacies in simple arguments</p><p class="es">Identificar falacias lógicas en argumentos simples</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">2</div><div class="section-title">Introduction <span class="es">· Introducción</span></div></div>
+      <div class="intro-box">
+        <div class="intro-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <div class="intro-text">
+          <p class="en">A syllogism is a form of logical reasoning with 3 parts: a major premise (a general rule), a minor premise (a specific case), and a conclusion (what logically follows). This structure is used in English argumentative writing and debate.</p>
+          <p class="es">Un silogismo es una forma de razonamiento lógico con 3 partes: una premisa mayor (una regla general), una premisa menor (un caso específico), y una conclusión (lo que se sigue lógicamente). Esta estructura se usa en la escritura argumentativa y el debate en inglés.</p>
+        </div>
+      </div>
+      <div class="fact-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
+        <div><p class="label">Did you know? / ¿Sabías qué?</p><p class="en">The most famous syllogism in Western logic is: "All men are mortal. Socrates is a man. Therefore, Socrates is mortal." It has been taught for over 2,000 years.</p><p class="es">El silogismo más famoso de la lógica occidental es: "All men are mortal. Socrates is a man. Therefore, Socrates is mortal." Se ha enseñado por más de 2,000 años.</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">3</div><div class="section-title">Detailed Explanation <span class="es">· Explicación detallada</span></div></div>
+      <div class="family-grid">
+        <div class="family-card"><div class="w">Major premise</div><div class="es">Premisa mayor</div></div>
+        <div class="family-card"><div class="w">All birds can fly.</div><div class="es">Todas las aves pueden volar.</div></div>
+        <div class="family-card"><div class="w">Minor premise</div><div class="es">Premisa menor</div></div>
+        <div class="family-card"><div class="w">A sparrow is a bird.</div><div class="es">Un gorrión es un ave.</div></div>
+        <div class="family-card"><div class="w">Conclusion</div><div class="es">Conclusión</div></div>
+        <div class="family-card"><div class="w">Therefore, a sparrow can fly.</div><div class="es">Por lo tanto, un gorrión puede volar.</div></div>
+        <div class="family-card"><div class="w">Valid syllogism</div><div class="es">Silogismo válido</div></div>
+        <div class="family-card"><div class="w">Logic follows the rule</div><div class="es">La lógica sigue la regla</div></div>
+        <div class="family-card"><div class="w">Fallacy</div><div class="es">Falacia</div></div>
+        <div class="family-card"><div class="w">False premise = false conclusion</div><div class="es">Premisa falsa = conclusión falsa</div></div>
+        <div class="family-card"><div class="w">Therefore / Thus</div><div class="es">Por lo tanto / Así</div></div>
+        <div class="family-card"><div class="w">Because / Since</div><div class="es">Porque / Ya que</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 1 / Page 1</span></div>
+</div>
+
+<div class="page-label">Página 2 / Page 2 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 68</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">4</div><div class="section-title">Vocabulary <span class="es">· Vocabulario</span></div></div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div><div class="vocab-word">Premise</div><div class="vocab-phon">/ˈprɛmɪs/</div></div><div class="vocab-es">Premisa</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Conclusion</div><div class="vocab-phon">/kənˈkluːʒən/</div></div><div class="vocab-es">Conclusión</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Syllogism</div><div class="vocab-phon">/ˈsɪlədʒɪzəm/</div></div><div class="vocab-es">Silogismo</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Valid / Invalid</div><div class="vocab-phon">/ˈvælɪd/</div></div><div class="vocab-es">Válido / inválido</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Logical fallacy</div><div class="vocab-phon">/ˈlɒdʒɪkəl ˈfæləsi/</div></div><div class="vocab-es">Falacia lógica</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Assumption</div><div class="vocab-phon">/əˈsʌmpʃən/</div></div><div class="vocab-es">Suposición</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Evidence</div><div class="vocab-phon">/ˈɛvɪdəns/</div></div><div class="vocab-es">Evidencia</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Argument</div><div class="vocab-phon">/ˈɑːrɡjʊmənt/</div></div><div class="vocab-es">Argumento</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">5</div><div class="section-title">Pronunciation <span class="es">· Pronunciación</span></div></div>
+      <div class="pron-row"><div class="pron-chip">syllogism /ˈsɪlədʒɪzəm/</div><div class="pron-chip">premise /ˈprɛmɪs/</div></div>
+      <p class="pron-note" style="margin-top:8px;">"Premise" is stressed on the FIRST syllable: PREM-iss, not pre-MISS. / "Premise" se acentúa en la PRIMERA sílaba: PREM-iss, no pre-MISS.</p>
+      <div class="mistake-box">
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg><span class="wrong">"All birds can fly. A penguin is a bird. Therefore, a penguin can fly." (false major premise leads to a false conclusion)</span></div>
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg><span class="right">A correct major premise is needed: "Most birds can fly, but some, like penguins, cannot."</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">6</div><div class="section-title">Grammar <span class="es">· Structure of a syllogism</span></div></div>
+      <div class="grammar-box"><p class="en">Major premise (general truth) + Minor premise (specific case) = Conclusion (logical result). If either premise is false, the whole conclusion becomes unreliable, even if the logic itself is structured correctly.</p><p class="es">Premisa mayor (verdad general) + Premisa menor (caso específico) = Conclusión (resultado lógico). Si alguna premisa es falsa, toda la conclusión se vuelve poco confiable, aunque la lógica en sí esté bien estructurada.</p></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">7</div><div class="section-title">Dialogues <span class="es">· Diálogos</span></div></div>
+      <div class="chat">
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">All students who study pass the exam. You studied a lot. So what happens?<span class="es">Todos los estudiantes que estudian aprueban el examen. Tú estudiaste mucho. ¿Entonces qué pasa?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Therefore, I should pass the exam!<span class="es">¡Por lo tanto, debería aprobar el examen!</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">That's a valid syllogism!<span class="es">¡Eso es un silogismo válido!</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">I hope the major premise is actually true.<span class="es">Espero que la premisa mayor sea realmente verdadera.</span></div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 2 / Page 2</span></div>
+</div>
+
+<div class="page-label">Página 3 / Page 3 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 68</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">8</div><div class="section-title">Listening <span class="es">· Comprensión auditiva</span></div></div><div class="practice-box"><div class="instr">🎧 Listen to 4 short arguments and identify the major premise, minor premise, and conclusion in each.<span class="es">Escucha 4 argumentos cortos e identifica la premisa mayor, la premisa menor, y la conclusión en cada uno.</span></div><div class="content">Audio track: <b>M5-L68-dialogue.mp3</b></div></div></div>
+    <div><div class="section-head"><div class="section-num">9</div><div class="section-title">Speaking <span class="es">· Expresión oral</span></div></div><div class="practice-box"><div class="instr">💬 Create your own syllogism about your daily life (school, work, or family) and explain it to a partner.<span class="es">Crea tu propio silogismo sobre tu vida diaria (escuela, trabajo, o familia) y explícaselo a un compañero.</span></div><div class="content">Try to use at least 6 new vocabulary words.</div></div></div>
+    <div><div class="section-head"><div class="section-num">10</div><div class="section-title">Reading <span class="es">· Lectura</span></div></div><p class="reading-passage">""All hard workers succeed. Maria is a hard worker. Therefore, Maria will succeed." This is a classic syllogism structure — but success also depends on many other real-world factors, not just effort."<span class="es">""Todos los que trabajan duro tienen éxito. María trabaja duro. Por lo tanto, María tendrá éxito." Esta es una estructura clásica de silogismo — pero el éxito también depende de muchos otros factores del mundo real, no solo el esfuerzo."</span></p></div>
+    <div>
+      <div class="section-head"><div class="section-num">11</div><div class="section-title">Interactive: Syllogism Structure <span class="es">· Estructura del silogismo</span></div></div>
+      <div class="tree-box">
+        <div class="tree-row"><div class="tree-node">Major Premise</div></div>
+        <div class="tree-row"><div class="tree-node">General rule</div></div>
+        <div class="tree-row"><div class="tree-node">Minor Premise → Conclusion</div></div>
+        <div class="tree-row"><div class="tree-node">Specific case</div><div class="tree-node me">Therefore...</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 3 / Page 3</span></div>
+</div>
+
+<div class="page-label">Página 4 / Page 4 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 68</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">12</div><div class="section-title">Writing <span class="es">· Escritura</span></div></div>
+      <div class="practice-box"><div class="instr">✍️ Write 3 original syllogisms (major premise, minor premise, conclusion), then identify if each one is logically valid.<span class="es">Escribe 3 silogismos originales (premisa mayor, premisa menor, conclusión), luego identifica si cada uno es lógicamente válido.</span></div><div class="writing-lines"></div><div class="writing-lines"></div><div class="writing-lines"></div></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">13</div><div class="section-title">Interactive Exercises <span class="es">· Ejercicios interactivos</span></div></div>
+      <div class="match-grid"><div class="match-col"><div class="match-item">Premise</div><div class="match-item">Conclusion</div><div class="match-item">Fallacy</div></div><div class="match-col"><div class="match-item">Falacia</div><div class="match-item">Premisa</div><div class="match-item">Conclusión</div></div></div>
+      <div class="fill-blank">Complete: "All men are mortal. Socrates is a man. ___, Socrates is mortal." <span class="blank">Therefore</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">14</div><div class="section-title">Quiz</div></div>
+      <div class="quiz-item"><div class="quiz-q">1. What are the 3 parts of a syllogism?</div><div class="quiz-opts"><span class="quiz-opt">A) Subject, verb, object</span><span class="quiz-opt">B) Major premise, minor premise, conclusion</span><span class="quiz-opt">C) Noun, adjective, verb</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">2. What happens if the major premise is false?</div><div class="quiz-opts"><span class="quiz-opt">A) The conclusion is still always true</span><span class="quiz-opt">B) The conclusion becomes unreliable</span><span class="quiz-opt">C) Nothing changes</span></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 4 / Page 4</span></div>
+</div>
+
+<div class="page-label">Página 5 / Page 5 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 68</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">15</div><div class="section-title">Homework <span class="es">· Tarea</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M9 22V12h6v10M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><p class="en">Find an advertisement or opinion article and identify the (often hidden) major premise, minor premise, and conclusion behind its argument.</p><p class="es">Encuentra un anuncio o artículo de opinión e identifica la premisa mayor, premisa menor, y conclusión (a menudo ocultas) detrás de su argumento.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">16</div><div class="section-title">Project <span class="es">· Proyecto</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg><div><p class="en">Create a 'Logic Detective' poster with 3 famous or invented syllogisms, marking which are valid and which contain a fallacy.</p><p class="es">Crea un póster de 'Detective de lógica' con 3 silogismos famosos o inventados, marcando cuáles son válidos y cuáles contienen una falacia.</p></div></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">17</div><div class="section-title">Tip <span class="es">· Consejo del profesor</span></div></div>
+      <div class="tip-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 2z"/></svg></div>
+        <div><p class="label">Study Tip / Consejo de estudio</p><p class="en">Whenever someone makes an argument, try to find their hidden major premise — if that premise is shaky, the whole argument may be too.</p><p class="es">Cada vez que alguien haga un argumento, trata de encontrar su premisa mayor oculta — si esa premisa es débil, todo el argumento también puede serlo.</p></div>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">18</div><div class="section-title">Review <span class="es">· Repaso</span></div></div><div class="review-tags"><span>Premise</span><span>Conclusion</span><span>Syllogism</span><span>Valid</span><span>Fallacy</span><span>Therefore</span><span>Argument</span></div></div>
+    <div><div class="section-head"><div class="section-num">19</div><div class="section-title">Assessment <span class="es">· Evaluación</span></div></div>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can define major premise, minor premise, and conclusion. <span class="es">Puedo definir premisa mayor, premisa menor, y conclusión.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can build a valid syllogism in English. <span class="es">Puedo construir un silogismo válido en inglés.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can identify logical fallacies in simple arguments. <span class="es">Puedo identificar falacias lógicas en argumentos simples.</span></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 5 / Page 5</span></div>
+</div>
+
+<div class="page-label">Página 6 / Page 6 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 68</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">20</div><div class="section-title">Answer Key <span class="es">· Hoja de respuestas</span></div></div><div class="answer-box"><div class="label">Quiz answers</div><ol><li>B) Major premise, minor premise, conclusion</li><li>B) The conclusion becomes unreliable</li></ol></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">21</div><div class="section-title">Summary <span class="es">· Resumen</span></div></div>
+      <div class="summary-box">
+        <p class="en">Today you learned the structure of a syllogism (major premise, minor premise, conclusion), how to build valid logical arguments in English, and how to spot fallacies caused by false premises.</p>
+        <p class="es">Hoy aprendiste la estructura de un silogismo (premisa mayor, premisa menor, conclusión), cómo construir argumentos lógicos válidos en inglés, y cómo detectar falacias causadas por premisas falsas.</p>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">22</div><div class="section-title">Coming Up <span class="es">· Próxima lección</span></div></div><div class="next-box"><div><div class="label">Lesson 69</div><div class="title">Abbreviations, Acronyms, and Monograms</div><div class="es">Abreviaturas, siglas, y monogramas.</div></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 6 / Page 6</span></div>
+</div>
+
+</body>
+</html>

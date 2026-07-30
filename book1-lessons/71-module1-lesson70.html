@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 5 · Lesson 70 — Reading Maps and Giving Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A; --navy-light:#161C4A;
+  --gold:#E3A73B; --gold-bright:#F5D783; --gold-pale:#FBF0DA;
+  --ink:#0B0F2E; --ink-soft:#5B6178; --ice:#F3F5FB; --ice-dim:#E4E8F5; --white:#FFFFFF;
+  --green:#1E8E5A; --green-pale:#E7F5EE; --blue:#2E6FD6; --blue-pale:#E9F1FC; --pink:#C24E7A; --pink-pale:#FAEAF1;
+  --font:"Manrope", sans-serif; --mono:"Space Grotesk", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:#3a3d4a; color:var(--ink); padding:40px 20px;}
+h1,h2,h3,h4{margin:0;} p{margin:0; line-height:1.55;}
+.page-label{max-width:816px; margin:0 auto 8px; color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;}
+.page{width:816px; height:1056px; background:var(--white); margin:0 auto 34px; box-shadow:0 20px 50px rgba(0,0,0,.4); padding:54px 58px 44px; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.page-header{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); border-bottom:1px solid var(--ice-dim); padding-bottom:12px; margin-bottom:22px;}
+.page-header .brand{color:var(--gold); font-weight:700;}
+.page-footer{position:absolute; bottom:24px; left:58px; right:58px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-soft); border-top:1px solid var(--ice-dim); padding-top:12px;}
+.page-body{flex:1; display:flex; flex-direction:column; gap:20px; min-height:0;}
+.lesson-cover{background:linear-gradient(160deg, var(--navy), var(--navy-deep)); color:#fff; padding:30px 34px; border-radius:14px; position:relative; overflow:hidden; margin-bottom:4px;}
+.lesson-cover::before{content:""; position:absolute; top:-80px; right:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.2), transparent 70%);}
+.crumbs{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:9px; position:relative;}
+.lesson-title{font-size:28px; font-weight:800; position:relative;}
+.lesson-title .es{font-size:13.5px; font-weight:600; color:rgba(255,255,255,.65); font-style:italic; margin-top:4px;}
+.lesson-badges{display:flex; gap:8px; margin-top:12px; position:relative; flex-wrap:wrap;}
+.badge{font-family:var(--mono); font-size:10px; font-weight:700; padding:5px 12px; border-radius:14px;}
+.badge-gold{background:var(--gold); color:var(--navy);}
+.badge-outline{border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85);}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:11px;}
+.section-num{width:26px; height:26px; border-radius:7px; background:var(--navy); color:var(--gold-bright); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:12px; flex-shrink:0;}
+.section-title{font-size:14.5px; font-weight:800; color:var(--navy);}
+.section-title .es{font-size:11.5px; font-weight:600; color:var(--ink-soft); font-style:italic;}
+.obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.obj-card{background:var(--gold-pale); border-radius:10px; padding:13px; border:1px solid rgba(227,167,59,.3);}
+.obj-card svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.8; margin-bottom:6px;}
+.obj-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; line-height:1.35;}
+.obj-card p.es{font-size:10px; color:var(--ink-soft); font-style:italic; line-height:1.35;}
+.intro-box{display:flex; gap:14px; align-items:flex-start;}
+.intro-icon{width:36px; height:36px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.intro-icon svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.intro-text p.en{font-size:12.5px; margin-bottom:7px;}
+.intro-text p.es{font-size:11.5px; color:var(--ink-soft); font-style:italic;}
+.fact-box{display:flex; gap:12px; align-items:flex-start; background:var(--blue-pale); border-radius:10px; padding:13px 15px; margin-top:4px;}
+.fact-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.fact-box .ic svg{width:15px; height:15px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.fact-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.fact-box p.en{font-size:11.5px; color:var(--navy);}
+.fact-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.family-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+.family-card{background:var(--ice); border-radius:10px; padding:11px 8px; text-align:center;}
+.family-card .w{font-size:12px; font-weight:800; color:var(--navy);}
+.family-card .es{font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+.vocab-card{background:var(--ice); border-radius:9px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.vocab-word{font-weight:800; font-size:12.5px; color:var(--navy);}
+.vocab-phon{font-family:var(--mono); font-size:9.5px; color:var(--ink-soft);}
+.vocab-es{font-size:10.5px; color:var(--ink-soft); font-style:italic; text-align:right;}
+.pron-row{display:flex; flex-wrap:wrap; gap:8px;}
+.pron-chip{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; font-weight:600; padding:7px 13px; border-radius:16px;}
+.pron-note{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.mistake-box{background:var(--pink-pale); border-radius:10px; padding:12px 15px; margin-top:4px;}
+.mistake-box .row{display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+.mistake-box .row:last-child{margin-bottom:0;}
+.mistake-box .wrong{font-size:11.5px; color:var(--pink); text-decoration:line-through; font-weight:600;}
+.mistake-box .right{font-size:11.5px; color:var(--green); font-weight:700;}
+.mistake-box svg{width:13px; height:13px; stroke:var(--ink-soft); flex-shrink:0;}
+.grammar-box{background:var(--pink-pale); border-left:4px solid var(--pink); border-radius:0 9px 9px 0; padding:13px 16px;}
+.grammar-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.grammar-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.chat{display:flex; flex-direction:column; gap:8px; max-width:490px;}
+.chat-row{display:flex; gap:8px; align-items:flex-end;}
+.chat-row.right{flex-direction:row-reverse;}
+.chat-avatar{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:10.5px; flex-shrink:0;}
+.chat-row.left .chat-avatar{background:var(--navy); color:var(--gold-bright);}
+.chat-row.right .chat-avatar{background:var(--gold); color:var(--navy);}
+.chat-bubble{padding:7px 12px; border-radius:14px; font-size:11px; max-width:330px;}
+.chat-row.left .chat-bubble{background:var(--ice); border-bottom-left-radius:3px;}
+.chat-row.right .chat-bubble{background:var(--gold-pale); border-bottom-right-radius:3px;}
+.chat-bubble .es{display:block; font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.practice-box{background:var(--ice); border-radius:10px; padding:14px;}
+.practice-box .instr{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.practice-box .instr .es{display:block; font-weight:500; font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.practice-box .content{font-size:11.5px; color:var(--ink-soft);}
+.reading-passage{font-size:12px; line-height:1.65; font-style:italic; color:var(--navy); border-left:3px solid var(--gold); padding-left:14px;}
+.reading-passage .es{display:block; font-size:10.5px; margin-top:6px; color:var(--ink-soft); font-style:normal;}
+.writing-lines{border-bottom:1px dashed var(--ice-dim); height:20px; margin-top:6px;}
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px; max-width:420px;}
+.match-col{display:flex; flex-direction:column; gap:7px;}
+.match-item{background:var(--ice); border-radius:7px; padding:7px 12px; font-size:11px; font-weight:600; text-align:center;}
+.fill-blank{font-size:12px; margin-top:10px; padding:9px 14px; background:var(--blue-pale); border-radius:9px;}
+.fill-blank .blank{border-bottom:2px solid var(--blue); padding:0 16px; font-weight:700;}
+.quiz-item{margin-bottom:10px;}
+.quiz-q{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:5px;}
+.quiz-opts{display:flex; gap:8px; flex-wrap:wrap;}
+.quiz-opt{border:1px solid var(--ice-dim); border-radius:7px; padding:6px 12px; font-size:10.5px;}
+.task-card{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:14px;}
+.task-card svg{width:17px; height:17px; stroke:var(--green); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:1px;}
+.task-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px;}
+.task-card p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.review-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.review-tags span{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:10.5px; padding:5px 12px; border-radius:12px;}
+.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+.check-list li{display:flex; align-items:flex-start; gap:8px; font-size:11.5px;}
+.check-list li svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px;}
+.check-list li .es{color:var(--ink-soft); font-style:italic;}
+.answer-box{background:var(--navy); color:#fff; border-radius:10px; padding:15px;}
+.answer-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px;}
+.answer-box ol{margin:0; padding-left:16px; font-size:11.5px; line-height:1.75;}
+.summary-box{background:var(--gold-pale); border-radius:10px; padding:15px; border:1px solid rgba(227,167,59,.35);}
+.summary-box p.en{font-size:11.5px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.summary-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.next-box{display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff; border-radius:10px; padding:16px 20px;}
+.next-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;}
+.next-box .title{font-size:14px; font-weight:800;}
+.next-box .es{font-size:10.5px; color:rgba(255,255,255,.65); font-style:italic; margin-top:2px;}
+.next-box svg{width:19px; height:19px; stroke:var(--gold-bright); fill:none; stroke-width:2;}
+.tip-box{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:13px 15px;}
+.tip-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.tip-box .ic svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:1.8;}
+.tip-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.tip-box p.en{font-size:11.5px; color:var(--navy);}
+.tip-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.tree-box{background:var(--ice); border-radius:10px; padding:16px; text-align:center;}
+.tree-row{display:flex; justify-content:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+.tree-row:last-child{margin-bottom:0;}
+.tree-node{background:var(--white); border:1px solid var(--ice-dim); border-radius:8px; padding:6px 12px; font-size:10.5px; font-weight:700; color:var(--navy);}
+.tree-node.me{background:var(--gold); color:var(--navy); border-color:var(--gold);}
+.spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<div class="page-label">Página 1 / Page 1 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 70</span></div>
+  <div class="page-body">
+    <div class="lesson-cover">
+      <div class="crumbs">Module 5 · Language, Logic & Reference — Lesson 70 of 50</div>
+      <div class="lesson-title">Reading Maps and Giving Directions<div class="es">Lección 70 — Leer mapas y dar direcciones</div></div>
+      <div class="lesson-badges"><span class="badge badge-gold">Level A0</span><span class="badge badge-outline">15 min</span><span class="badge badge-outline">🎧 Audio</span><span class="badge badge-outline">🎬 Video</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">1</div><div class="section-title">Objectives <span class="es">· Objetivos</span></div></div>
+      <div class="obj-grid">
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Use cardinal directions (north, south, east, west)</p><p class="es">Usar los puntos cardinales (norte, sur, este, oeste)</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Give and follow simple directions</p><p class="es">Dar y seguir direcciones simples</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Read basic map vocabulary and symbols</p><p class="es">Leer vocabulario y símbolos básicos de mapas</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">2</div><div class="section-title">Introduction <span class="es">· Introducción</span></div></div>
+      <div class="intro-box">
+        <div class="intro-icon"><svg viewBox="0 0 24 24"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4z"/><path d="M8 2v16M16 6v16"/></svg></div>
+        <div class="intro-text">
+          <p class="en">Map-reading vocabulary lets you navigate a new city, ask for directions, and understand travel instructions — an essential practical skill in English.</p>
+          <p class="es">El vocabulario de lectura de mapas te permite navegar una ciudad nueva, pedir direcciones, y entender instrucciones de viaje — una habilidad práctica esencial en inglés.</p>
+        </div>
+      </div>
+      <div class="fact-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
+        <div><p class="label">Did you know? / ¿Sabías qué?</p><p class="en">On a standard map, north is always at the top unless stated otherwise — this convention has been followed by most mapmakers since the 16th century.</p><p class="es">En un mapa estándar, el norte siempre está arriba a menos que se indique lo contrario — esta convención ha sido seguida por la mayoría de los cartógrafos desde el siglo XVI.</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">3</div><div class="section-title">Detailed Explanation <span class="es">· Explicación detallada</span></div></div>
+      <div class="family-grid">
+        <div class="family-card"><div class="w">North</div><div class="es">Norte</div></div>
+        <div class="family-card"><div class="w">South</div><div class="es">Sur</div></div>
+        <div class="family-card"><div class="w">East</div><div class="es">Este</div></div>
+        <div class="family-card"><div class="w">West</div><div class="es">Oeste</div></div>
+        <div class="family-card"><div class="w">Turn left</div><div class="es">Gira a la izquierda</div></div>
+        <div class="family-card"><div class="w">Turn right</div><div class="es">Gira a la derecha</div></div>
+        <div class="family-card"><div class="w">Go straight</div><div class="es">Sigue derecho</div></div>
+        <div class="family-card"><div class="w">Go straight ahead</div><div class="es">Sigue todo derecho</div></div>
+        <div class="family-card"><div class="w">Corner</div><div class="es">Esquina</div></div>
+        <div class="family-card"><div class="w">Block</div><div class="es">Cuadra</div></div>
+        <div class="family-card"><div class="w">Intersection</div><div class="es">Intersección</div></div>
+        <div class="family-card"><div class="w">Traffic light</div><div class="es">Semáforo</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 1 / Page 1</span></div>
+</div>
+
+<div class="page-label">Página 2 / Page 2 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 70</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">4</div><div class="section-title">Vocabulary <span class="es">· Vocabulario</span></div></div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div><div class="vocab-word">Map</div><div class="vocab-phon">/mæp/</div></div><div class="vocab-es">Mapa</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Compass</div><div class="vocab-phon">/ˈkʌmpəs/</div></div><div class="vocab-es">Brújula</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Route</div><div class="vocab-phon">/ruːt/</div></div><div class="vocab-es">Ruta</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Landmark</div><div class="vocab-phon">/ˈlændmɑːrk/</div></div><div class="vocab-es">Punto de referencia</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Across from</div><div class="vocab-phon">/əˈkrɒs frʌm/</div></div><div class="vocab-es">Frente a</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Next to</div><div class="vocab-phon">/nɛkst tuː/</div></div><div class="vocab-es">Al lado de</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Between</div><div class="vocab-phon">/bɪˈtwiːn/</div></div><div class="vocab-es">Entre</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Around the corner</div><div class="vocab-phon">/əˈraʊnd ðə ˈkɔːrnər/</div></div><div class="vocab-es">A la vuelta de la esquina</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">5</div><div class="section-title">Pronunciation <span class="es">· Pronunciación</span></div></div>
+      <div class="pron-row"><div class="pron-chip">route /ruːt/ or /raʊt/</div><div class="pron-chip">compass /ˈkʌmpəs/</div></div>
+      <p class="pron-note" style="margin-top:8px;">"Route" has two accepted pronunciations depending on region: /ruːt/ (like 'root') is common in American English, and /raʊt/ (like 'rout') in British English. / "Route" tiene dos pronunciaciones aceptadas según la región: /ruːt/ (como 'root') es común en inglés americano, y /raʊt/ (como 'rout') en inglés británico.</p>
+      <div class="mistake-box">
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg><span class="wrong">"Go to right" / "Turn in the left"</span></div>
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg><span class="right">"Turn right" / "Turn left" (no preposition needed before left/right in this expression)</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">6</div><div class="section-title">Grammar <span class="es">· Giving directions: imperative + prepositions</span></div></div>
+      <div class="grammar-box"><p class="en">Directions use the imperative form (no subject): "Turn left," "Go straight," "Cross the street." Combine with place prepositions: "next to," "across from," "between," "on the corner of."</p><p class="es">Las direcciones usan la forma imperativa (sin sujeto): "Turn left," "Go straight," "Cross the street." Combínalas con preposiciones de lugar: "next to," "across from," "between," "on the corner of."</p></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">7</div><div class="section-title">Dialogues <span class="es">· Diálogos</span></div></div>
+      <div class="chat">
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Excuse me, how do I get to the bank?<span class="es">Disculpe, ¿cómo llego al banco?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Go straight for two blocks, then turn left. It's on the corner, next to the pharmacy.<span class="es">Sigue derecho dos cuadras, luego gira a la izquierda. Está en la esquina, al lado de la farmacia.</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Is it far from here?<span class="es">¿Está lejos de aquí?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">No, it's about a five-minute walk.<span class="es">No, está a unos cinco minutos caminando.</span></div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 2 / Page 2</span></div>
+</div>
+
+<div class="page-label">Página 3 / Page 3 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 70</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">8</div><div class="section-title">Listening <span class="es">· Comprensión auditiva</span></div></div><div class="practice-box"><div class="instr">🎧 Listen to someone giving directions to a location and trace the route on a simple map.<span class="es">Escucha a alguien dando direcciones a un lugar y traza la ruta en un mapa simple.</span></div><div class="content">Audio track: <b>M5-L70-dialogue.mp3</b></div></div></div>
+    <div><div class="section-head"><div class="section-num">9</div><div class="section-title">Speaking <span class="es">· Expresión oral</span></div></div><div class="practice-box"><div class="instr">💬 Give a partner directions from your house to a nearby important place (school, market, church) using at least 5 direction expressions.<span class="es">Dale a un compañero direcciones desde tu casa hasta un lugar importante cercano (escuela, mercado, iglesia) usando al menos 5 expresiones de dirección.</span></div><div class="content">Try to use at least 6 new vocabulary words.</div></div></div>
+    <div><div class="section-head"><div class="section-num">10</div><div class="section-title">Reading <span class="es">· Lectura</span></div></div><p class="reading-passage">"To get to the school, go straight down Main Street for three blocks. Turn right at the traffic light. The school is on your left, across from the park."<span class="es">"Para llegar a la escuela, sigue derecho por la calle Main tres cuadras. Gira a la derecha en el semáforo. La escuela está a tu izquierda, frente al parque."</span></p></div>
+    <div>
+      <div class="section-head"><div class="section-num">11</div><div class="section-title">Interactive: Cardinal Directions <span class="es">· Puntos cardinales</span></div></div>
+      <div class="tree-box">
+        <div class="tree-row"><div class="tree-node me">North</div></div>
+        <div class="tree-row"><div class="tree-node">West</div><div class="tree-node">Center</div><div class="tree-node">East</div></div>
+        <div class="tree-row"><div class="tree-node">South</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 3 / Page 3</span></div>
+</div>
+
+<div class="page-label">Página 4 / Page 4 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 70</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">12</div><div class="section-title">Writing <span class="es">· Escritura</span></div></div>
+      <div class="practice-box"><div class="instr">✍️ Draw a simple map of your neighborhood and write 5 sentences giving directions from your house to a nearby place.<span class="es">Dibuja un mapa simple de tu vecindario y escribe 5 oraciones dando direcciones desde tu casa hasta un lugar cercano.</span></div><div class="writing-lines"></div><div class="writing-lines"></div><div class="writing-lines"></div></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">13</div><div class="section-title">Interactive Exercises <span class="es">· Ejercicios interactivos</span></div></div>
+      <div class="match-grid"><div class="match-col"><div class="match-item">North</div><div class="match-item">Turn left</div><div class="match-item">Next to</div></div><div class="match-col"><div class="match-item">Al lado de</div><div class="match-item">Norte</div><div class="match-item">Gira a la izquierda</div></div></div>
+      <div class="fill-blank">Complete: "Go straight, then ___ right at the corner." <span class="blank">turn</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">14</div><div class="section-title">Quiz</div></div>
+      <div class="quiz-item"><div class="quiz-q">1. Which direction is usually at the top of a map?</div><div class="quiz-opts"><span class="quiz-opt">A) South</span><span class="quiz-opt">B) North</span><span class="quiz-opt">C) East</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">2. Which sentence correctly gives a direction?</div><div class="quiz-opts"><span class="quiz-opt">A) Turn to right</span><span class="quiz-opt">B) Turn right</span><span class="quiz-opt">C) Turn on right</span></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 4 / Page 4</span></div>
+</div>
+
+<div class="page-label">Página 5 / Page 5 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 70</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">15</div><div class="section-title">Homework <span class="es">· Tarea</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M9 22V12h6v10M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><p class="en">Write directions from your house to your workplace or school, using at least 8 different direction/location expressions.</p><p class="es">Escribe direcciones desde tu casa hasta tu trabajo o escuela, usando al menos 8 expresiones diferentes de dirección/ubicación.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">16</div><div class="section-title">Project <span class="es">· Proyecto</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg><div><p class="en">Create a hand-drawn treasure map with written directions in English guiding someone from 'Start' to 'Treasure' using at least 6 direction terms.</p><p class="es">Crea un mapa del tesoro dibujado a mano con direcciones escritas en inglés guiando a alguien desde 'Start' hasta 'Treasure' usando al menos 6 términos de dirección.</p></div></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">17</div><div class="section-title">Tip <span class="es">· Consejo del profesor</span></div></div>
+      <div class="tip-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 2z"/></svg></div>
+        <div><p class="label">Study Tip / Consejo de estudio</p><p class="en">Practice giving directions to real places in your own town in English — real, familiar locations make the vocabulary stick much faster than imaginary ones.</p><p class="es">Practica dando direcciones a lugares reales de tu propio pueblo en inglés — los lugares reales y familiares hacen que el vocabulario se quede mucho más rápido que los imaginarios.</p></div>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">18</div><div class="section-title">Review <span class="es">· Repaso</span></div></div><div class="review-tags"><span>North</span><span>South</span><span>East</span><span>West</span><span>Turn left</span><span>Turn right</span><span>Go straight</span></div></div>
+    <div><div class="section-head"><div class="section-num">19</div><div class="section-title">Assessment <span class="es">· Evaluación</span></div></div>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can use cardinal directions. <span class="es">Puedo usar los puntos cardinales.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can give and follow simple directions. <span class="es">Puedo dar y seguir direcciones simples.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can read basic map vocabulary and symbols. <span class="es">Puedo leer vocabulario y símbolos básicos de mapas.</span></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 5 / Page 5</span></div>
+</div>
+
+<div class="page-label">Página 6 / Page 6 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 5 · Lesson 70</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">20</div><div class="section-title">Answer Key <span class="es">· Hoja de respuestas</span></div></div><div class="answer-box"><div class="label">Quiz answers</div><ol><li>B) North</li><li>B) Turn right</li></ol></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">21</div><div class="section-title">Summary <span class="es">· Resumen</span></div></div>
+      <div class="summary-box">
+        <p class="en">Today you learned cardinal directions, how to give and follow directions using the imperative form, and essential map-reading vocabulary for real-life navigation.</p>
+        <p class="es">Hoy aprendiste los puntos cardinales, cómo dar y seguir direcciones usando la forma imperativa, y vocabulario esencial de lectura de mapas para la navegación en la vida real.</p>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">22</div><div class="section-title">Coming Up <span class="es">· Próxima lección</span></div></div><div class="next-box"><div><div class="label">Lesson 71</div><div class="title">Comparatives and Superlatives</div><div class="es">Los comparativos y superlativos.</div></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 6 / Page 6</span></div>
+</div>
+
+</body>
+</html>
