@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 2 · Lesson 40 — Months of the Year</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A; --navy-light:#161C4A;
+  --gold:#E3A73B; --gold-bright:#F5D783; --gold-pale:#FBF0DA;
+  --ink:#0B0F2E; --ink-soft:#5B6178; --ice:#F3F5FB; --ice-dim:#E4E8F5; --white:#FFFFFF;
+  --green:#1E8E5A; --green-pale:#E7F5EE; --blue:#2E6FD6; --blue-pale:#E9F1FC; --pink:#C24E7A; --pink-pale:#FAEAF1;
+  --font:"Manrope", sans-serif; --mono:"Space Grotesk", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:#3a3d4a; color:var(--ink); padding:40px 20px;}
+h1,h2,h3,h4{margin:0;} p{margin:0; line-height:1.55;}
+.page-label{max-width:816px; margin:0 auto 8px; color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;}
+.page{width:816px; height:1056px; background:var(--white); margin:0 auto 34px; box-shadow:0 20px 50px rgba(0,0,0,.4); padding:54px 58px 44px; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.page-header{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); border-bottom:1px solid var(--ice-dim); padding-bottom:12px; margin-bottom:22px;}
+.page-header .brand{color:var(--gold); font-weight:700;}
+.page-footer{position:absolute; bottom:24px; left:58px; right:58px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-soft); border-top:1px solid var(--ice-dim); padding-top:12px;}
+.page-body{flex:1; display:flex; flex-direction:column; gap:20px; min-height:0;}
+.lesson-cover{background:linear-gradient(160deg, var(--navy), var(--navy-deep)); color:#fff; padding:30px 34px; border-radius:14px; position:relative; overflow:hidden; margin-bottom:4px;}
+.lesson-cover::before{content:""; position:absolute; top:-80px; right:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.2), transparent 70%);}
+.crumbs{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:9px; position:relative;}
+.lesson-title{font-size:28px; font-weight:800; position:relative;}
+.lesson-title .es{font-size:13.5px; font-weight:600; color:rgba(255,255,255,.65); font-style:italic; margin-top:4px;}
+.lesson-badges{display:flex; gap:8px; margin-top:12px; position:relative; flex-wrap:wrap;}
+.badge{font-family:var(--mono); font-size:10px; font-weight:700; padding:5px 12px; border-radius:14px;}
+.badge-gold{background:var(--gold); color:var(--navy);}
+.badge-outline{border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85);}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:11px;}
+.section-num{width:26px; height:26px; border-radius:7px; background:var(--navy); color:var(--gold-bright); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:12px; flex-shrink:0;}
+.section-title{font-size:14.5px; font-weight:800; color:var(--navy);}
+.section-title .es{font-size:11.5px; font-weight:600; color:var(--ink-soft); font-style:italic;}
+.obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.obj-card{background:var(--gold-pale); border-radius:10px; padding:13px; border:1px solid rgba(227,167,59,.3);}
+.obj-card svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.8; margin-bottom:6px;}
+.obj-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; line-height:1.35;}
+.obj-card p.es{font-size:10px; color:var(--ink-soft); font-style:italic; line-height:1.35;}
+.intro-box{display:flex; gap:14px; align-items:flex-start;}
+.intro-icon{width:36px; height:36px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.intro-icon svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.intro-text p.en{font-size:12.5px; margin-bottom:7px;}
+.intro-text p.es{font-size:11.5px; color:var(--ink-soft); font-style:italic;}
+.fact-box{display:flex; gap:12px; align-items:flex-start; background:var(--blue-pale); border-radius:10px; padding:13px 15px; margin-top:4px;}
+.fact-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.fact-box .ic svg{width:15px; height:15px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.fact-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.fact-box p.en{font-size:11.5px; color:var(--navy);}
+.fact-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.family-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+.family-card{background:var(--ice); border-radius:10px; padding:11px 8px; text-align:center;}
+.family-card .w{font-size:12px; font-weight:800; color:var(--navy);}
+.family-card .es{font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+.vocab-card{background:var(--ice); border-radius:9px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.vocab-word{font-weight:800; font-size:12.5px; color:var(--navy);}
+.vocab-phon{font-family:var(--mono); font-size:9.5px; color:var(--ink-soft);}
+.vocab-es{font-size:10.5px; color:var(--ink-soft); font-style:italic; text-align:right;}
+.pron-row{display:flex; flex-wrap:wrap; gap:8px;}
+.pron-chip{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; font-weight:600; padding:7px 13px; border-radius:16px;}
+.pron-note{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.mistake-box{background:var(--pink-pale); border-radius:10px; padding:12px 15px; margin-top:4px;}
+.mistake-box .row{display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+.mistake-box .row:last-child{margin-bottom:0;}
+.mistake-box .wrong{font-size:11.5px; color:var(--pink); text-decoration:line-through; font-weight:600;}
+.mistake-box .right{font-size:11.5px; color:var(--green); font-weight:700;}
+.mistake-box svg{width:13px; height:13px; stroke:var(--ink-soft); flex-shrink:0;}
+.grammar-box{background:var(--pink-pale); border-left:4px solid var(--pink); border-radius:0 9px 9px 0; padding:13px 16px;}
+.grammar-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.grammar-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.chat{display:flex; flex-direction:column; gap:8px; max-width:490px;}
+.chat-row{display:flex; gap:8px; align-items:flex-end;}
+.chat-row.right{flex-direction:row-reverse;}
+.chat-avatar{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:10.5px; flex-shrink:0;}
+.chat-row.left .chat-avatar{background:var(--navy); color:var(--gold-bright);}
+.chat-row.right .chat-avatar{background:var(--gold); color:var(--navy);}
+.chat-bubble{padding:7px 12px; border-radius:14px; font-size:11px; max-width:330px;}
+.chat-row.left .chat-bubble{background:var(--ice); border-bottom-left-radius:3px;}
+.chat-row.right .chat-bubble{background:var(--gold-pale); border-bottom-right-radius:3px;}
+.chat-bubble .es{display:block; font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.practice-box{background:var(--ice); border-radius:10px; padding:14px;}
+.practice-box .instr{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.practice-box .instr .es{display:block; font-weight:500; font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.practice-box .content{font-size:11.5px; color:var(--ink-soft);}
+.reading-passage{font-size:12px; line-height:1.65; font-style:italic; color:var(--navy); border-left:3px solid var(--gold); padding-left:14px;}
+.reading-passage .es{display:block; font-size:10.5px; margin-top:6px; color:var(--ink-soft); font-style:normal;}
+.writing-lines{border-bottom:1px dashed var(--ice-dim); height:20px; margin-top:6px;}
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px; max-width:420px;}
+.match-col{display:flex; flex-direction:column; gap:7px;}
+.match-item{background:var(--ice); border-radius:7px; padding:7px 12px; font-size:11px; font-weight:600; text-align:center;}
+.fill-blank{font-size:12px; margin-top:10px; padding:9px 14px; background:var(--blue-pale); border-radius:9px;}
+.fill-blank .blank{border-bottom:2px solid var(--blue); padding:0 16px; font-weight:700;}
+.quiz-item{margin-bottom:10px;}
+.quiz-q{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:5px;}
+.quiz-opts{display:flex; gap:8px; flex-wrap:wrap;}
+.quiz-opt{border:1px solid var(--ice-dim); border-radius:7px; padding:6px 12px; font-size:10.5px;}
+.task-card{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:14px;}
+.task-card svg{width:17px; height:17px; stroke:var(--green); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:1px;}
+.task-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px;}
+.task-card p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.review-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.review-tags span{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:10.5px; padding:5px 12px; border-radius:12px;}
+.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+.check-list li{display:flex; align-items:flex-start; gap:8px; font-size:11.5px;}
+.check-list li svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px;}
+.check-list li .es{color:var(--ink-soft); font-style:italic;}
+.answer-box{background:var(--navy); color:#fff; border-radius:10px; padding:15px;}
+.answer-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px;}
+.answer-box ol{margin:0; padding-left:16px; font-size:11.5px; line-height:1.75;}
+.summary-box{background:var(--gold-pale); border-radius:10px; padding:15px; border:1px solid rgba(227,167,59,.35);}
+.summary-box p.en{font-size:11.5px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.summary-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.next-box{display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff; border-radius:10px; padding:16px 20px;}
+.next-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;}
+.next-box .title{font-size:14px; font-weight:800;}
+.next-box .es{font-size:10.5px; color:rgba(255,255,255,.65); font-style:italic; margin-top:2px;}
+.next-box svg{width:19px; height:19px; stroke:var(--gold-bright); fill:none; stroke-width:2;}
+.tip-box{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:13px 15px;}
+.tip-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.tip-box .ic svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:1.8;}
+.tip-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.tip-box p.en{font-size:11.5px; color:var(--navy);}
+.tip-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.tree-box{background:var(--ice); border-radius:10px; padding:16px; text-align:center;}
+.tree-row{display:flex; justify-content:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+.tree-row:last-child{margin-bottom:0;}
+.tree-node{background:var(--white); border:1px solid var(--ice-dim); border-radius:8px; padding:6px 12px; font-size:10.5px; font-weight:700; color:var(--navy);}
+.tree-node.me{background:var(--gold); color:var(--navy); border-color:var(--gold);}
+.spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<div class="page-label">Página 1 / Page 1 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 40</span></div>
+  <div class="page-body">
+    <div class="lesson-cover">
+      <div class="crumbs">Module 2 · Life Vocabulary — Lesson 40 of 50</div>
+      <div class="lesson-title">Months of the Year<div class="es">Lección 40 — Los meses del año</div></div>
+      <div class="lesson-badges"><span class="badge badge-gold">Level A0</span><span class="badge badge-outline">15 min</span><span class="badge badge-outline">🎧 Audio</span><span class="badge badge-outline">🎬 Video</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">1</div><div class="section-title">Objectives <span class="es">· Objetivos</span></div></div>
+      <div class="obj-grid">
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Name all 12 months in English</p><p class="es">Nombrar los 12 meses en inglés</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Say your birthday month</p><p class="es">Decir el mes de tu cumpleaños</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Use 'in' correctly with months</p><p class="es">Usar 'in' correctamente con los meses</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">2</div><div class="section-title">Introduction <span class="es">· Introducción</span></div></div>
+      <div class="intro-box">
+        <div class="intro-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <div class="intro-text">
+          <p class="en">Months help you talk about birthdays, holidays, seasons, and important dates throughout the year.</p>
+          <p class="es">Los meses te ayudan a hablar de cumpleaños, festivos, estaciones, y fechas importantes durante el año.</p>
+        </div>
+      </div>
+      <div class="fact-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
+        <div><p class="label">Did you know? / ¿Sabías qué?</p><p class="en">Like days, all months are capitalized in English: January, February, March — never lowercase.</p><p class="es">Al igual que los días, todos los meses se escriben con mayúscula en inglés: January, February, March — nunca en minúscula.</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">3</div><div class="section-title">Detailed Explanation <span class="es">· Explicación detallada</span></div></div>
+      <div class="family-grid">
+        <div class="family-card"><div class="w">January</div><div class="es">Enero</div></div>
+        <div class="family-card"><div class="w">February</div><div class="es">Febrero</div></div>
+        <div class="family-card"><div class="w">March</div><div class="es">Marzo</div></div>
+        <div class="family-card"><div class="w">April</div><div class="es">Abril</div></div>
+        <div class="family-card"><div class="w">May</div><div class="es">Mayo</div></div>
+        <div class="family-card"><div class="w">June</div><div class="es">Junio</div></div>
+        <div class="family-card"><div class="w">July</div><div class="es">Julio</div></div>
+        <div class="family-card"><div class="w">August</div><div class="es">Agosto</div></div>
+        <div class="family-card"><div class="w">September</div><div class="es">Septiembre</div></div>
+        <div class="family-card"><div class="w">October</div><div class="es">Octubre</div></div>
+        <div class="family-card"><div class="w">November</div><div class="es">Noviembre</div></div>
+        <div class="family-card"><div class="w">December</div><div class="es">Diciembre</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 1 / Page 1</span></div>
+</div>
+
+<div class="page-label">Página 2 / Page 2 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 40</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">4</div><div class="section-title">Vocabulary <span class="es">· Vocabulario</span></div></div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div><div class="vocab-word">Birthday</div><div class="vocab-phon">/ˈbɜːrθdeɪ/</div></div><div class="vocab-es">Cumpleaños</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Season</div><div class="vocab-phon">/ˈsiːzən/</div></div><div class="vocab-es">Estación</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Holiday</div><div class="vocab-phon">/ˈhɒlədeɪ/</div></div><div class="vocab-es">Día festivo</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Calendar</div><div class="vocab-phon">/ˈkælɪndər/</div></div><div class="vocab-es">Calendario</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Anniversary</div><div class="vocab-phon">/ˌænɪˈvɜːrsəri/</div></div><div class="vocab-es">Aniversario</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Every year</div><div class="vocab-phon">/ˈɛvri jɪər/</div></div><div class="vocab-es">Cada año</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">This month</div><div class="vocab-phon">/ðɪs mʌnθ/</div></div><div class="vocab-es">Este mes</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Last month</div><div class="vocab-phon">/læst mʌnθ/</div></div><div class="vocab-es">El mes pasado</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">5</div><div class="section-title">Pronunciation <span class="es">· Pronunciación</span></div></div>
+      <div class="pron-row"><div class="pron-chip">February /ˈfɛbjuˌɛri/</div><div class="pron-chip">Wednesday-style silent letters</div></div>
+      <p class="pron-note" style="margin-top:8px;">Many people don't pronounce the first "r" in "February" — it often sounds like "FEB-yoo-air-ee." / Muchas personas no pronuncian la primera "r" en "February" — a menudo suena como "FEB-yoo-air-ee."</p>
+      <div class="mistake-box">
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg><span class="wrong">"My birthday is on January"</span></div>
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg><span class="right">"My birthday is in January"</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">6</div><div class="section-title">Grammar <span class="es">· Preposition IN with months</span></div></div>
+      <div class="grammar-box"><p class="en">Use the preposition "in" before months: "in June," "in December." Use "on" only when giving a full date: "on June 5th."</p><p class="es">Usa la preposición "in" antes de los meses: "in June," "in December." Usa "on" solo cuando das una fecha completa: "on June 5th."</p></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">7</div><div class="section-title">Dialogues <span class="es">· Diálogos</span></div></div>
+      <div class="chat">
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">When is your birthday?<span class="es">¿Cuándo es tu cumpleaños?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">My birthday is in July.<span class="es">Mi cumpleaños es en julio.</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">What month do you like the most?<span class="es">¿Qué mes te gusta más?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">I like December because of the holidays.<span class="es">Me gusta diciembre por las fiestas.</span></div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 2 / Page 2</span></div>
+</div>
+
+<div class="page-label">Página 3 / Page 3 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 40</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">8</div><div class="section-title">Listening <span class="es">· Comprensión auditiva</span></div></div><div class="practice-box"><div class="instr">🎧 Listen to 5 people saying their birthday month and match each name to the correct month.<span class="es">Escucha a 5 personas decir el mes de su cumpleaños y relaciona cada nombre con el mes correcto.</span></div><div class="content">Audio track: <b>M2-L40-dialogue.mp3</b></div></div></div>
+    <div><div class="section-head"><div class="section-num">9</div><div class="section-title">Speaking <span class="es">· Expresión oral</span></div></div><div class="practice-box"><div class="instr">💬 Tell a partner your birthday month and one important event that happens in that month.<span class="es">Cuéntale a un compañero el mes de tu cumpleaños y un evento importante que ocurre en ese mes.</span></div><div class="content">Try to use at least 6 new vocabulary words.</div></div></div>
+    <div><div class="section-head"><div class="section-num">10</div><div class="section-title">Reading <span class="es">· Lectura</span></div></div><p class="reading-passage">"My birthday is in September. My sister's birthday is in March. We celebrate Christmas in December every year."<span class="es">"Mi cumpleaños es en septiembre. El cumpleaños de mi hermana es en marzo. Celebramos la Navidad en diciembre cada año."</span></p></div>
+    <div>
+      <div class="section-head"><div class="section-num">11</div><div class="section-title">Interactive: Months by Season <span class="es">· Meses por estación</span></div></div>
+      <div class="tree-box">
+        <div class="tree-row"><div class="tree-node">Winter</div></div>
+        <div class="tree-row"><div class="tree-node">Dec</div><div class="tree-node">Jan</div><div class="tree-node">Feb</div></div>
+        <div class="tree-row"><div class="tree-node">Spring</div></div>
+        <div class="tree-row"><div class="tree-node">Mar</div><div class="tree-node">Apr</div><div class="tree-node me">May</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 3 / Page 3</span></div>
+</div>
+
+<div class="page-label">Página 4 / Page 4 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 40</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">12</div><div class="section-title">Writing <span class="es">· Escritura</span></div></div>
+      <div class="practice-box"><div class="instr">✍️ Write a sentence for each month of the year saying one thing that usually happens then (e.g., 'In July, it's very hot.').<span class="es">Escribe una oración para cada mes del año diciendo algo que suele pasar entonces (ej: 'In July, it's very hot.').</span></div><div class="writing-lines"></div><div class="writing-lines"></div><div class="writing-lines"></div></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">13</div><div class="section-title">Interactive Exercises <span class="es">· Ejercicios interactivos</span></div></div>
+      <div class="match-grid"><div class="match-col"><div class="match-item">January</div><div class="match-item">July</div><div class="match-item">December</div></div><div class="match-col"><div class="match-item">Diciembre</div><div class="match-item">Enero</div><div class="match-item">Julio</div></div></div>
+      <div class="fill-blank">Complete: "School usually starts ___ September." <span class="blank">in</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">14</div><div class="section-title">Quiz</div></div>
+      <div class="quiz-item"><div class="quiz-q">1. Which month comes right after June?</div><div class="quiz-opts"><span class="quiz-opt">A) May</span><span class="quiz-opt">B) July</span><span class="quiz-opt">C) August</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">2. Which preposition goes before a month?</div><div class="quiz-opts"><span class="quiz-opt">A) On</span><span class="quiz-opt">B) At</span><span class="quiz-opt">C) In</span></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 4 / Page 4</span></div>
+</div>
+
+<div class="page-label">Página 5 / Page 5 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 40</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">15</div><div class="section-title">Homework <span class="es">· Tarea</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M9 22V12h6v10M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><p class="en">Write down the birthday month of 5 family members, using full sentences like 'My mom's birthday is in April.'</p><p class="es">Escribe el mes de cumpleaños de 5 familiares, usando oraciones completas como 'My mom's birthday is in April.'</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">16</div><div class="section-title">Project <span class="es">· Proyecto</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg><div><p class="en">Create a 12-month birthday calendar poster for your family and friends, one box per month.</p><p class="es">Crea un póster de calendario de cumpleaños de 12 meses para tu familia y amigos, una casilla por mes.</p></div></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">17</div><div class="section-title">Tip <span class="es">· Consejo del profesor</span></div></div>
+      <div class="tip-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 2z"/></svg></div>
+        <div><p class="label">Study Tip / Consejo de estudio</p><p class="en">Link each month to a personal memory (a birthday, a holiday) — personal connections make vocabulary unforgettable.</p><p class="es">Vincula cada mes a un recuerdo personal (un cumpleaños, un festivo) — las conexiones personales hacen el vocabulario inolvidable.</p></div>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">18</div><div class="section-title">Review <span class="es">· Repaso</span></div></div><div class="review-tags"><span>January</span><span>March</span><span>June</span><span>September</span><span>December</span><span>Birthday</span><span>Season</span></div></div>
+    <div><div class="section-head"><div class="section-num">19</div><div class="section-title">Assessment <span class="es">· Evaluación</span></div></div>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can name all 12 months. <span class="es">Puedo nombrar los 12 meses.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can say my birthday month. <span class="es">Puedo decir el mes de mi cumpleaños.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can use 'in' correctly with months. <span class="es">Puedo usar 'in' correctamente con los meses.</span></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 5 / Page 5</span></div>
+</div>
+
+<div class="page-label">Página 6 / Page 6 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 2 · Lesson 40</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">20</div><div class="section-title">Answer Key <span class="es">· Hoja de respuestas</span></div></div><div class="answer-box"><div class="label">Quiz answers</div><ol><li>B) July</li><li>C) In</li></ol></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">21</div><div class="section-title">Summary <span class="es">· Resumen</span></div></div>
+      <div class="summary-box">
+        <p class="en">Today you learned all 12 months of the year, how to talk about birthdays and holidays, and how to correctly use 'in' with months.</p>
+        <p class="es">Hoy aprendiste los 12 meses del año, cómo hablar de cumpleaños y festivos, y cómo usar correctamente 'in' con los meses.</p>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">22</div><div class="section-title">Coming Up <span class="es">· Próxima lección</span></div></div><div class="next-box"><div><div class="label">Lesson 41</div><div class="title">Telling Time</div><div class="es">Decir la hora.</div></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 6 / Page 6</span></div>
+</div>
+
+</body>
+</html>
