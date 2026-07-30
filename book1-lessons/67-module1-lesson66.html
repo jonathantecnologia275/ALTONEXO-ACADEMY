@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module 4 · Lesson 66 — More Conjunctions: Correlative & Subordinating</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B0F2E; --navy-deep:#05071A; --navy-light:#161C4A;
+  --gold:#E3A73B; --gold-bright:#F5D783; --gold-pale:#FBF0DA;
+  --ink:#0B0F2E; --ink-soft:#5B6178; --ice:#F3F5FB; --ice-dim:#E4E8F5; --white:#FFFFFF;
+  --green:#1E8E5A; --green-pale:#E7F5EE; --blue:#2E6FD6; --blue-pale:#E9F1FC; --pink:#C24E7A; --pink-pale:#FAEAF1;
+  --font:"Manrope", sans-serif; --mono:"Space Grotesk", sans-serif;
+}
+*{box-sizing:border-box;}
+body{margin:0; font-family:var(--font); background:#3a3d4a; color:var(--ink); padding:40px 20px;}
+h1,h2,h3,h4{margin:0;} p{margin:0; line-height:1.55;}
+.page-label{max-width:816px; margin:0 auto 8px; color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;}
+.page{width:816px; height:1056px; background:var(--white); margin:0 auto 34px; box-shadow:0 20px 50px rgba(0,0,0,.4); padding:54px 58px 44px; position:relative; display:flex; flex-direction:column; overflow:hidden;}
+.page-header{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); border-bottom:1px solid var(--ice-dim); padding-bottom:12px; margin-bottom:22px;}
+.page-header .brand{color:var(--gold); font-weight:700;}
+.page-footer{position:absolute; bottom:24px; left:58px; right:58px; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--ink-soft); border-top:1px solid var(--ice-dim); padding-top:12px;}
+.page-body{flex:1; display:flex; flex-direction:column; gap:20px; min-height:0;}
+.lesson-cover{background:linear-gradient(160deg, var(--navy), var(--navy-deep)); color:#fff; padding:30px 34px; border-radius:14px; position:relative; overflow:hidden; margin-bottom:4px;}
+.lesson-cover::before{content:""; position:absolute; top:-80px; right:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(227,167,59,.2), transparent 70%);}
+.crumbs{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-bright); margin-bottom:9px; position:relative;}
+.lesson-title{font-size:28px; font-weight:800; position:relative;}
+.lesson-title .es{font-size:13.5px; font-weight:600; color:rgba(255,255,255,.65); font-style:italic; margin-top:4px;}
+.lesson-badges{display:flex; gap:8px; margin-top:12px; position:relative; flex-wrap:wrap;}
+.badge{font-family:var(--mono); font-size:10px; font-weight:700; padding:5px 12px; border-radius:14px;}
+.badge-gold{background:var(--gold); color:var(--navy);}
+.badge-outline{border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85);}
+.section-head{display:flex; align-items:center; gap:10px; margin-bottom:11px;}
+.section-num{width:26px; height:26px; border-radius:7px; background:var(--navy); color:var(--gold-bright); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; font-size:12px; flex-shrink:0;}
+.section-title{font-size:14.5px; font-weight:800; color:var(--navy);}
+.section-title .es{font-size:11.5px; font-weight:600; color:var(--ink-soft); font-style:italic;}
+.obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.obj-card{background:var(--gold-pale); border-radius:10px; padding:13px; border:1px solid rgba(227,167,59,.3);}
+.obj-card svg{width:17px; height:17px; stroke:var(--gold); fill:none; stroke-width:1.8; margin-bottom:6px;}
+.obj-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px; line-height:1.35;}
+.obj-card p.es{font-size:10px; color:var(--ink-soft); font-style:italic; line-height:1.35;}
+.intro-box{display:flex; gap:14px; align-items:flex-start;}
+.intro-icon{width:36px; height:36px; border-radius:9px; background:var(--blue-pale); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.intro-icon svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.intro-text p.en{font-size:12.5px; margin-bottom:7px;}
+.intro-text p.es{font-size:11.5px; color:var(--ink-soft); font-style:italic;}
+.fact-box{display:flex; gap:12px; align-items:flex-start; background:var(--blue-pale); border-radius:10px; padding:13px 15px; margin-top:4px;}
+.fact-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.fact-box .ic svg{width:15px; height:15px; stroke:var(--blue); fill:none; stroke-width:1.8;}
+.fact-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.fact-box p.en{font-size:11.5px; color:var(--navy);}
+.fact-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.family-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+.family-card{background:var(--ice); border-radius:10px; padding:11px 8px; text-align:center;}
+.family-card .w{font-size:12px; font-weight:800; color:var(--navy);}
+.family-card .es{font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.vocab-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px;}
+.vocab-card{background:var(--ice); border-radius:9px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.vocab-word{font-weight:800; font-size:12.5px; color:var(--navy);}
+.vocab-phon{font-family:var(--mono); font-size:9.5px; color:var(--ink-soft);}
+.vocab-es{font-size:10.5px; color:var(--ink-soft); font-style:italic; text-align:right;}
+.pron-row{display:flex; flex-wrap:wrap; gap:8px;}
+.pron-chip{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:11.5px; font-weight:600; padding:7px 13px; border-radius:16px;}
+.pron-note{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.mistake-box{background:var(--pink-pale); border-radius:10px; padding:12px 15px; margin-top:4px;}
+.mistake-box .row{display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+.mistake-box .row:last-child{margin-bottom:0;}
+.mistake-box .wrong{font-size:11.5px; color:var(--pink); text-decoration:line-through; font-weight:600;}
+.mistake-box .right{font-size:11.5px; color:var(--green); font-weight:700;}
+.mistake-box svg{width:13px; height:13px; stroke:var(--ink-soft); flex-shrink:0;}
+.grammar-box{background:var(--pink-pale); border-left:4px solid var(--pink); border-radius:0 9px 9px 0; padding:13px 16px;}
+.grammar-box p.en{font-size:12px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.grammar-box p.es{font-size:11px; color:var(--ink-soft); font-style:italic;}
+.chat{display:flex; flex-direction:column; gap:8px; max-width:490px;}
+.chat-row{display:flex; gap:8px; align-items:flex-end;}
+.chat-row.right{flex-direction:row-reverse;}
+.chat-avatar{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:10.5px; flex-shrink:0;}
+.chat-row.left .chat-avatar{background:var(--navy); color:var(--gold-bright);}
+.chat-row.right .chat-avatar{background:var(--gold); color:var(--navy);}
+.chat-bubble{padding:7px 12px; border-radius:14px; font-size:11px; max-width:330px;}
+.chat-row.left .chat-bubble{background:var(--ice); border-bottom-left-radius:3px;}
+.chat-row.right .chat-bubble{background:var(--gold-pale); border-bottom-right-radius:3px;}
+.chat-bubble .es{display:block; font-size:9.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.practice-box{background:var(--ice); border-radius:10px; padding:14px;}
+.practice-box .instr{font-size:12px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+.practice-box .instr .es{display:block; font-weight:500; font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.practice-box .content{font-size:11.5px; color:var(--ink-soft);}
+.reading-passage{font-size:12px; line-height:1.65; font-style:italic; color:var(--navy); border-left:3px solid var(--gold); padding-left:14px;}
+.reading-passage .es{display:block; font-size:10.5px; margin-top:6px; color:var(--ink-soft); font-style:normal;}
+.writing-lines{border-bottom:1px dashed var(--ice-dim); height:20px; margin-top:6px;}
+.match-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px; max-width:420px;}
+.match-col{display:flex; flex-direction:column; gap:7px;}
+.match-item{background:var(--ice); border-radius:7px; padding:7px 12px; font-size:11px; font-weight:600; text-align:center;}
+.fill-blank{font-size:12px; margin-top:10px; padding:9px 14px; background:var(--blue-pale); border-radius:9px;}
+.fill-blank .blank{border-bottom:2px solid var(--blue); padding:0 16px; font-weight:700;}
+.quiz-item{margin-bottom:10px;}
+.quiz-q{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:5px;}
+.quiz-opts{display:flex; gap:8px; flex-wrap:wrap;}
+.quiz-opt{border:1px solid var(--ice-dim); border-radius:7px; padding:6px 12px; font-size:10.5px;}
+.task-card{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:14px;}
+.task-card svg{width:17px; height:17px; stroke:var(--green); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:1px;}
+.task-card p.en{font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:3px;}
+.task-card p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.review-tags{display:flex; flex-wrap:wrap; gap:7px;}
+.review-tags span{background:var(--navy); color:var(--gold-bright); font-family:var(--mono); font-size:10.5px; padding:5px 12px; border-radius:12px;}
+.check-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px;}
+.check-list li{display:flex; align-items:flex-start; gap:8px; font-size:11.5px;}
+.check-list li svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px;}
+.check-list li .es{color:var(--ink-soft); font-style:italic;}
+.answer-box{background:var(--navy); color:#fff; border-radius:10px; padding:15px;}
+.answer-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:7px;}
+.answer-box ol{margin:0; padding-left:16px; font-size:11.5px; line-height:1.75;}
+.summary-box{background:var(--gold-pale); border-radius:10px; padding:15px; border:1px solid rgba(227,167,59,.35);}
+.summary-box p.en{font-size:11.5px; color:var(--navy); font-weight:600; margin-bottom:5px;}
+.summary-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+.next-box{display:flex; align-items:center; justify-content:space-between; background:var(--navy); color:#fff; border-radius:10px; padding:16px 20px;}
+.next-box .label{font-family:var(--mono); font-size:9.5px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px;}
+.next-box .title{font-size:14px; font-weight:800;}
+.next-box .es{font-size:10.5px; color:rgba(255,255,255,.65); font-style:italic; margin-top:2px;}
+.next-box svg{width:19px; height:19px; stroke:var(--gold-bright); fill:none; stroke-width:2;}
+.tip-box{display:flex; gap:12px; align-items:flex-start; background:var(--green-pale); border-radius:10px; padding:13px 15px;}
+.tip-box .ic{width:30px; height:30px; border-radius:8px; background:var(--white); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.tip-box .ic svg{width:15px; height:15px; stroke:var(--green); fill:none; stroke-width:1.8;}
+.tip-box p.label{font-family:var(--mono); font-size:9.5px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px;}
+.tip-box p.en{font-size:11.5px; color:var(--navy);}
+.tip-box p.es{font-size:10.5px; color:var(--ink-soft); font-style:italic; margin-top:2px;}
+.tree-box{background:var(--ice); border-radius:10px; padding:16px; text-align:center;}
+.tree-row{display:flex; justify-content:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+.tree-row:last-child{margin-bottom:0;}
+.tree-node{background:var(--white); border:1px solid var(--ice-dim); border-radius:8px; padding:6px 12px; font-size:10.5px; font-weight:700; color:var(--navy);}
+.tree-node.me{background:var(--gold); color:var(--navy); border-color:var(--gold);}
+.spacer{flex:1;}
+</style>
+</head>
+<body>
+
+<div class="page-label">Página 1 / Page 1 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 4 · Lesson 66</span></div>
+  <div class="page-body">
+    <div class="lesson-cover">
+      <div class="crumbs">Module 4 · Grammar Mastery — Lesson 66 of 50</div>
+      <div class="lesson-title">More Conjunctions: Correlative & Subordinating<div class="es">Lección 66 — Más conjunciones: correlativas y subordinantes</div></div>
+      <div class="lesson-badges"><span class="badge badge-gold">Level A0</span><span class="badge badge-outline">15 min</span><span class="badge badge-outline">🎧 Audio</span><span class="badge badge-outline">🎬 Video</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">1</div><div class="section-title">Objectives <span class="es">· Objetivos</span></div></div>
+      <div class="obj-grid">
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Use correlative conjunction pairs correctly</p><p class="es">Usar correctamente los pares de conjunciones correlativas</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Use subordinating conjunctions to join unequal clauses</p><p class="es">Usar conjunciones subordinantes para unir oraciones desiguales</p></div>
+        <div class="obj-card"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><p class="en">Distinguish coordinating from subordinating conjunctions</p><p class="es">Distinguir las conjunciones coordinantes de las subordinantes</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">2</div><div class="section-title">Introduction <span class="es">· Introducción</span></div></div>
+      <div class="intro-box">
+        <div class="intro-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M9 6h6M6 9v9M18 9v9M6 18h12"/></svg></div>
+        <div class="intro-text">
+          <p class="en">Beyond FANBOYS, English has correlative conjunctions (working in pairs) and subordinating conjunctions (connecting a main clause to a dependent one). Together, they let you express contrast, condition, reason, and time relationships with precision.</p>
+          <p class="es">Más allá de FANBOYS, el inglés tiene conjunciones correlativas (que funcionan en pares) y conjunciones subordinantes (que conectan una oración principal con una dependiente). Juntas, te permiten expresar contraste, condición, razón, y relaciones de tiempo con precisión.</p>
+        </div>
+      </div>
+      <div class="fact-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></div>
+        <div><p class="label">Did you know? / ¿Sabías qué?</p><p class="en">Subordinating conjunctions create a dependent clause that cannot stand alone: "Because it was raining" is NOT a complete sentence by itself — it needs a main clause attached.</p><p class="es">Las conjunciones subordinantes crean una oración dependiente que no puede existir sola: "Because it was raining" NO es una oración completa por sí sola — necesita una oración principal adjunta.</p></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">3</div><div class="section-title">Detailed Explanation <span class="es">· Explicación detallada</span></div></div>
+      <div class="family-grid">
+        <div class="family-card"><div class="w">Correlative: Both...and</div><div class="es">Correlativa: Tanto...como</div></div>
+        <div class="family-card"><div class="w">Correlative: Either...or</div><div class="es">Correlativa: O...o</div></div>
+        <div class="family-card"><div class="w">Correlative: Neither...nor</div><div class="es">Correlativa: Ni...ni</div></div>
+        <div class="family-card"><div class="w">Correlative: Not only...but also</div><div class="es">Correlativa: No solo...sino también</div></div>
+        <div class="family-card"><div class="w">Subordinating: Because</div><div class="es">Subordinante: Porque</div></div>
+        <div class="family-card"><div class="w">Subordinating: Although</div><div class="es">Subordinante: Aunque</div></div>
+        <div class="family-card"><div class="w">Subordinating: If</div><div class="es">Subordinante: Si</div></div>
+        <div class="family-card"><div class="w">Subordinating: Unless</div><div class="es">Subordinante: A menos que</div></div>
+        <div class="family-card"><div class="w">Subordinating: While</div><div class="es">Subordinante: Mientras</div></div>
+        <div class="family-card"><div class="w">Subordinating: Since</div><div class="es">Subordinante: Desde que / Ya que</div></div>
+        <div class="family-card"><div class="w">Subordinating: When</div><div class="es">Subordinante: Cuando</div></div>
+        <div class="family-card"><div class="w">Subordinating: Even though</div><div class="es">Subordinante: Aunque (énfasis)</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 1 / Page 1</span></div>
+</div>
+
+<div class="page-label">Página 2 / Page 2 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 4 · Lesson 66</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">4</div><div class="section-title">Vocabulary <span class="es">· Vocabulario</span></div></div>
+      <div class="vocab-grid">
+        <div class="vocab-card"><div><div class="vocab-word">Correlative conjunction</div><div class="vocab-phon">/kɒˈrɛlətɪv kənˈdʒʌŋkʃən/</div></div><div class="vocab-es">Conjunción correlativa</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Subordinating conjunction</div><div class="vocab-phon">/səˈbɔːrdɪneɪtɪŋ kənˈdʒʌŋkʃən/</div></div><div class="vocab-es">Conjunción subordinante</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Dependent clause</div><div class="vocab-phon">/dɪˈpɛndənt klɔːz/</div></div><div class="vocab-es">Oración dependiente</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Main clause</div><div class="vocab-phon">/meɪn klɔːz/</div></div><div class="vocab-es">Oración principal</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Condition</div><div class="vocab-phon">/kənˈdɪʃən/</div></div><div class="vocab-es">Condición</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Reason</div><div class="vocab-phon">/ˈriːzən/</div></div><div class="vocab-es">Razón</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Concession</div><div class="vocab-phon">/kənˈsɛʃən/</div></div><div class="vocab-es">Concesión (contraste)</div></div>
+        <div class="vocab-card"><div><div class="vocab-word">Provided that</div><div class="vocab-phon">/prəˈvaɪdɪd ðæt/</div></div><div class="vocab-es">Siempre que / con tal de que</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">5</div><div class="section-title">Pronunciation <span class="es">· Pronunciación</span></div></div>
+      <div class="pron-row"><div class="pron-chip">although /ɔːlˈðoʊ/</div><div class="pron-chip">unless /ʌnˈlɛs/</div></div>
+      <p class="pron-note" style="margin-top:8px;">"Although" and "though" mean the same thing, but "though" can also go at the END of a sentence informally: "I like it. It's expensive, though." / "Although" y "though" significan lo mismo, pero "though" también puede ir al FINAL de una oración informalmente: "I like it. It's expensive, though."</p>
+      <div class="mistake-box">
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg><span class="wrong">"Although it was raining, but I went outside" (using both 'although' and 'but')</span></div>
+        <div class="row"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg><span class="right">"Although it was raining, I went outside" (use only one connector, not both)</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">6</div><div class="section-title">Grammar <span class="es">· Subordinating clause position</span></div></div>
+      <div class="grammar-box"><p class="en">A subordinating clause can come first (with a comma after it) or second (no comma): "Because it was raining, I stayed home" = "I stayed home because it was raining." Never use both a subordinator AND a coordinator (like 'although...but') in the same sentence.</p><p class="es">Una oración subordinada puede ir primero (con una coma después) o segundo (sin coma): "Because it was raining, I stayed home" = "I stayed home because it was raining." Nunca uses un subordinante Y un coordinante (como 'although...but') en la misma oración.</p></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">7</div><div class="section-title">Dialogues <span class="es">· Diálogos</span></div></div>
+      <div class="chat">
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">Are you coming to the gym, even though it's raining?<span class="es">¿Vas a venir al gimnasio, aunque esté lloviendo?</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Yes, unless it starts storming heavily.<span class="es">Sí, a menos que empiece a tronar fuerte.</span></div></div>
+        <div class="chat-row left"><div class="chat-avatar">A</div><div class="chat-bubble">I'll bring both my umbrella and my raincoat.<span class="es">Traeré tanto mi paraguas como mi impermeable.</span></div></div>
+        <div class="chat-row right"><div class="chat-avatar">C</div><div class="chat-bubble">Good idea, since the forecast says it will rain all day.<span class="es">Buena idea, ya que el pronóstico dice que lloverá todo el día.</span></div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 2 / Page 2</span></div>
+</div>
+
+<div class="page-label">Página 3 / Page 3 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 4 · Lesson 66</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">8</div><div class="section-title">Listening <span class="es">· Comprensión auditiva</span></div></div><div class="practice-box"><div class="instr">🎧 Listen to 6 sentences and identify whether each uses a correlative or subordinating conjunction, and which one.<span class="es">Escucha 6 oraciones e identifica si cada una usa una conjunción correlativa o subordinante, y cuál.</span></div><div class="content">Audio track: <b>M4-L66-dialogue.mp3</b></div></div></div>
+    <div><div class="section-head"><div class="section-num">9</div><div class="section-title">Speaking <span class="es">· Expresión oral</span></div></div><div class="practice-box"><div class="instr">💬 Describe your plans for this weekend using at least 3 subordinating conjunctions (because, although, unless) and 2 correlative pairs.<span class="es">Describe tus planes para este fin de semana usando al menos 3 conjunciones subordinantes (because, although, unless) y 2 pares correlativos.</span></div><div class="content">Try to use at least 6 new vocabulary words.</div></div></div>
+    <div><div class="section-head"><div class="section-num">10</div><div class="section-title">Reading <span class="es">· Lectura</span></div></div><p class="reading-passage">"Although I was tired, I finished my homework because I wanted good grades. I will pass the class unless something unexpected happens. Both my teacher and my classmates helped me a lot."<span class="es">"Aunque estaba cansado, terminé mi tarea porque quería buenas notas. Aprobaré la clase a menos que pase algo inesperado. Tanto mi maestro como mis compañeros me ayudaron mucho."</span></p></div>
+    <div>
+      <div class="section-head"><div class="section-num">11</div><div class="section-title">Interactive: Coordinating vs Subordinating <span class="es">· Coordinantes vs subordinantes</span></div></div>
+      <div class="tree-box">
+        <div class="tree-row"><div class="tree-node">Coordinating (equal ideas)</div></div>
+        <div class="tree-row"><div class="tree-node">And</div><div class="tree-node">But</div><div class="tree-node">Or</div></div>
+        <div class="tree-row"><div class="tree-node">Subordinating (unequal ideas)</div></div>
+        <div class="tree-row"><div class="tree-node">Because</div><div class="tree-node">Although</div><div class="tree-node me">Unless</div></div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 3 / Page 3</span></div>
+</div>
+
+<div class="page-label">Página 4 / Page 4 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 4 · Lesson 66</span></div>
+  <div class="page-body">
+    <div>
+      <div class="section-head"><div class="section-num">12</div><div class="section-title">Writing <span class="es">· Escritura</span></div></div>
+      <div class="practice-box"><div class="instr">✍️ Write 3 sentences using correlative pairs (both/and, either/or, neither/nor) and 3 sentences using subordinating conjunctions (because, although, unless).<span class="es">Escribe 3 oraciones usando pares correlativos (both/and, either/or, neither/nor) y 3 oraciones usando conjunciones subordinantes (because, although, unless).</span></div><div class="writing-lines"></div><div class="writing-lines"></div><div class="writing-lines"></div></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">13</div><div class="section-title">Interactive Exercises <span class="es">· Ejercicios interactivos</span></div></div>
+      <div class="match-grid"><div class="match-col"><div class="match-item">Because</div><div class="match-item">Although</div><div class="match-item">Unless</div></div><div class="match-col"><div class="match-item">A menos que</div><div class="match-item">Porque</div><div class="match-item">Aunque</div></div></div>
+      <div class="fill-blank">Complete: "___ it was cold, we went to the beach." <span class="blank">Although</span></div>
+    </div>
+    <div>
+      <div class="section-head"><div class="section-num">14</div><div class="section-title">Quiz</div></div>
+      <div class="quiz-item"><div class="quiz-q">1. Which is a subordinating conjunction?</div><div class="quiz-opts"><span class="quiz-opt">A) And</span><span class="quiz-opt">B) Because</span><span class="quiz-opt">C) Or</span></div></div>
+      <div class="quiz-item"><div class="quiz-q">2. Which correlative pair means 'ni...ni'?</div><div class="quiz-opts"><span class="quiz-opt">A) Both...and</span><span class="quiz-opt">B) Either...or</span><span class="quiz-opt">C) Neither...nor</span></div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 4 / Page 4</span></div>
+</div>
+
+<div class="page-label">Página 5 / Page 5 — recto</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 4 · Lesson 66</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">15</div><div class="section-title">Homework <span class="es">· Tarea</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M9 22V12h6v10M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div><p class="en">Write a paragraph (6+ sentences) about a challenge you overcame, using at least 4 subordinating conjunctions.</p><p class="es">Escribe un párrafo (6+ oraciones) sobre un reto que superaste, usando al menos 4 conjunciones subordinantes.</p></div></div></div>
+    <div><div class="section-head"><div class="section-num">16</div><div class="section-title">Project <span class="es">· Proyecto</span></div></div><div class="task-card"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 1-5 5 1.5 7L12 18l-6.5 3.5L7 14.5l-5-5 7-1z"/></svg><div><p class="en">Create a poster with 2 sections: 'Correlative Conjunctions' and 'Subordinating Conjunctions,' with 6 examples and sentences in each.</p><p class="es">Crea un póster con 2 secciones: 'Correlative Conjunctions' y 'Subordinating Conjunctions,' con 6 ejemplos y oraciones en cada una.</p></div></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">17</div><div class="section-title">Tip <span class="es">· Consejo del profesor</span></div></div>
+      <div class="tip-box">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 2z"/></svg></div>
+        <div><p class="label">Study Tip / Consejo de estudio</p><p class="en">Never double up a subordinator with a coordinator (like 'although...but') — English only needs one connector to link the two ideas.</p><p class="es">Nunca dupliques un subordinante con un coordinante (como 'although...but') — el inglés solo necesita un conector para unir las dos ideas.</p></div>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">18</div><div class="section-title">Review <span class="es">· Repaso</span></div></div><div class="review-tags"><span>Because</span><span>Although</span><span>Unless</span><span>Both...and</span><span>Either...or</span><span>Neither...nor</span><span>Since</span></div></div>
+    <div><div class="section-head"><div class="section-num">19</div><div class="section-title">Assessment <span class="es">· Evaluación</span></div></div>
+      <ul class="check-list">
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can use correlative conjunction pairs correctly. <span class="es">Puedo usar correctamente los pares de conjunciones correlativas.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can use subordinating conjunctions to join unequal clauses. <span class="es">Puedo usar conjunciones subordinantes para unir oraciones desiguales.</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>I can distinguish coordinating from subordinating conjunctions. <span class="es">Puedo distinguir las conjunciones coordinantes de las subordinantes.</span></li>
+      </ul>
+    </div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 5 / Page 5</span></div>
+</div>
+
+<div class="page-label">Página 6 / Page 6 — verso</div>
+<div class="page">
+  <div class="page-header"><span><span class="brand">ENGLISH ALTONEXO ACADEMY</span> · Book 1 — Beginner</span><span>Module 4 · Lesson 66</span></div>
+  <div class="page-body">
+    <div><div class="section-head"><div class="section-num">20</div><div class="section-title">Answer Key <span class="es">· Hoja de respuestas</span></div></div><div class="answer-box"><div class="label">Quiz answers</div><ol><li>B) Because</li><li>C) Neither...nor</li></ol></div></div>
+    <div>
+      <div class="section-head"><div class="section-num">21</div><div class="section-title">Summary <span class="es">· Resumen</span></div></div>
+      <div class="summary-box">
+        <p class="en">Today you learned to use correlative conjunction pairs, connect unequal clauses with subordinating conjunctions, and distinguish them from coordinating conjunctions.</p>
+        <p class="es">Hoy aprendiste a usar pares de conjunciones correlativas, conectar oraciones desiguales con conjunciones subordinantes, y distinguirlas de las conjunciones coordinantes.</p>
+      </div>
+    </div>
+    <div><div class="section-head"><div class="section-num">22</div><div class="section-title">Coming Up <span class="es">· Próxima lección</span></div></div><div class="next-box"><div><div class="label">Lesson 67</div><div class="title">Figures of Speech: Metaphor, Irony, and Pleonasm</div><div class="es">Las figuras retóricas: metáfora, ironía, y pleonasmo.</div></div><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+    <div class="spacer"></div>
+  </div>
+  <div class="page-footer"><span>ENGLISH ALTONEXO ACADEMY</span><span>Página 6 / Page 6</span></div>
+</div>
+
+</body>
+</html>
